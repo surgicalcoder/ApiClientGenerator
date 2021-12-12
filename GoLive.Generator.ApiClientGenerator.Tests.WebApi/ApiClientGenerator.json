@@ -1,0 +1,8 @@
+﻿{
+  "OutputFile": "GeneratedApiClient.cs",
+  "Namespace": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated",
+  "CustomDiscriminator": "CustomDiscriminatorCreate()",
+  "Includes": [
+    "GoLive.Generator.ApiClientGenerator"
+  ]
+}
