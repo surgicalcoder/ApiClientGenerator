@@ -18,6 +18,12 @@ namespace GoLive.Generator.ApiClientGenerator
 
             var compilation = context.Compilation;
 
+            if (config.PreAppendLines != null && config.PreAppendLines.Count > 0)
+            {
+                config.PreAppendLines.ForEach(source.AppendLine);
+            }
+
+
             source.AppendLine("using System.Net.Http;");
             source.AppendLine("using System.Threading.Tasks;");
             source.AppendLine("using System.Net.Http.Json;");
@@ -58,6 +64,11 @@ namespace GoLive.Generator.ApiClientGenerator
             }
 
             source.AppendCloseCurlyBracketLine();
+
+            if (config.PostAppendLines != null && config.PostAppendLines.Count > 0)
+            {
+                config.PostAppendLines.ForEach(source.AppendLine);
+            }
 
             if (config == null || (string.IsNullOrWhiteSpace(config.OutputFile) && (config.OutputFiles == null || config.OutputFiles.Count == 0)))
             {

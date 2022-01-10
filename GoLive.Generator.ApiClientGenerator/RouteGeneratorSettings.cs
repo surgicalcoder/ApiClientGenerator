@@ -11,5 +11,8 @@ namespace GoLive.Generator.ApiClientGenerator
 
         public string CustomDiscriminator { get; set; }
         public string Namespace { get; set; }
+
+        public List<String> PreAppendLines { get; set; }
+        public List<String> PostAppendLines { get; set; }
     }
 }

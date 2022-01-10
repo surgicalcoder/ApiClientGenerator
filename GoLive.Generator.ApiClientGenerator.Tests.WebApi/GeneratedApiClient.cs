@@ -1,3 +1,4 @@
+// ReSharper disable All
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Net.Http.Json;
@@ -42,3 +43,4 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
     }
 }
+// ReSharper disable All
