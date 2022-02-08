@@ -7,11 +7,9 @@ using GoLive.Generator.ApiClientGenerator;
 
 namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 {
-
     public class ApiClient
     {
         private readonly HttpClient _client;
-
         public ApiClient(HttpClient client)
         {
             _client = client;
@@ -24,8 +22,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
     public class WeatherForecastClient
     {
         private readonly HttpClient _client;
-
-        public WeatherForecastClient (HttpClient client)
+        public WeatherForecastClient(HttpClient client)
         {
             _client = client;
         }
@@ -33,14 +30,13 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public async Task<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> Get()
         {
             var result = await _client.GetAsync($"/WeatherForecast/Get");
-            return await result.Content.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(CustomDiscriminatorCreate());
+            return await result.Content.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>();
         }
 
-        public async Task<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> GetSingle(int Id )
+        public async Task<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> GetSingle(int Id)
         {
             var result = await _client.GetAsync($"/WeatherForecast/GetSingle/{Id}");
-            return await result.Content.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(CustomDiscriminatorCreate());
+            return await result.Content.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>();
         }
     }
-}
-// ReSharper disable All
+}// ReSharper disable All

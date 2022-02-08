@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace GoLive.Generator.ApiClientGenerator
 {
@@ -68,7 +70,10 @@ namespace GoLive.Generator.ApiClientGenerator
 
         public override string ToString()
         {
-            return _stringBuilder.ToString();
+            var text = _stringBuilder.ToString();
+            return string.IsNullOrWhiteSpace(text)
+                ? string.Empty
+                : CSharpSyntaxTree.ParseText(text).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
         }
     }
 }

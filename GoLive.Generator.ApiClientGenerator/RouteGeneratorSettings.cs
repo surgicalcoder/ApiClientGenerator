@@ -14,5 +14,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
         public List<String> PreAppendLines { get; set; }
         public List<String> PostAppendLines { get; set; }
+        
+        public List<String> HideUrlsRegex { get; set; }
     }
 }

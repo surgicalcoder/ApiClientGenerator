@@ -25,6 +25,8 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="3.8.0" />
+        <PackageReference Include="System.Buffers" Version="4.5.1" GeneratePathProperty="true" PrivateAssets="all" />
+        <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" GeneratePathProperty="true" PrivateAssets="all" />
         <PackageReference Include="System.Text.Json" Version="5.0.1" GeneratePathProperty="true" PrivateAssets="all" />
     </ItemGroup>
     <PropertyGroup>
@@ -32,6 +34,8 @@
     </PropertyGroup>
     <Target Name="GetDependencyTargetPaths" AfterTargets="ResolvePackageDependenciesForBuild">
         <ItemGroup>
+            <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_Buffers)\lib\netstandard2.0\System.Buffers.dll" IncludeRuntimeDependency="false" />
+            <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_Numerics_Vectors)\lib\netstandard2.0\System.Numerics.Vectors.dll" IncludeRuntimeDependency="false" />
             <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" IncludeRuntimeDependency="false" />
             <TargetPathWithTargetPlatformMoniker Include="@(ResolvedCompileFileDefinitions)" IncludeRuntimeDependency="false" />
         </ItemGroup>

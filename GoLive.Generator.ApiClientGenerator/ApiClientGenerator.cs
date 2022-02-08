@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 
 namespace GoLive.Generator.ApiClientGenerator
@@ -168,10 +169,7 @@ namespace GoLive.Generator.ApiClientGenerator
                 }
 
                 string useCustomFormatter = config.CustomDiscriminator;
-
-                source.AppendLine();
-                source.AppendLine($"public async {returnType} {action.Name}({parameterList})");
-                source.AppendOpenCurlyBracketLine();
+                
                 string routeValue = string.Empty;
 
                 if (!string.IsNullOrWhiteSpace(action.Route))
@@ -202,6 +200,18 @@ namespace GoLive.Generator.ApiClientGenerator
                 routeValue = routeValue.Replace("*", ""); // TODO - to remove greedy url params
 
                 var routeString = $"$\"{routeValue}\"";
+
+                if (config.HideUrlsRegex is { Count: > 0 })
+                {
+                    if (config.HideUrlsRegex.Any(e => Regex.IsMatch(routeValue, e)))
+                    {
+                        continue;
+                    }
+                }
+                
+                source.AppendLine();
+                source.AppendLine($"public async {returnType} {action.Name}({parameterList})");
+                source.AppendOpenCurlyBracketLine();
 
                 if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key))
                 {

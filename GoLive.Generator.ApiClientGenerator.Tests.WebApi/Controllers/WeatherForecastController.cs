@@ -30,6 +30,12 @@ public class WeatherForecastController : ControllerBase
             .ToArray();
     }
 
+    [HttpGet("_secretUrl")]
+    public async Task<ActionResult> SecretUrl()
+    {
+        return Ok();
+    }
+
     public WeatherForecast GetSingle(int Id)
     {
         return null;
