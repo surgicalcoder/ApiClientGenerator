@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -252,7 +253,14 @@ namespace GoLive.Generator.ApiClientGenerator
                 }
                 else if (action.Body is { Key: var key })
                 {
-                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter});";
+                    if (string.IsNullOrWhiteSpace(useCustomFormatter))
+                    {
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key});";
+                    }
+                    else
+                    {
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter});";
+                    }
                 }
                 else if (methodString == "Post")
                 {
@@ -270,7 +278,16 @@ namespace GoLive.Generator.ApiClientGenerator
                 else
                 {
                     source.AppendLine($"var result = {callStatement}");
-                    source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter});");
+
+                    if (string.IsNullOrWhiteSpace(useCustomFormatter))
+                    {
+                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>();");
+                    }
+                    else
+                    {
+                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter});");
+                    }
+                    
                 }
 
                 source.AppendCloseCurlyBracketLine();
