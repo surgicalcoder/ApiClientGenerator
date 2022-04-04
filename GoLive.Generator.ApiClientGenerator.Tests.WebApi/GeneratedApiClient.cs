@@ -33,6 +33,12 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             return await result.Content.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>();
         }
 
+        public async Task<byte[]> GetBytes()
+        {
+            var result = await _client.GetAsync($"/WeatherForecast/GetBytes");
+            return await result.Content.ReadAsByteArrayAsync();
+        }
+
         public async Task<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> GetSingle(int Id)
         {
             var result = await _client.GetAsync($"/WeatherForecast/GetSingle/{Id}");

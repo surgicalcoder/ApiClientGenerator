@@ -159,6 +159,9 @@ namespace GoLive.Generator.ApiClientGenerator
                 var returnType = action.ReturnTypeName != null
                     ? $"Task<{action.ReturnTypeName}>"
                     : "Task";
+                
+                bool byteReturnType = false || action.ReturnTypeName == "byte[]";
+                Console.WriteLine(action.ReturnTypeName);
 
                 var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
 
@@ -279,7 +282,11 @@ namespace GoLive.Generator.ApiClientGenerator
                 {
                     source.AppendLine($"var result = {callStatement}");
 
-                    if (string.IsNullOrWhiteSpace(useCustomFormatter))
+                    if (byteReturnType)
+                    {
+                        source.AppendLine("return await result.Content.ReadAsByteArrayAsync();");
+                    }
+                    else if (string.IsNullOrWhiteSpace(useCustomFormatter))
                     {
                         source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>();");
                     }

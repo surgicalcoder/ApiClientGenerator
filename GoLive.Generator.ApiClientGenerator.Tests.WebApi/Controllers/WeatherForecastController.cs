@@ -36,6 +36,12 @@ public class WeatherForecastController : ControllerBase
         return Ok();
     }
 
+
+    public async Task<ActionResult<byte[]>> GetBytes()
+    {
+        return new ActionResult<byte[]>(new byte[1]);
+    }
+
     public WeatherForecast GetSingle(int Id)
     {
         return null;
