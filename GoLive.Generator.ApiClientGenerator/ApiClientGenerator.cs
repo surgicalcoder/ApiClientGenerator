@@ -30,6 +30,7 @@ namespace GoLive.Generator.ApiClientGenerator
             source.AppendLine("using System.Threading.Tasks;");
             source.AppendLine("using System.Net.Http.Json;");
             source.AppendLine("using System.Collections.Generic;");
+            source.AppendLine("using System.Threading;");
 
             if (config.Includes != null && config.Includes.Any())
             {
@@ -214,7 +215,16 @@ namespace GoLive.Generator.ApiClientGenerator
                 }
                 
                 source.AppendLine();
-                source.AppendLine($"public async {returnType} {action.Name}({parameterList})");
+
+                if (string.IsNullOrWhiteSpace(parameterList))
+                {
+                    source.AppendLine($"public async {returnType} {action.Name}(CancellationToken _token = default)");
+                }
+                else
+                {
+                    source.AppendLine($"public async {returnType} {action.Name}({parameterList}, CancellationToken _token = default)");
+                }
+                
                 source.AppendOpenCurlyBracketLine();
 
                 if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key))
@@ -252,26 +262,26 @@ namespace GoLive.Generator.ApiClientGenerator
 
                 if (containsFileUpload)
                 {
-                    callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent);";
+                    callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent, cancellationToken: _token);";
                 }
                 else if (action.Body is { Key: var key })
                 {
                     if (string.IsNullOrWhiteSpace(useCustomFormatter))
                     {
-                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key});";
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, cancellationToken: _token);";
                     }
                     else
                     {
-                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter});";
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token);";
                     }
                 }
                 else if (methodString == "Post")
                 {
-                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, new {{}});";
+                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, new {{}}, cancellationToken: _token);";
                 }
                 else
                 {
-                    callStatement = $"await _client.{methodString}Async({routeString});";
+                    callStatement = $"await _client.{methodString}Async({routeString}, cancellationToken: _token);";
                 }
 
                 if (action.ReturnTypeName == null)
