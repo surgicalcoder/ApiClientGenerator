@@ -31,6 +31,7 @@ namespace GoLive.Generator.ApiClientGenerator
             source.AppendLine("using System.Net.Http.Json;");
             source.AppendLine("using System.Collections.Generic;");
             source.AppendLine("using System.Threading;");
+            source.AppendLine("using System.Text.Json.Serialization.Metadata;");
 
             if (config.Includes != null && config.Includes.Any())
             {
@@ -162,7 +163,7 @@ namespace GoLive.Generator.ApiClientGenerator
                     : "Task";
                 
                 bool byteReturnType = false || action.ReturnTypeName == "byte[]";
-                Console.WriteLine(action.ReturnTypeName);
+                //Console.WriteLine(action.ReturnTypeName);
 
                 var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
 
@@ -216,13 +217,15 @@ namespace GoLive.Generator.ApiClientGenerator
                 
                 source.AppendLine();
 
+                string jsonTypeInfoMethodParameter = (action.ReturnTypeName == null || byteReturnType) ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = null";
+
                 if (string.IsNullOrWhiteSpace(parameterList))
                 {
-                    source.AppendLine($"public async {returnType} {action.Name}(CancellationToken _token = default)");
+                    source.AppendLine($"public async {returnType} {action.Name}(CancellationToken _token = default {jsonTypeInfoMethodParameter})");
                 }
                 else
                 {
-                    source.AppendLine($"public async {returnType} {action.Name}({parameterList}, CancellationToken _token = default)");
+                    source.AppendLine($"public async {returnType} {action.Name}({parameterList}, CancellationToken _token = default {jsonTypeInfoMethodParameter})");
                 }
                 
                 source.AppendOpenCurlyBracketLine();
@@ -268,16 +271,16 @@ namespace GoLive.Generator.ApiClientGenerator
                 {
                     if (string.IsNullOrWhiteSpace(useCustomFormatter))
                     {
-                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, cancellationToken: _token);";
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, cancellationToken: _token, jsonTypeInfo: _typeInfo);";
                     }
                     else
                     {
-                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token);";
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token, jsonTypeInfo: _typeInfo);";
                     }
                 }
                 else if (methodString == "Post")
                 {
-                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, new {{}}, cancellationToken: _token);";
+                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, new {{}}, cancellationToken: _token, jsonTypeInfo: _typeInfo);";
                 }
                 else
                 {
@@ -294,15 +297,15 @@ namespace GoLive.Generator.ApiClientGenerator
 
                     if (byteReturnType)
                     {
-                        source.AppendLine("return await result.Content.ReadAsByteArrayAsync();");
+                        source.AppendLine("return await result.Content.ReadAsByteArrayAsync(cancellationToken: _token);");
                     }
                     else if (string.IsNullOrWhiteSpace(useCustomFormatter))
                     {
-                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>();");
+                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>(cancellationToken: _token, jsonTypeInfo: _typeInfo);");
                     }
                     else
                     {
-                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter});");
+                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token, jsonTypeInfo: _typeInfo);");
                     }
                     
                 }
