@@ -275,7 +275,7 @@ namespace GoLive.Generator.ApiClientGenerator
                     }
                     else
                     {
-                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token, jsonTypeInfo: _typeInfo);";
+                        callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token);";
                     }
                 }
                 else if (methodString == "Post")
@@ -305,7 +305,7 @@ namespace GoLive.Generator.ApiClientGenerator
                     }
                     else
                     {
-                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token, jsonTypeInfo: _typeInfo);");
+                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token);");
                     }
                     
                 }
