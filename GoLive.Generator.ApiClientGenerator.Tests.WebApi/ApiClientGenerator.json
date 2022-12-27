@@ -14,5 +14,6 @@
   "HideUrlsRegex": [
     "^/_]*",
     "^_]*"
-  ]
+  ],
+  "PrefixUrl" : "/api"
 }

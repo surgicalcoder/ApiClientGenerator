@@ -20,7 +20,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
             var compilation = context.Compilation;
 
-            if (config.PreAppendLines != null && config.PreAppendLines.Count > 0)
+            if (config.PreAppendLines is { Count: > 0 })
             {
                 config.PreAppendLines.ForEach(source.AppendLine);
             }
@@ -73,7 +73,7 @@ namespace GoLive.Generator.ApiClientGenerator
                 config.PostAppendLines.ForEach(source.AppendLine);
             }
 
-            if (config == null || (string.IsNullOrWhiteSpace(config.OutputFile) && (config.OutputFiles == null || config.OutputFiles.Count == 0)))
+            if ((string.IsNullOrWhiteSpace(config.OutputFile) && (config.OutputFiles == null || config.OutputFiles.Count == 0)))
             {
                 context.AddSource("GeneratedApiClient", source.ToString());
             }
@@ -204,6 +204,11 @@ namespace GoLive.Generator.ApiClientGenerator
 
                 routeValue = routeValue.Replace("*", ""); // TODO - to remove greedy url params
 
+                if (!string.IsNullOrWhiteSpace(config.PrefixUrl))
+                {
+                    routeValue = $"{config.PrefixUrl}{routeValue}";
+                }
+                
                 var routeString = $"$\"{routeValue}\"";
 
                 if (config.HideUrlsRegex is { Count: > 0 })

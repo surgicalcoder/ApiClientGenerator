@@ -30,19 +30,24 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> Get(CancellationToken _token = default)
         {
-            var result = await _client.GetAsync($"/WeatherForecast/Get", cancellationToken: _token);
+            var result = await _client.GetAsync($"/api/WeatherForecast/Get", cancellationToken: _token);
             return await result.Content.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>();
+        }
+
+        public async Task SecretUrl(CancellationToken _token = default)
+        {
+            await _client.GetAsync($"/api_secretUrl", cancellationToken: _token);
         }
 
         public async Task<byte[]> GetBytes(CancellationToken _token = default)
         {
-            var result = await _client.GetAsync($"/WeatherForecast/GetBytes", cancellationToken: _token);
+            var result = await _client.GetAsync($"/api/WeatherForecast/GetBytes", cancellationToken: _token);
             return await result.Content.ReadAsByteArrayAsync();
         }
 
         public async Task<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> GetSingle(int Id, CancellationToken _token = default)
         {
-            var result = await _client.GetAsync($"/WeatherForecast/GetSingle/{Id}", cancellationToken: _token);
+            var result = await _client.GetAsync($"/api/WeatherForecast/GetSingle/{Id}", cancellationToken: _token);
             return await result.Content.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>();
         }
     }
