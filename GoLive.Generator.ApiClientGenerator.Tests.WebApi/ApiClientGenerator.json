@@ -15,5 +15,6 @@
     "^/_]*",
     "^_]*"
   ],
-  "PrefixUrl" : "/api"
+  "PrefixUrl" : "/api",
+  "UseResponseWrapper" : true
 }

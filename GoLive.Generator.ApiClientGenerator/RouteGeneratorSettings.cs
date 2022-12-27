@@ -18,5 +18,7 @@ namespace GoLive.Generator.ApiClientGenerator
         public List<string> HideUrlsRegex { get; set; }
 
         public string PrefixUrl { get; set; }
+
+        public bool UseResponseWrapper { get; set; }
     }
 }

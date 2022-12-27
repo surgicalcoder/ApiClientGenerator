@@ -24,13 +24,17 @@ namespace GoLive.Generator.ApiClientGenerator
             {
                 config.PreAppendLines.ForEach(source.AppendLine);
             }
-
-
+            
             source.AppendLine("using System.Net.Http;");
             source.AppendLine("using System.Threading.Tasks;");
             source.AppendLine("using System.Net.Http.Json;");
             source.AppendLine("using System.Collections.Generic;");
             source.AppendLine("using System.Threading;");
+
+            if (config.UseResponseWrapper)
+            {
+                source.AppendLine("using System.Net;");
+            }
 
             if (config.Includes != null && config.Includes.Any())
             {
@@ -141,7 +145,30 @@ namespace GoLive.Generator.ApiClientGenerator
                 className = controllerRoute.Name;
             }
 
-            className = className + "Client";
+            className = $"{className}Client";
+
+            if (config.UseResponseWrapper)
+            {
+                source.AppendLine("public class Response");
+                source.AppendOpenCurlyBracketLine();
+                source.AppendLine("public Response() {}");
+                source.AppendLine("public Response(HttpStatusCode statusCode)");
+                source.AppendOpenCurlyBracketLine();
+                source.AppendLine("StatusCode = statusCode;");
+                source.AppendCloseCurlyBracketLine();
+                source.AppendLine("public HttpStatusCode StatusCode { get; internal set; }");
+                source.AppendLine("public bool Success => ((int)StatusCode >= 200) && ((int)StatusCode <= 299);");
+                source.AppendCloseCurlyBracketLine();
+                source.AppendLine("public class Response<T> : Response");
+                source.AppendOpenCurlyBracketLine();
+                source.AppendLine("public Response() {}");
+                source.AppendLine("public Response(HttpStatusCode statusCode, T data) : base(statusCode)");
+                source.AppendOpenCurlyBracketLine();
+                source.AppendLine("Data = data;");
+                source.AppendCloseCurlyBracketLine();
+                source.AppendLine("public T Data { get; set; }");
+                source.AppendCloseCurlyBracketLine();
+            }
 
             source.AppendLine($"public class {className}");
             source.AppendOpenCurlyBracketLine();
@@ -160,9 +187,8 @@ namespace GoLive.Generator.ApiClientGenerator
                 var returnType = action.ReturnTypeName != null
                     ? $"Task<{action.ReturnTypeName}>"
                     : "Task";
-                
+
                 bool byteReturnType = false || action.ReturnTypeName == "byte[]";
-                Console.WriteLine(action.ReturnTypeName);
 
                 var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
 
@@ -223,11 +249,39 @@ namespace GoLive.Generator.ApiClientGenerator
 
                 if (string.IsNullOrWhiteSpace(parameterList))
                 {
-                    source.AppendLine($"public async {returnType} {action.Name}(CancellationToken _token = default)");
+                    if (config.UseResponseWrapper)
+                    {
+                        if (action.ReturnTypeName == null)
+                        {
+                            source.AppendLine($"public async Task<Response> {action.Name}(CancellationToken _token = default)");
+                        }
+                        else
+                        {
+                            source.AppendLine($"public async Task<Response<{returnType}>> {action.Name}(CancellationToken _token = default)");
+                        }
+                    }
+                    else
+                    {
+                        source.AppendLine($"public async {returnType} {action.Name}(CancellationToken _token = default)");
+                    }
                 }
                 else
                 {
-                    source.AppendLine($"public async {returnType} {action.Name}({parameterList}, CancellationToken _token = default)");
+                    if (config.UseResponseWrapper)
+                    {
+                        if (action.ReturnTypeName == null)
+                        {
+                            source.AppendLine($"public async Task<Response> {action.Name}({parameterList}, CancellationToken _token = default)");
+                        }
+                        else
+                        {
+                            source.AppendLine($"public async Task<Response<{returnType}>> {action.Name}({parameterList}, CancellationToken _token = default)");
+                        }
+                    }
+                    else
+                    {
+                        source.AppendLine($"public async {returnType} {action.Name}({parameterList}, CancellationToken _token = default)");
+                    }
                 }
                 
                 source.AppendOpenCurlyBracketLine();
@@ -291,25 +345,50 @@ namespace GoLive.Generator.ApiClientGenerator
 
                 if (action.ReturnTypeName == null)
                 {
-                    source.AppendLine(callStatement);
+                    if (config.UseResponseWrapper)
+                    {
+                        source.AppendLine($"var result = {callStatement}");
+                        source.AppendLine($"return new Response(result.StatusCode);");
+                    }
+                    else
+                    {
+                        source.AppendLine(callStatement);
+                    }
                 }
                 else
                 {
                     source.AppendLine($"var result = {callStatement}");
 
-                    if (byteReturnType)
+                    if (config.UseResponseWrapper)
                     {
-                        source.AppendLine("return await result.Content.ReadAsByteArrayAsync();");
-                    }
-                    else if (string.IsNullOrWhiteSpace(useCustomFormatter))
-                    {
-                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>();");
+                        if (byteReturnType)
+                        {
+                            source.AppendLine($"return new Response<{returnType}>(result.StatusCode, result.Content.ReadAsByteArrayAsync());");
+                        }
+                        else if (string.IsNullOrWhiteSpace(useCustomFormatter))
+                        {
+                            source.AppendLine($"return new Response<{returnType}>(result.StatusCode, result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>());");
+                        }
+                        else
+                        {
+                            source.AppendLine($"return new Response<{returnType}>(result.StatusCode, result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token));");
+                        }
                     }
                     else
                     {
-                        source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token);");
+                        if (byteReturnType)
+                        {
+                            source.AppendLine("return await result.Content.ReadAsByteArrayAsync();");
+                        }
+                        else if (string.IsNullOrWhiteSpace(useCustomFormatter))
+                        {
+                            source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>();");
+                        }
+                        else
+                        {
+                            source.AppendLine($"return await result.Content.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token);");
+                        }
                     }
-                    
                 }
 
                 source.AppendCloseCurlyBracketLine();
