@@ -3,33 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace GoLive.Generator.ApiClientGenerator
 {
     public static class Scanner
     {
+        public static bool CanBeController(SyntaxNode node)
+            => node is ClassDeclarationSyntax c
+               // Don't generate routes for abstract controllers
+            && !c.Modifiers.Any(m => m.IsKind(SyntaxKind.AbstractKeyword))
+            && c.BaseList?.Types.Count > 0;
+
         public static IEnumerable<ControllerRoute> ScanForControllers(SemanticModel semantic)
         {
-            var controllerBase = semantic.Compilation.GetTypeByMetadataName("Microsoft.AspNetCore.Mvc.ControllerBase");
+            var allNodes = semantic.SyntaxTree.GetRoot().DescendantNodes();
 
-            if (controllerBase == null)
-            {
-                yield break;
-            }
-
-            var allNodes = semantic.SyntaxTree.GetRoot().DescendantNodes().OfType<ClassDeclarationSyntax>();
-
-            foreach (var node in allNodes)
-            {
-                if (semantic.GetDeclaredSymbol(node) is INamedTypeSymbol classSymbol && InheritsFrom(classSymbol, controllerBase))
-                {
-                    yield return ToRoute(classSymbol);
-                }
+            foreach (var node in allNodes) {
+                if (CanBeController(node)
+                 && semantic.GetDeclaredSymbol(node) is INamedTypeSymbol classSymbol
+                 && IsController(classSymbol))
+                    yield return ConvertToRoute(classSymbol);
             }
         }
 
-        private static ControllerRoute ToRoute(INamedTypeSymbol classSymbol)
+        public static ControllerRoute ConvertToRoute(INamedTypeSymbol classSymbol)
         {
             const string suffix = "Controller";
             var name = classSymbol.Name.EndsWith(suffix)
@@ -38,7 +37,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
             var actionMethods = ScanForActionMethods(classSymbol)
                 .ToArray();
-
+            
             // Extract the route from the HttpActionAttribute
             var attribute = FindAttribute(classSymbol, a => a.ToString() == "Microsoft.AspNetCore.Mvc.RouteAttribute");
             var route = attribute?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
@@ -122,20 +121,24 @@ namespace GoLive.Generator.ApiClientGenerator
             }
         }
 
-        private static bool InheritsFrom(INamedTypeSymbol classDeclaration, INamedTypeSymbol targetBaseType)
+        public static bool IsController(INamedTypeSymbol classDeclaration)
+            => InheritsFrom(classDeclaration, "Microsoft.AspNetCore.Mvc.ControllerBase");
+
+        private static bool InheritsFrom(INamedTypeSymbol classDeclaration, string qualifiedBaseTypeName)
         {
             var currentDeclared = classDeclaration;
+            var displayFormat = new SymbolDisplayFormat(
+                    typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
 
             while (currentDeclared.BaseType != null)
             {
                 var currentBaseType = currentDeclared.BaseType;
-
-                if (currentBaseType.Equals(targetBaseType, SymbolEqualityComparer.Default))
+                if (string.Equals(currentBaseType.ToDisplayString(displayFormat), qualifiedBaseTypeName, StringComparison.Ordinal))
                 {
                     return true;
                 }
 
-                currentDeclared = currentDeclared.BaseType;
+                currentDeclared = currentBaseType;
             }
 
             return false;
