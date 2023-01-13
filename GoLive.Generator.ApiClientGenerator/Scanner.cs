@@ -116,7 +116,9 @@ namespace GoLive.Generator.ApiClientGenerator
                         .Select(t => new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)))
                         .FirstOrDefault();
 
-                    yield return new ActionRoute(name, method, route, returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), useCustomFormatter, parameters, bodyParameter);
+                    yield return new ActionRoute(name, method, route,
+                        returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
+                        useCustomFormatter, parameters, bodyParameter);
                 }
             }
         }

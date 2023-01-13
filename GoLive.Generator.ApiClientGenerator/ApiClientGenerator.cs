@@ -268,11 +268,15 @@ namespace GoLive.Generator.ApiClientGenerator
                 
                 source.AppendLine();
 
+                var nullableReturnType = action.ReturnTypeStruct || action.ReturnTypeName.EndsWith("?")
+                    ? action.ReturnTypeName
+                    : $"{action.ReturnTypeName}?";
+
                 var returnType = config.UseResponseWrapper switch {
                     true when action.ReturnTypeName is null => "Task<Response>",
                     true => $"Task<Response<{action.ReturnTypeName}>>",
                     false when action.ReturnTypeName is null => "Task",
-                    false => $"Task<{action.ReturnTypeName}>"
+                    false => $"Task<{nullableReturnType}>"
                 };
 
                 source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
@@ -367,13 +371,13 @@ namespace GoLive.Generator.ApiClientGenerator
                     {
                         readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token)";
                     }
-
+                    
                     source.AppendMultipleLines(config.UseResponseWrapper
                         ? $"""
                         return new Response<{action.ReturnTypeName}>(
                             result.StatusCode,
                             await ({readValue} 
-                                    ?? Task.FromResult<{action.ReturnTypeName}?>(null)));
+                                    ?? Task.FromResult<{nullableReturnType}>(default)));
                         """
                         : $"return await {readValue};");
                 }
@@ -446,7 +450,7 @@ namespace GoLive.Generator.ApiClientGenerator
                 source.AppendMultipleLines("""
                     public T? Data { get; }
 
-                    public T SuccessData => Success ? Data ?? throw new NullReferenceException("Request did not return anything!")
+                    public T SuccessData => Success ? Data ?? throw new NullReferenceException("Response had an empty body!")
                                                     : throw new InvalidOperationException("Request was not successful!");
                     """);
                 source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out T? data)");
