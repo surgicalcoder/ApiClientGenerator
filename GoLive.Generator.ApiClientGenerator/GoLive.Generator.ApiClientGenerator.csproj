@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <LangVersion>9.0</LangVersion>
+        <LangVersion>latest</LangVersion>
 
         <PackageId>GoLive.Generator.ApiClientGenerator</PackageId>
         <Authors>SurgicalCoder</Authors>
@@ -34,10 +34,14 @@
     </PropertyGroup>
     <Target Name="GetDependencyTargetPaths" AfterTargets="ResolvePackageDependenciesForBuild">
         <ItemGroup>
-            <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_Buffers)\lib\netstandard2.0\System.Buffers.dll" IncludeRuntimeDependency="false" />
-            <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_Numerics_Vectors)\lib\netstandard2.0\System.Numerics.Vectors.dll" IncludeRuntimeDependency="false" />
-            <TargetPathWithTargetPlatformMoniker Include="$(PKGSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" IncludeRuntimeDependency="false" />
-            <TargetPathWithTargetPlatformMoniker Include="@(ResolvedCompileFileDefinitions)" IncludeRuntimeDependency="false" />
+            <SourceGenPackage Include="$(PKGSystem_Buffers)\lib\netstandard2.0\System.Buffers.dll" />
+            <SourceGenPackage Include="$(PKGSystem_Numerics_Vectors)\lib\netstandard2.0\System.Numerics.Vectors.dll" />
+            <SourceGenPackage Include="$(PKGSystem_Text_Json)\lib\netstandard2.0\System.Text.Json.dll" />
+            <SourceGenPackage Include="@(ResolvedCompileFileDefinitions)" />
+        </ItemGroup>
+        <ItemGroup>
+            <TargetPathWithTargetPlatformMoniker Include="@(SourceGenPackage)" IncludeRuntimeDependency="false" />
+            <None Include="@(SourceGenPackage)" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
         </ItemGroup>
     </Target>
     <ItemGroup>

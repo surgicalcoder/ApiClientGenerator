@@ -39,6 +39,14 @@ namespace GoLive.Generator.ApiClientGenerator
             AppendLine("}");
         }
 
+        public void AppendMultipleLines(string text)
+        {
+            var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            foreach (string line in lines) {
+                AppendLine(line);
+            }
+        }
+
         public void Append(string text, bool indent = true)
         {
             if (indent)
@@ -73,7 +81,7 @@ namespace GoLive.Generator.ApiClientGenerator
             var text = _stringBuilder.ToString();
             return string.IsNullOrWhiteSpace(text)
                 ? string.Empty
-                : CSharpSyntaxTree.ParseText(text).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
+                : text;
         }
     }
 }
