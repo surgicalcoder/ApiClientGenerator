@@ -15,9 +15,12 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
     {
         public ApiClient(HttpClient client)
         {
+            InheritingUser2 = new InheritingUser2Client(client);
             User = new UserClient(client);
             WeatherForecast = new WeatherForecastClient(client);
         }
+
+        public InheritingUser2Client InheritingUser2 { get; }
 
         public UserClient User { get; }
 
@@ -48,6 +51,43 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             data = Data;
             return Success && data is not null;
+        }
+    }
+
+    public class InheritingUser2Client
+    {
+        private readonly HttpClient _client;
+
+        public InheritingUser2Client (HttpClient client)
+        {
+            _client = client;
+        }
+
+        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/api/InheritingUser2/Get", cancellationToken: _token);
+            return new Response<global::System.Collections.Generic.IEnumerable<string>>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) 
+                        ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
+        }
+
+        public async Task<Response<string>> GetUser(int Id , CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/api/InheritingUser2/GetUser/{Id}", cancellationToken: _token);
+            return new Response<string>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
+                        ?? Task.FromResult<string?>(default)));
+        }
+
+        public async Task<Response<int>> GetUser(string user , CancellationToken _token = default)
+        {
+            using var result = await _client.PostAsJsonAsync($"/api/InheritingUser2/GetUser", user, cancellationToken: _token);
+            return new Response<int>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) 
+                        ?? Task.FromResult<int>(default)));
         }
     }
 

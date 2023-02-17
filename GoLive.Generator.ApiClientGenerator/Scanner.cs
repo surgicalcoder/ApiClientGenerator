@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -10,6 +13,8 @@ namespace GoLive.Generator.ApiClientGenerator
 {
     public static class Scanner
     {
+        private static SymbolDisplayFormat symbolDisplayFormat = new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
+
         public static bool CanBeController(SyntaxNode node)
             => node is ClassDeclarationSyntax c
                // Don't generate routes for abstract controllers
@@ -35,8 +40,19 @@ namespace GoLive.Generator.ApiClientGenerator
                 ? classSymbol.Name.Substring(0, classSymbol.Name.Length - suffix.Length)
                 : classSymbol.Name;
 
-            var actionMethods = ScanForActionMethods(classSymbol)
-                .ToArray();
+            var actionMethods = ScanForActionMethods(classSymbol).ToList();
+
+            var parentClass = classSymbol.BaseType;
+
+            if (parentClass != null && parentClass.ToDisplayString(symbolDisplayFormat) != "Microsoft.AspNetCore.Mvc.ControllerBase")
+            {
+                var addRoutes = ConvertToRoute(parentClass);
+
+                if (addRoutes != null && addRoutes.Actions.Any())
+                {
+                    actionMethods.AddRange(addRoutes.Actions);
+                }
+            }
             
             // Extract the route from the HttpActionAttribute
             var attribute = FindAttribute(classSymbol, a => a.ToString() == "Microsoft.AspNetCore.Mvc.RouteAttribute");
@@ -44,8 +60,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
             var areaAttribute = FindAttribute(classSymbol, a => a.ToString() == "Microsoft.AspNetCore.Mvc.AreaAttribute");
             var area = areaAttribute?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? null;
-
-            return new ControllerRoute(name, area, route, actionMethods);
+            return new ControllerRoute(name, area, route, actionMethods.ToArray());
         }
 
         private static IEnumerable<ActionRoute> ScanForActionMethods(INamedTypeSymbol classSymbol)
@@ -129,13 +144,11 @@ namespace GoLive.Generator.ApiClientGenerator
         private static bool InheritsFrom(INamedTypeSymbol classDeclaration, string qualifiedBaseTypeName)
         {
             var currentDeclared = classDeclaration;
-            var displayFormat = new SymbolDisplayFormat(
-                    typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
 
             while (currentDeclared.BaseType != null)
             {
                 var currentBaseType = currentDeclared.BaseType;
-                if (string.Equals(currentBaseType.ToDisplayString(displayFormat), qualifiedBaseTypeName, StringComparison.Ordinal))
+                if (string.Equals(currentBaseType.ToDisplayString(symbolDisplayFormat), qualifiedBaseTypeName, StringComparison.Ordinal))
                 {
                     return true;
                 }

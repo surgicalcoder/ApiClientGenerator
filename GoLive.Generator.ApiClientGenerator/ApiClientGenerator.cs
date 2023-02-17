@@ -39,36 +39,13 @@ namespace GoLive.Generator.ApiClientGenerator
             return symbol is not null && Scanner.IsController(symbol) ? symbol : null;
         }
 
-        public void Initialize(GeneratorInitializationContext context)
-        {
-            //if (!Debugger.IsAttached)
-            //{
-            //    Debugger.Launch();
-            //}
-        }
-
-        public void Execute(GeneratorExecutionContext context)
-        {
-            var controllerDeclarations = context.Compilation.SyntaxTrees
-                                              .Select(t => context.Compilation.GetSemanticModel(t))
-                                              .SelectMany(Scanner.ScanForControllers)
-                                              .ToImmutableArray();
-
-            var productionContext = new SourceProductionContext();
-            Execute(controllerDeclarations, context.AdditionalFiles.Where(IsConfigurationFile), productionContext);
-            // To re-support non-incrementing source generation,
-            // we need to change SourceProductionContext to an interface 
-            // with an AddSource member, so that we can add sources to
-            // GeneratorExecutionContext as well as SourceProductionContext.
-            throw new NotSupportedException("Normal (non-incrementing) source generation is currently no longer supported");
-        }
-
         private static bool IsConfigurationFile(AdditionalText text)
             => text.Path.EndsWith("ApiClientGenerator.json");
         
         public static void Execute(
             ImmutableArray<ControllerRoute> controllerRoutes,
-            IEnumerable<AdditionalText> configurationFiles, SourceProductionContext context) {
+            IEnumerable<AdditionalText> configurationFiles, SourceProductionContext context) 
+        {
             var config = LoadConfig(configurationFiles);
 
             var source = new SourceStringBuilder();
@@ -120,7 +97,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
             source.AppendCloseCurlyBracketLine();
 
-            if (config.PostAppendLines != null && config.PostAppendLines.Count > 0)
+            if (config.PostAppendLines is { Count: > 0 })
             {
                 config.PostAppendLines.ForEach(source.AppendLine);
             }
