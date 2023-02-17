@@ -4,7 +4,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class UserController : ControllerBase
+public class UserController : Controller
 {
     private readonly List<string> users = new() {
         "Tom", "Frank", "Nelly", "Tobias"

@@ -44,7 +44,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
             var parentClass = classSymbol.BaseType;
 
-            if (parentClass != null && parentClass.ToDisplayString(symbolDisplayFormat) != "Microsoft.AspNetCore.Mvc.ControllerBase")
+            if (parentClass != null && !parentClass.ToDisplayString(symbolDisplayFormat).StartsWith("Microsoft.AspNetCore.Mvc", StringComparison.InvariantCultureIgnoreCase))
             {
                 var addRoutes = ConvertToRoute(parentClass);
 
