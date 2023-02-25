@@ -13,8 +13,10 @@
   ] ,
   "HideUrlsRegex": [
     "^/_]*",
-    "^_]*"
+    "^_]*"#
   ],
   "PrefixUrl" : "/api",
-  "UseResponseWrapper" : true
+  "UseResponseWrapper" : true,
+  "OutputUrls": true,
+  "OutputUrlsPostfix": "_Url"
 }

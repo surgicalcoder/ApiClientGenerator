@@ -115,7 +115,7 @@ namespace GoLive.Generator.ApiClientGenerator
         private static void SaveSourceToFile(RouteGeneratorSettings config, SourceStringBuilder source)
         {
             var content = source.ToString();
-            if (config.OutputFiles != null && config.OutputFiles.Count > 0)
+            if (config.OutputFiles is { Count: > 0 })
             {
                 foreach (var configOutputFile in config.OutputFiles)
                 {
@@ -360,6 +360,37 @@ namespace GoLive.Generator.ApiClientGenerator
                 }
 
                 source.AppendCloseCurlyBracketLine();
+
+                if (config.OutputUrls)
+                {
+                    List<string> secondParamList = new();
+                    if (action.Mapping.Any(f => action.Body?.Key != f.Key))
+                    {
+                        secondParamList.AddRange(action.Mapping.Where(f => action.Body?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                    }
+                    
+                    source.AppendLine($" public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)})");
+                    source.AppendOpenCurlyBracketLine();
+                    if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key))
+                    {
+                        source.AppendLine("Dictionary<string, string> queryString=new();");
+                        foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key))
+                        {
+                            source.AppendLine(parameterMapping.Parameter.FullTypeName == "string" ? $"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))" : $"if ({parameterMapping.Key} != default)");
+                            source.AppendOpenCurlyBracketLine();
+                            source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                            source.AppendCloseCurlyBracketLine();
+                        }
+
+                        source.AppendLine($"return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString);");
+                    }
+                    else
+                    {
+                        source.AppendLine($"return {routeString};");
+                    }
+                    
+                    source.AppendCloseCurlyBracketLine();
+                }
             }
 
             source.AppendCloseCurlyBracketLine();

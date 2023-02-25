@@ -22,4 +22,16 @@ public class UserController : Controller
         users.Add(user);
         return id;
     }
+
+    [HttpPost]
+    public string GetUser2(string Id, string Id2, ComplexObjectExample example)
+    {
+        return "ok";
+    }
+
+    public class ComplexObjectExample
+    {
+        public string Property1 { get; set; }
+        public string Property2 { get; set; }
+    }
 }

@@ -71,6 +71,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
         }
+         public string Get_Url ()
+        {
+            return $"/api/InheritingUser2/Get";
+        }
 
         public async Task<Response<string>> GetUser(int Id , CancellationToken _token = default)
         {
@@ -80,6 +84,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
+         public string GetUser_Url (int Id )
+        {
+            return $"/api/InheritingUser2/GetUser/{Id}";
+        }
 
         public async Task<Response<int>> GetUser(string user , CancellationToken _token = default)
         {
@@ -88,6 +96,33 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) 
                         ?? Task.FromResult<int>(default)));
+        }
+         public string GetUser_Url ()
+        {
+            return $"/api/InheritingUser2/GetUser";
+        }
+
+        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , CancellationToken _token = default)
+        {
+            Dictionary<string, string> queryString=new();
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/InheritingUser2/GetUser2/{Id}", queryString), example, cancellationToken: _token);
+            return new Response<string>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
+                        ?? Task.FromResult<string?>(default)));
+        }
+         public string GetUser2_Url (string Id ,string Id2 )
+        {
+            Dictionary<string, string> queryString=new();
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/InheritingUser2/GetUser2/{Id}", queryString), queryString);
         }
     }
 
@@ -108,6 +143,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
         }
+         public string Get_Url ()
+        {
+            return $"/api/User/Get";
+        }
 
         public async Task<Response<string>> GetUser(int Id , CancellationToken _token = default)
         {
@@ -117,6 +156,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
+         public string GetUser_Url (int Id )
+        {
+            return $"/api/User/GetUser/{Id}";
+        }
 
         public async Task<Response<int>> GetUser(string user , CancellationToken _token = default)
         {
@@ -125,6 +168,33 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) 
                         ?? Task.FromResult<int>(default)));
+        }
+         public string GetUser_Url ()
+        {
+            return $"/api/User/GetUser";
+        }
+
+        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , CancellationToken _token = default)
+        {
+            Dictionary<string, string> queryString=new();
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/User/GetUser2/{Id}", queryString), example, cancellationToken: _token);
+            return new Response<string>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
+                        ?? Task.FromResult<string?>(default)));
+        }
+         public string GetUser2_Url (string Id ,string Id2 )
+        {
+            Dictionary<string, string> queryString=new();
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/User/GetUser2/{Id}", queryString), queryString);
         }
     }
 
@@ -145,11 +215,19 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)));
         }
+         public string Get_Url ()
+        {
+            return $"/api/WeatherForecast/Get";
+        }
 
         public async Task<Response> SecretUrl(CancellationToken _token = default)
         {
             using var result = await _client.GetAsync($"/api_secretUrl", cancellationToken: _token);
             return new Response(result.StatusCode);
+        }
+         public string SecretUrl_Url ()
+        {
+            return $"/api_secretUrl";
         }
 
         public async Task<Response<byte[]>> GetBytes(CancellationToken _token = default)
@@ -160,6 +238,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadAsByteArrayAsync() 
                         ?? Task.FromResult<byte[]?>(default)));
         }
+         public string GetBytes_Url ()
+        {
+            return $"/api/WeatherForecast/GetBytes";
+        }
 
         public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id , CancellationToken _token = default)
         {
@@ -168,6 +250,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) 
                         ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)));
+        }
+         public string GetSingle_Url (int Id )
+        {
+            return $"/api/WeatherForecast/GetSingle/{Id}";
         }
     }
 }
