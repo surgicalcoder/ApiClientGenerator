@@ -243,6 +243,18 @@ namespace GoLive.Generator.ApiClientGenerator
                     }
                 }
                 
+                if (routeString.Contains("[controller]"))
+                {
+                    routeString = routeString.Replace("[controller]", controllerRoute.Name);
+                }
+
+                List<string> routeParameters = new();
+                if (routeString.Contains("{"))
+                {
+                    var matches = Regex.Matches(routeString,@".*?\{(?<param>.*?)}.*?",RegexOptions.Multiline);
+                    routeParameters.AddRange(from Match match in matches select match.Groups["param"].Value);
+                }
+                
                 source.AppendLine();
 
                 var nullableReturnType = action.ReturnTypeStruct || action.ReturnTypeName.EndsWith("?")
@@ -262,11 +274,11 @@ namespace GoLive.Generator.ApiClientGenerator
 
                 source.AppendOpenCurlyBracketLine();
 
-                if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key))
+                if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)  ))
                 {
                     source.AppendLine("Dictionary<string, string> queryString=new();");
 
-                    foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key))
+                    foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
                         if (parameterMapping.Parameter.FullTypeName == "string")
                         {
@@ -371,10 +383,10 @@ namespace GoLive.Generator.ApiClientGenerator
                     
                     source.AppendLine($" public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)})");
                     source.AppendOpenCurlyBracketLine();
-                    if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key))
+                    if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
                         source.AppendLine("Dictionary<string, string> queryString=new();");
-                        foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key))
+                        foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                         {
                             source.AppendLine(parameterMapping.Parameter.FullTypeName == "string" ? $"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))" : $"if ({parameterMapping.Key} != default)");
                             source.AppendOpenCurlyBracketLine();

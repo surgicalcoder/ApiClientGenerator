@@ -1,4 +1,3 @@
-using GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers;
@@ -34,8 +33,20 @@ public class WeatherForecastController : ControllerBase
     [HttpGet("_secretUrl")]
     public async Task<ActionResult> SecretUrl()
     {
-        ApiClient client = new ApiClient(new HttpClient());
-//        client.User.GetUser2_Url()
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("/[controller]/UrlWithParametersFromRoute/{Input1}/{Input2}")]
+    public async Task<ActionResult> UrlWithParametersFromRoute(string Input1, string Input2)
+    {
+        return Ok();
+    }
+
+    [HttpGet]
+    [Route("/[controller]/UrlWithParametersFromRoute2/{Input1}/{Input2}")]
+    public async Task<ActionResult> UrlWithParametersFromRoute2(string Input1, string Input2, string Input3)
+    {
         return Ok();
     }
 

@@ -230,6 +230,36 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             return $"/api_secretUrl";
         }
 
+        public async Task<Response> UrlWithParametersFromRoute(string Input1 , string Input2 , CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/api/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}", cancellationToken: _token);
+            return new Response(result.StatusCode);
+        }
+         public string UrlWithParametersFromRoute_Url (string Input1 ,string Input2 )
+        {
+            return $"/api/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}";
+        }
+
+        public async Task<Response> UrlWithParametersFromRoute2(string Input1 , string Input2 , string Input3 , CancellationToken _token = default)
+        {
+            Dictionary<string, string> queryString=new();
+            if (!string.IsNullOrWhiteSpace(Input3))
+            {
+                queryString.Add("Input3", Input3.ToString());
+            }
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), cancellationToken: _token);
+            return new Response(result.StatusCode);
+        }
+         public string UrlWithParametersFromRoute2_Url (string Input1 ,string Input2 ,string Input3 )
+        {
+            Dictionary<string, string> queryString=new();
+            if (!string.IsNullOrWhiteSpace(Input3))
+            {
+                queryString.Add("Input3", Input3.ToString());
+            }
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), queryString);
+        }
+
         public async Task<Response<byte[]>> GetBytes(CancellationToken _token = default)
         {
             using var result = await _client.GetAsync($"/api/WeatherForecast/GetBytes", cancellationToken: _token);
