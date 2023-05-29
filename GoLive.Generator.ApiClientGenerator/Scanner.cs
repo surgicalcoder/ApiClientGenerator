@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -68,7 +68,7 @@ namespace GoLive.Generator.ApiClientGenerator
             foreach (var member in classSymbol.GetMembers())
             {
                 if (member
-                    is IMethodSymbol { DeclaredAccessibility: Accessibility.Public, IsAbstract: false } methodSymbol
+                    is IMethodSymbol { DeclaredAccessibility: Accessibility.Public, IsAbstract: false, IsOverride: false } methodSymbol // If it's overriden then the signature will be the same, so can filter this out here
                     and not { MethodKind: MethodKind.Constructor }
                    )
                 {

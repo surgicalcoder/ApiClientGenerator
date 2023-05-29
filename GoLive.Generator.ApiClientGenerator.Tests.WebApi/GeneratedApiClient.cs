@@ -124,6 +124,19 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/InheritingUser2/GetUser2/{Id}", queryString), queryString);
         }
+
+        public async Task<Response<string>> OverrideTest(string Id , CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/api/InheritingUser2/OverrideTest/{Id}", cancellationToken: _token);
+            return new Response<string>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
+                        ?? Task.FromResult<string?>(default)));
+        }
+         public string OverrideTest_Url (string Id )
+        {
+            return $"/api/InheritingUser2/OverrideTest/{Id}";
+        }
     }
 
     public class UserClient
@@ -195,6 +208,19 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 queryString.Add("Id2", Id2.ToString());
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/User/GetUser2/{Id}", queryString), queryString);
+        }
+
+        public async Task<Response<string>> OverrideTest(string Id , CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/api/User/OverrideTest/{Id}", cancellationToken: _token);
+            return new Response<string>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
+                        ?? Task.FromResult<string?>(default)));
+        }
+         public string OverrideTest_Url (string Id )
+        {
+            return $"/api/User/OverrideTest/{Id}";
         }
     }
 

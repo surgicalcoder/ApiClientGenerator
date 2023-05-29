@@ -6,5 +6,8 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers;
 [Route("[controller]")]
 public class InheritingUser2Controller : UserController
 {
-      
+      public override string OverrideTest(string Id)
+      {
+            return "new";
+      }
 }

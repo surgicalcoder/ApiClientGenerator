@@ -29,6 +29,12 @@ public class UserController : Controller
         return "ok";
     }
 
+    public virtual string OverrideTest(string Id)
+    {
+        return "test";
+    }
+    
+
     public class ComplexObjectExample
     {
         public string Property1 { get; set; }
