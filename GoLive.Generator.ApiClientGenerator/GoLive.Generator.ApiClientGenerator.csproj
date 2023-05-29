@@ -8,7 +8,7 @@
         <Company>N/A</Company>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Description>.net 6.0 Web Api Strongly Typed Client Generator</Description>
-        <Copyright>Copyright 2022 - SurgicalCoder</Copyright>
+        <Copyright>Copyright 2023 - SurgicalCoder</Copyright>
         <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
