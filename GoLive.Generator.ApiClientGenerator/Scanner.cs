@@ -13,6 +13,8 @@ namespace GoLive.Generator.ApiClientGenerator
 {
     public static class Scanner
     {
+        private const string ROUTE_ATTR_NAME = "Microsoft.AspNetCore.Mvc.RouteAttribute";
+        private const string ASPNETCORE_NAMESPACE = "Microsoft.AspNetCore.Mvc";
         private static SymbolDisplayFormat symbolDisplayFormat = new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
 
         public static bool CanBeController(SyntaxNode node)
@@ -44,7 +46,7 @@ namespace GoLive.Generator.ApiClientGenerator
 
             var parentClass = classSymbol.BaseType;
 
-            if (parentClass != null && !parentClass.ToDisplayString(symbolDisplayFormat).StartsWith("Microsoft.AspNetCore.Mvc", StringComparison.InvariantCultureIgnoreCase))
+            if (parentClass != null && !parentClass.ToDisplayString(symbolDisplayFormat).StartsWith(ASPNETCORE_NAMESPACE, StringComparison.InvariantCultureIgnoreCase))
             {
                 var addRoutes = ConvertToRoute(parentClass);
 
@@ -55,7 +57,7 @@ namespace GoLive.Generator.ApiClientGenerator
             }
             
             // Extract the route from the HttpActionAttribute
-            var attribute = FindAttribute(classSymbol, a => a.ToString() == "Microsoft.AspNetCore.Mvc.RouteAttribute");
+            var attribute = FindAttribute(classSymbol, a => a.ToString() == ROUTE_ATTR_NAME);
             var route = attribute?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
 
             var areaAttribute = FindAttribute(classSymbol, a => a.ToString() == "Microsoft.AspNetCore.Mvc.AreaAttribute");
@@ -112,18 +114,29 @@ namespace GoLive.Generator.ApiClientGenerator
                         //   _ => throw new InvalidOperationException($"Unknown attribute {attribute?.AttributeClass?.Name}")
                     };
 
-                    var routeAttr = FindAttribute(methodSymbol, a => a.OriginalDefinition.ToString() == "Microsoft.AspNetCore.Mvc.RouteAttribute");
+                    string parentRoutes = getParentRouteAttrs(classSymbol);
+                    
+                    var routeAttr = FindAttribute(methodSymbol, a => a.OriginalDefinition.ToString() == ROUTE_ATTR_NAME);
 
                     if (routeAttr != null)
                     {
                         route = routeAttr.ConstructorArguments.FirstOrDefault().Value.ToString() ?? string.Empty;
                     }
 
+                    if (!string.IsNullOrWhiteSpace(parentRoutes) && !route.StartsWith("/"))
+                    {
+                        route = $"{parentRoutes}{route}";
+                    }
+
+                    if (!route.StartsWith("/"))
+                    {
+                        route = $"/{route}";
+                    }
+                    
                     var customFormatterAttribute = FindAttribute(methodSymbol, a => a.Name == "FormFormatterAttribute");
 
                     bool useCustomFormatter = customFormatterAttribute != null;
-
-
+                    
                     var parameters = methodSymbol.Parameters.Where(t => true)
                         .Select(delegate(IParameterSymbol t) { return new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)); })
                         .ToArray();
@@ -136,6 +149,30 @@ namespace GoLive.Generator.ApiClientGenerator
                         useCustomFormatter, parameters, bodyParameter);
                 }
             }
+        }
+
+        private static string getParentRouteAttrs(INamedTypeSymbol classSymbol, string route = "")
+        {
+            var classRouteAttr = FindAttribute(classSymbol, a => a.OriginalDefinition.ToString() == ROUTE_ATTR_NAME);
+
+            if (classRouteAttr != null)
+            {
+                var routeVal = classRouteAttr.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
+
+                if (routeVal.StartsWith("/"))
+                {
+                    return routeVal;
+                }
+                
+                route = $"{routeVal}/{route}";
+            }
+            
+            if (classSymbol.BaseType != null && !classSymbol.BaseType.ToDisplayString(symbolDisplayFormat).StartsWith(ASPNETCORE_NAMESPACE, StringComparison.InvariantCultureIgnoreCase))
+            {
+                route = getParentRouteAttrs(classSymbol.BaseType, route);
+            }
+
+            return route;
         }
 
         public static bool IsController(INamedTypeSymbol classDeclaration)

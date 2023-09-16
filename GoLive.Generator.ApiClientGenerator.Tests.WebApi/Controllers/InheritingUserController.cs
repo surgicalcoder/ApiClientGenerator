@@ -11,3 +11,14 @@ public class InheritingUser2Controller : UserController
             return "new";
       }
 }
+
+
+public class InheritingTwo : InheritingUser2Controller
+{
+      [HttpGet]
+      [Route("{Page:int}/{PageSize:int}")]
+      public virtual async Task<ActionResult> GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20)
+      {
+            return Ok();
+      }
+}

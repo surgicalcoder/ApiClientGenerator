@@ -243,16 +243,30 @@ namespace GoLive.Generator.ApiClientGenerator
                     }
                 }
                 
-                if (routeString.Contains("[controller]"))
-                {
-                    routeString = routeString.Replace("[controller]", controllerRoute.Name);
-                }
-
+                
+                routeString = routeString.Replace("[controller]", controllerRoute.Name);
+                routeString = routeString.Replace("[action]", action.Name);
+                
                 List<string> routeParameters = new();
+                
                 if (routeString.Contains("{"))
                 {
-                    var matches = Regex.Matches(routeString,@".*?\{(?<param>.*?)}.*?",RegexOptions.Multiline);
-                    routeParameters.AddRange(from Match match in matches select match.Groups["param"].Value);
+                    var regexPattern = @".*?\{(?<param>.*?)}.*?";
+                    var matches = Regex.Matches(routeString,regexPattern,RegexOptions.Multiline);
+                    routeParameters.AddRange(matches.Cast<Match>().Select(match => match.Groups["param"].Value.Contains(":") ? match.Groups["param"].Value.Substring(0, match.Groups["param"].Value.IndexOf(":", StringComparison.Ordinal)) : match.Groups["param"].Value));
+
+                    if (matches.Count > 0)
+                    {
+                        foreach (Match match in matches)
+                        {
+                            var orig = match.Groups["param"].Value;
+
+                            if (orig.Contains(":"))
+                            {
+                                routeString = routeString.Replace(orig, orig.Substring(0, orig.IndexOf(":")));
+                            }
+                        }
+                    }
                 }
                 
                 source.AppendLine();
