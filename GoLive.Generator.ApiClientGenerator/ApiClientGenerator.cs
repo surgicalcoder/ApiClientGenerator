@@ -228,7 +228,7 @@ namespace GoLive.Generator.ApiClientGenerator
                 routeValue = routeValue.TrimStart('~');
                 routeValue = routeValue.Replace("*", ""); // TODO - to remove greedy url params
 
-                if (!string.IsNullOrWhiteSpace(config.PrefixUrl))
+                if (!string.IsNullOrWhiteSpace(config.PrefixUrl) && !action.RouteSetByAttributes) // TODO want to change this to use a single way to determine routes, not prefixing
                 {
                     routeValue = $"{config.PrefixUrl}{routeValue}";
                 }
@@ -394,8 +394,10 @@ namespace GoLive.Generator.ApiClientGenerator
                     {
                         secondParamList.AddRange(action.Mapping.Where(f => action.Body?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                     }
-                    
+
+
                     source.AppendLine($" public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)})");
+                    
                     source.AppendOpenCurlyBracketLine();
                     if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {

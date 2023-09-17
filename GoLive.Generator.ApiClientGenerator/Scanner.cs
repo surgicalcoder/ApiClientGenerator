@@ -133,8 +133,10 @@ namespace GoLive.Generator.ApiClientGenerator
                         route = $"{parentRoutes}/{route}";
                     }
 
+                    bool routeSetByAttr = false;
                     if (!string.IsNullOrWhiteSpace(route) && !route.StartsWith("/"))
                     {
+                        routeSetByAttr = true;
                         route = $"/{route}";
                     }
                     
@@ -149,7 +151,7 @@ namespace GoLive.Generator.ApiClientGenerator
                         .Select(t => new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)))
                         .FirstOrDefault();
 
-                    yield return new ActionRoute(name, method, route,
+                    yield return new ActionRoute(name, method, route, routeSetByAttr,
                         returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
                         useCustomFormatter, parameters, bodyParameter);
                 }
