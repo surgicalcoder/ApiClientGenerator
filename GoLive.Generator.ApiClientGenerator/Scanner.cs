@@ -133,7 +133,7 @@ namespace GoLive.Generator.ApiClientGenerator
                         route = $"{parentRoutes}/{route}";
                     }
 
-                    if (!route.StartsWith("/"))
+                    if (!string.IsNullOrWhiteSpace(route) && !route.StartsWith("/"))
                     {
                         route = $"/{route}";
                     }

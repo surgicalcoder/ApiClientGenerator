@@ -19,6 +19,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             InheritingUser2 = new InheritingUser2Client(client);
             User = new UserClient(client);
             WeatherForecast = new WeatherForecastClient(client);
+            YetAnother = new YetAnotherClient(client);
         }
 
         public InheritingTwoClient InheritingTwo { get; }
@@ -28,6 +29,8 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public UserClient User { get; }
 
         public WeatherForecastClient WeatherForecast { get; }
+
+        public YetAnotherClient YetAnother { get; }
     }
     public class Response
     {
@@ -418,6 +421,29 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
          public string GetSingle_Url (int Id )
         {
             return $"/api/WeatherForecast/";
+        }
+    }
+
+    public class YetAnotherClient
+    {
+        private readonly HttpClient _client;
+
+        public YetAnotherClient (HttpClient client)
+        {
+            _client = client;
+        }
+
+        public async Task<Response<string>> YetAnotherTest(string Id , CancellationToken _token = default)
+        {
+            using var result = await _client.PostAsJsonAsync($"/api/YetAnother/YetAnotherTest/{Id}", new {}, cancellationToken: _token);
+            return new Response<string>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
+                        ?? Task.FromResult<string?>(default)));
+        }
+         public string YetAnotherTest_Url (string Id )
+        {
+            return $"/api/YetAnother/YetAnotherTest/{Id}";
         }
     }
 }

@@ -41,3 +41,12 @@ public class UserController : Controller
         public string Property2 { get; set; }
     }
 }
+
+public class YetAnotherController : Controller
+{
+    [HttpPost]
+    public string YetAnotherTest(string Id)
+    {
+        return "ok";
+    }
+}
