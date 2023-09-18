@@ -134,10 +134,14 @@ namespace GoLive.Generator.ApiClientGenerator
                     }
 
                     bool routeSetByAttr = false;
-                    if (!string.IsNullOrWhiteSpace(route) && !route.StartsWith("/"))
+                    if (!string.IsNullOrWhiteSpace(route))
                     {
                         routeSetByAttr = true;
-                        route = $"/{route}";
+
+                        if (!route.StartsWith("/"))
+                        {
+                            route = $"/{route}";
+                        }
                     }
                     
                     var customFormatterAttribute = FindAttribute(methodSymbol, a => a.Name == "FormFormatterAttribute");

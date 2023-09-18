@@ -21,4 +21,13 @@ public class InheritingTwo : InheritingUser2Controller
       {
             return Ok();
       }
+      
+      [HttpGet]
+      [Route("/ThisIsTestTwo/{Page:int}")]
+      public virtual async Task<ActionResult> GetApiTest2(int Page = 1)
+      {
+            return Ok();
+      }
+      
+      
 }

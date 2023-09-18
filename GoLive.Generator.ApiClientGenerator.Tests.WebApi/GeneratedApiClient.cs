@@ -89,6 +89,16 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/InheritingTwo/{Page}/{PageSize}", queryString), queryString);
         }
 
+        public async Task<Response> GetApiTest2(int Page  = 1, CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/ThisIsTestTwo/{Page}", cancellationToken: _token);
+            return new Response(result.StatusCode);
+        }
+         public string GetApiTest2_Url (int Page  = 1)
+        {
+            return $"/ThisIsTestTwo/{Page}";
+        }
+
         public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(CancellationToken _token = default)
         {
             using var result = await _client.GetAsync($"/InheritingTwo/", cancellationToken: _token);
@@ -369,12 +379,12 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> UrlWithParametersFromRoute(string Input1 , string Input2 , CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/api/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}", cancellationToken: _token);
             return new Response(result.StatusCode);
         }
          public string UrlWithParametersFromRoute_Url (string Input1 ,string Input2 )
         {
-            return $"/api/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}";
+            return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}";
         }
 
         public async Task<Response> UrlWithParametersFromRoute2(string Input1 , string Input2 , string Input3 , CancellationToken _token = default)
@@ -384,7 +394,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 queryString.Add("Input3", Input3.ToString());
             }
-            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), cancellationToken: _token);
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), cancellationToken: _token);
             return new Response(result.StatusCode);
         }
          public string UrlWithParametersFromRoute2_Url (string Input1 ,string Input2 ,string Input3 )
@@ -394,7 +404,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 queryString.Add("Input3", Input3.ToString());
             }
-            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), queryString);
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), queryString);
         }
 
         public async Task<Response<byte[]>> GetBytes(CancellationToken _token = default)
