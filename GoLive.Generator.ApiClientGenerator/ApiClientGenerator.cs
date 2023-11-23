@@ -14,7 +14,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 namespace GoLive.Generator.ApiClientGenerator
 {
     [Generator]
-    public class ApiClientGenerator : IIncrementalGenerator//, ISourceGenerator
+    public class ApiClientGenerator : IIncrementalGenerator
     {
         public void Initialize(IncrementalGeneratorInitializationContext context) {
             IncrementalValuesProvider<ControllerRoute> controllerDeclarations = context.SyntaxProvider
@@ -144,14 +144,14 @@ namespace GoLive.Generator.ApiClientGenerator
             var fullPath = Path.Combine(configFileDirectory, config.OutputFile);
             config.OutputFile = Path.GetFullPath(fullPath);
 
-            if (config.OutputFiles != null && config.OutputFiles.Count > 0)
+            if (config.OutputFiles is { Count: > 0 })
             {
                 config.OutputFiles = config.OutputFiles.Select(e => Path.GetFullPath(Path.Combine(configFileDirectory, e))).ToList();
             }
 
             return config;
         }
-
+        
         private static void SetUpSingleApi(RouteGeneratorSettings config, ControllerRoute controllerRoute, SourceStringBuilder source)
         {
             source.AppendLine();

@@ -33,6 +33,12 @@ public class UserController : Controller
     {
         return "test";
     }
+
+    [NonAction]
+    public virtual string IgnoreAction()
+    {
+        return "Ignore me";
+    }
     
 
     public class ComplexObjectExample

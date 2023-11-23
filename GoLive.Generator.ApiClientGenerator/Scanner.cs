@@ -101,6 +101,13 @@ namespace GoLive.Generator.ApiClientGenerator
                         returnType = null;
                     }
 
+                    var notAnAttribute = FindAttribute(methodSymbol, e => e.ToString() == "Microsoft.AspNetCore.Mvc.NonActionAttribute");
+
+                    if (notAnAttribute != null)
+                    {
+                        continue;
+                    }
+                    
                     // Extract the route from the HttpActionAttribute
                     var attribute = FindAttribute(methodSymbol, a => a.BaseType?.ToString() == "Microsoft.AspNetCore.Mvc.Routing.HttpMethodAttribute");
                     var route = attribute?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? string.Empty;
