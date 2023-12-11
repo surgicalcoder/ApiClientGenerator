@@ -432,6 +432,19 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             return $"/WeatherForecast/";
         }
+
+        public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(CancellationToken _token = default)
+        {
+            using var result = await _client.GetAsync($"/WeatherForecast/", cancellationToken: _token);
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(
+                result.StatusCode,
+                await (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) 
+                        ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)));
+        }
+         public string GetSingleFromServiceExample_Url ()
+        {
+            return $"/WeatherForecast/";
+        }
     }
 
     public class YetAnotherClient

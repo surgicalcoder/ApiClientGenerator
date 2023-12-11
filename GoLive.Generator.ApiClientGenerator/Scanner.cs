@@ -156,6 +156,7 @@ namespace GoLive.Generator.ApiClientGenerator
                     bool useCustomFormatter = customFormatterAttribute != null;
                     
                     var parameters = methodSymbol.Parameters.Where(t => true)
+                        .Where(e=> FindAttribute(e, e=>e.OriginalDefinition.ToDisplayString() == "Microsoft.AspNetCore.Mvc.FromServicesAttribute") == null)
                         .Select(delegate(IParameterSymbol t) { return new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)); })
                         .ToArray();
                     var bodyParameter = methodSymbol.Parameters.Where(t => (!IsPrimitive(t.Type)) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))

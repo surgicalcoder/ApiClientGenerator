@@ -60,4 +60,9 @@ public class WeatherForecastController : ControllerBase
     {
         return null;
     }
+    
+    public WeatherForecast GetSingleFromServiceExample([FromServicesAttribute]int Id)
+    {
+        return null;
+    }
 }
