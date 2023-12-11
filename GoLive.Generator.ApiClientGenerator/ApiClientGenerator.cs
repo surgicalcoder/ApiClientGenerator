@@ -283,34 +283,32 @@ namespace GoLive.Generator.ApiClientGenerator
                 };
 
                 source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
-                    ? $"public async {returnType} {action.Name}(CancellationToken _token = default)"
-                    : $"public async {returnType} {action.Name}({parameterList}, CancellationToken _token = default)");
+                    ? $"public async {returnType} {action.Name}(Dictionary<string, string?> queryString = default, CancellationToken _token = default)"
+                    : $"public async {returnType} {action.Name}({parameterList}, Dictionary<string, string?> queryString = default, CancellationToken _token = default)");
 
                 source.AppendOpenCurlyBracketLine();
 
+                source.AppendLine("queryString ??= new();");
+                
                 if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)  ))
                 {
-                    source.AppendLine("Dictionary<string, string> queryString=new();");
-
                     foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
                         if (parameterMapping.Parameter.FullTypeName == "string")
                         {
-                            source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
+                            source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                         }
                         else
                         {
-                            source.AppendLine($"if ({parameterMapping.Key} != default)");
+                            source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                         }
 
                         source.AppendOpenCurlyBracketLine();
                         source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
                         source.AppendCloseCurlyBracketLine();
                     }
-
-                    routeString = $"Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString)";
                 }
-
+                routeString = $"Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString)";
 
                 var methodString = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(action.Method.Method.ToLower());
 
@@ -395,27 +393,38 @@ namespace GoLive.Generator.ApiClientGenerator
                         secondParamList.AddRange(action.Mapping.Where(f => action.Body?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                     }
 
-
-                    source.AppendLine($" public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)})");
-                    
+                    if (secondParamList.Any())
+                    {
+                        source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)}, Dictionary<string, string?> queryString = default)");
+                    }
+                    else
+                    {
+                        source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (Dictionary<string, string?> queryString = default)");
+                    }
                     source.AppendOpenCurlyBracketLine();
+                    
+                    source.AppendLine("queryString ??= new();");
+                    
                     if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
-                        source.AppendLine("Dictionary<string, string> queryString=new();");
                         foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
                         {
-                            source.AppendLine(parameterMapping.Parameter.FullTypeName == "string" ? $"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))" : $"if ({parameterMapping.Key} != default)");
+                            if (parameterMapping.Parameter.FullTypeName == "string")
+                            {
+                                source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
+                            }
+                            else
+                            {
+                                source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
+                            }
+
                             source.AppendOpenCurlyBracketLine();
                             source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
                             source.AppendCloseCurlyBracketLine();
                         }
-
-                        source.AppendLine($"return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString);");
                     }
-                    else
-                    {
-                        source.AppendLine($"return {routeString};");
-                    }
+                    
+                    source.AppendLine($"return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString);");
                     
                     source.AppendCloseCurlyBracketLine();
                 }

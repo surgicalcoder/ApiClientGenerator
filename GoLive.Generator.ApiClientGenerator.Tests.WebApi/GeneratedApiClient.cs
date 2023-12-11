@@ -69,79 +69,87 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             _client = client;
         }
 
-        public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, CancellationToken _token = default)
+        public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Filter))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Filter) && !queryString.ContainsKey(Filter) )
             {
                 queryString.Add("Filter", Filter.ToString());
             }
             using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/InheritingTwo/{Page}/{PageSize}", queryString), cancellationToken: _token);
             return new Response(result.StatusCode);
         }
-         public string GetPagedApiTest_Url (int Page  = 1,string Filter  = null,int PageSize  = 20)
+        public string GetPagedApiTest_Url (int Page  = 1,string Filter  = null,int PageSize  = 20, Dictionary<string, string?> queryString = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Filter))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Filter) && !queryString.ContainsKey(Filter) )
             {
                 queryString.Add("Filter", Filter.ToString());
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/InheritingTwo/{Page}/{PageSize}", queryString), queryString);
         }
 
-        public async Task<Response> GetApiTest2(int Page  = 1, CancellationToken _token = default)
+        public async Task<Response> GetApiTest2(int Page  = 1, Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/ThisIsTestTwo/{Page}", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/ThisIsTestTwo/{Page}", queryString), cancellationToken: _token);
             return new Response(result.StatusCode);
         }
-         public string GetApiTest2_Url (int Page  = 1)
+        public string GetApiTest2_Url (int Page  = 1, Dictionary<string, string?> queryString = default)
         {
-            return $"/ThisIsTestTwo/{Page}";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/ThisIsTestTwo/{Page}", queryString), queryString);
         }
 
-        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(CancellationToken _token = default)
+        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/InheritingTwo/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), cancellationToken: _token);
             return new Response<global::System.Collections.Generic.IEnumerable<string>>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
         }
-         public string Get_Url ()
+        public string Get_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingTwo/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), queryString);
         }
 
-        public async Task<Response<string>> GetUser(int Id , CancellationToken _token = default)
+        public async Task<Response<string>> GetUser(int Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/InheritingTwo/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string GetUser_Url (int Id )
+        public string GetUser_Url (int Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingTwo/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), queryString);
         }
 
-        public async Task<Response<int>> GetUser(string user , CancellationToken _token = default)
+        public async Task<Response<int>> GetUser(string user , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.PostAsJsonAsync($"/InheritingTwo/", user, cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), user, cancellationToken: _token);
             return new Response<int>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) 
                         ?? Task.FromResult<int>(default)));
         }
-         public string GetUser_Url ()
+        public string GetUser_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingTwo/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), queryString);
         }
 
-        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , CancellationToken _token = default)
+        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Id2))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Id2) && !queryString.ContainsKey(Id2) )
             {
                 queryString.Add("Id2", Id2.ToString());
             }
@@ -151,27 +159,29 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string GetUser2_Url (string Id ,string Id2 )
+        public string GetUser2_Url (string Id ,string Id2 , Dictionary<string, string?> queryString = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Id2))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Id2) && !queryString.ContainsKey(Id2) )
             {
                 queryString.Add("Id2", Id2.ToString());
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), queryString);
         }
 
-        public async Task<Response<string>> OverrideTest(string Id , CancellationToken _token = default)
+        public async Task<Response<string>> OverrideTest(string Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/InheritingTwo/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string OverrideTest_Url (string Id )
+        public string OverrideTest_Url (string Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingTwo/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingTwo/", queryString), queryString);
         }
     }
 
@@ -184,49 +194,55 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             _client = client;
         }
 
-        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(CancellationToken _token = default)
+        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/InheritingUser2/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), cancellationToken: _token);
             return new Response<global::System.Collections.Generic.IEnumerable<string>>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
         }
-         public string Get_Url ()
+        public string Get_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingUser2/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), queryString);
         }
 
-        public async Task<Response<string>> GetUser(int Id , CancellationToken _token = default)
+        public async Task<Response<string>> GetUser(int Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/InheritingUser2/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string GetUser_Url (int Id )
+        public string GetUser_Url (int Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingUser2/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), queryString);
         }
 
-        public async Task<Response<int>> GetUser(string user , CancellationToken _token = default)
+        public async Task<Response<int>> GetUser(string user , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.PostAsJsonAsync($"/InheritingUser2/", user, cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), user, cancellationToken: _token);
             return new Response<int>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) 
                         ?? Task.FromResult<int>(default)));
         }
-         public string GetUser_Url ()
+        public string GetUser_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingUser2/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), queryString);
         }
 
-        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , CancellationToken _token = default)
+        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Id2))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Id2) && !queryString.ContainsKey(Id2) )
             {
                 queryString.Add("Id2", Id2.ToString());
             }
@@ -236,27 +252,29 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string GetUser2_Url (string Id ,string Id2 )
+        public string GetUser2_Url (string Id ,string Id2 , Dictionary<string, string?> queryString = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Id2))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Id2) && !queryString.ContainsKey(Id2) )
             {
                 queryString.Add("Id2", Id2.ToString());
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), queryString);
         }
 
-        public async Task<Response<string>> OverrideTest(string Id , CancellationToken _token = default)
+        public async Task<Response<string>> OverrideTest(string Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/InheritingUser2/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string OverrideTest_Url (string Id )
+        public string OverrideTest_Url (string Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/InheritingUser2/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/InheritingUser2/", queryString), queryString);
         }
     }
 
@@ -269,49 +287,55 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             _client = client;
         }
 
-        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(CancellationToken _token = default)
+        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/User/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), cancellationToken: _token);
             return new Response<global::System.Collections.Generic.IEnumerable<string>>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
         }
-         public string Get_Url ()
+        public string Get_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/User/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), queryString);
         }
 
-        public async Task<Response<string>> GetUser(int Id , CancellationToken _token = default)
+        public async Task<Response<string>> GetUser(int Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/User/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string GetUser_Url (int Id )
+        public string GetUser_Url (int Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/User/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), queryString);
         }
 
-        public async Task<Response<int>> GetUser(string user , CancellationToken _token = default)
+        public async Task<Response<int>> GetUser(string user , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.PostAsJsonAsync($"/User/", user, cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), user, cancellationToken: _token);
             return new Response<int>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) 
                         ?? Task.FromResult<int>(default)));
         }
-         public string GetUser_Url ()
+        public string GetUser_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/User/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), queryString);
         }
 
-        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , CancellationToken _token = default)
+        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Id2))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Id2) && !queryString.ContainsKey(Id2) )
             {
                 queryString.Add("Id2", Id2.ToString());
             }
@@ -321,27 +345,29 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string GetUser2_Url (string Id ,string Id2 )
+        public string GetUser2_Url (string Id ,string Id2 , Dictionary<string, string?> queryString = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Id2))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Id2) && !queryString.ContainsKey(Id2) )
             {
                 queryString.Add("Id2", Id2.ToString());
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), queryString);
         }
 
-        public async Task<Response<string>> OverrideTest(string Id , CancellationToken _token = default)
+        public async Task<Response<string>> OverrideTest(string Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/User/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string OverrideTest_Url (string Id )
+        public string OverrideTest_Url (string Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/User/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/User/", queryString), queryString);
         }
     }
 
@@ -354,96 +380,108 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             _client = client;
         }
 
-        public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(CancellationToken _token = default)
+        public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), cancellationToken: _token);
             return new Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token) 
                         ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)));
         }
-         public string Get_Url ()
+        public string Get_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/WeatherForecast/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
 
-        public async Task<Response> SecretUrl(CancellationToken _token = default)
+        public async Task<Response> SecretUrl(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/_secretUrl", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/_secretUrl", queryString), cancellationToken: _token);
             return new Response(result.StatusCode);
         }
-         public string SecretUrl_Url ()
+        public string SecretUrl_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/WeatherForecast/_secretUrl";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/_secretUrl", queryString), queryString);
         }
 
-        public async Task<Response> UrlWithParametersFromRoute(string Input1 , string Input2 , CancellationToken _token = default)
+        public async Task<Response> UrlWithParametersFromRoute(string Input1 , string Input2 , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}", queryString), cancellationToken: _token);
             return new Response(result.StatusCode);
         }
-         public string UrlWithParametersFromRoute_Url (string Input1 ,string Input2 )
+        public string UrlWithParametersFromRoute_Url (string Input1 ,string Input2 , Dictionary<string, string?> queryString = default)
         {
-            return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}", queryString), queryString);
         }
 
-        public async Task<Response> UrlWithParametersFromRoute2(string Input1 , string Input2 , string Input3 , CancellationToken _token = default)
+        public async Task<Response> UrlWithParametersFromRoute2(string Input1 , string Input2 , string Input3 , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Input3))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Input3) && !queryString.ContainsKey(Input3) )
             {
                 queryString.Add("Input3", Input3.ToString());
             }
             using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), cancellationToken: _token);
             return new Response(result.StatusCode);
         }
-         public string UrlWithParametersFromRoute2_Url (string Input1 ,string Input2 ,string Input3 )
+        public string UrlWithParametersFromRoute2_Url (string Input1 ,string Input2 ,string Input3 , Dictionary<string, string?> queryString = default)
         {
-            Dictionary<string, string> queryString=new();
-            if (!string.IsNullOrWhiteSpace(Input3))
+            queryString ??= new();
+            if (!string.IsNullOrWhiteSpace(Input3) && !queryString.ContainsKey(Input3) )
             {
                 queryString.Add("Input3", Input3.ToString());
             }
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}", queryString), queryString);
         }
 
-        public async Task<Response<byte[]>> GetBytes(CancellationToken _token = default)
+        public async Task<Response<byte[]>> GetBytes(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), cancellationToken: _token);
             return new Response<byte[]>(
                 result.StatusCode,
                 await (result.Content?.ReadAsByteArrayAsync() 
                         ?? Task.FromResult<byte[]?>(default)));
         }
-         public string GetBytes_Url ()
+        public string GetBytes_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/WeatherForecast/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
 
-        public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id , CancellationToken _token = default)
+        public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), cancellationToken: _token);
             return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) 
                         ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)));
         }
-         public string GetSingle_Url (int Id )
+        public string GetSingle_Url (int Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/WeatherForecast/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
 
-        public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(CancellationToken _token = default)
+        public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/", cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), cancellationToken: _token);
             return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) 
                         ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)));
         }
-         public string GetSingleFromServiceExample_Url ()
+        public string GetSingleFromServiceExample_Url (Dictionary<string, string?> queryString = default)
         {
-            return $"/WeatherForecast/";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
     }
 
@@ -456,17 +494,19 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             _client = client;
         }
 
-        public async Task<Response<string>> YetAnotherTest(string Id , CancellationToken _token = default)
+        public async Task<Response<string>> YetAnotherTest(string Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default)
         {
-            using var result = await _client.PostAsJsonAsync($"/api/YetAnother/YetAnotherTest/{Id}", new {}, cancellationToken: _token);
+            queryString ??= new();
+            using var result = await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/YetAnother/YetAnotherTest/{Id}", queryString), new {}, cancellationToken: _token);
             return new Response<string>(
                 result.StatusCode,
                 await (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) 
                         ?? Task.FromResult<string?>(default)));
         }
-         public string YetAnotherTest_Url (string Id )
+        public string YetAnotherTest_Url (string Id , Dictionary<string, string?> queryString = default)
         {
-            return $"/api/YetAnother/YetAnotherTest/{Id}";
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/YetAnother/YetAnotherTest/{Id}", queryString), queryString);
         }
     }
 }
