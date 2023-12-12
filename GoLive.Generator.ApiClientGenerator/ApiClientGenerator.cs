@@ -63,6 +63,7 @@ namespace GoLive.Generator.ApiClientGenerator
             source.AppendLine("using System.Collections.Generic;");
             source.AppendLine("using System.Threading;");
             source.AppendLine("using System.Diagnostics.CodeAnalysis;");
+            source.AppendLine("using System.Text.Json.Serialization.Metadata;");
 
             if (config.UseResponseWrapper)
             {
@@ -286,10 +287,13 @@ namespace GoLive.Generator.ApiClientGenerator
                     false when action.ReturnTypeName is null or TASK_FQ => "Task",
                     false => $"Task<{nullableReturnType}>"
                 };
+                
+                string jsonTypeInfoMethodParameter = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
+                string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
                 source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
-                    ? $"public async {returnType} {action.Name}(Dictionary<string, string?> queryString = default, CancellationToken _token = default)"
-                    : $"public async {returnType} {action.Name}({parameterList}, Dictionary<string, string?> queryString = default, CancellationToken _token = default)");
+                    ? $"public async {returnType} {action.Name}(Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
+                    : $"public async {returnType} {action.Name}({parameterList}, Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})");
 
                 source.AppendOpenCurlyBracketLine();
 
@@ -366,11 +370,11 @@ namespace GoLive.Generator.ApiClientGenerator
                     }
                     else if (string.IsNullOrWhiteSpace(useCustomFormatter))
                     {
-                        readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>(cancellationToken: _token)";
+                        readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>(cancellationToken: _token {jsonTypeInfoMethodAppend})";
                     }
                     else
                     {
-                        readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token)";
+                        readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token {jsonTypeInfoMethodAppend})";
                     }
                     
                     source.AppendMultipleLines(config.UseResponseWrapper
