@@ -65,4 +65,16 @@ public class WeatherForecastController : ControllerBase
     {
         return null;
     }
+
+    [HttpPost]
+    public async Task<ActionResult> FormUploadTest1(IFormFile formFile)
+    {
+        return Ok();
+    }
+    
+    [HttpPost]
+    public async Task<ActionResult> FormUploadTest2(IFormFile? formFile)
+    {
+        return Ok();
+    }
 }

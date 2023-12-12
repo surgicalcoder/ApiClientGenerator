@@ -192,7 +192,7 @@ namespace GoLive.Generator.ApiClientGenerator
                     parameterList = string.Join(", ",
                         action.Mapping.Select(m =>
                             m.Parameter.FullTypeName == "Microsoft.AspNetCore.Http.IFormFile"
-                                ? "System.Net.Http.MultipartFormDataContent multiPartContent"
+                                ? $"System.Net.Http.MultipartFormDataContent{(m.Parameter.Nullable ? "?" : "")} multiPartContent"
                                 : $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
                 }
 

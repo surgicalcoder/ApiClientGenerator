@@ -483,6 +483,30 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             queryString ??= new();
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
+
+        public async Task<Response> FormUploadTest1(System.Net.Http.MultipartFormDataContent multiPartContent, Dictionary<string, string?> queryString = default, CancellationToken _token = default)
+        {
+            queryString ??= new();
+            using var result = await _client.PostAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), multiPartContent, cancellationToken: _token);
+            return new Response(result.StatusCode);
+        }
+        public string FormUploadTest1_Url (Dictionary<string, string?> queryString = default)
+        {
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
+        }
+
+        public async Task<Response> FormUploadTest2(System.Net.Http.MultipartFormDataContent? multiPartContent, Dictionary<string, string?> queryString = default, CancellationToken _token = default)
+        {
+            queryString ??= new();
+            using var result = await _client.PostAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), multiPartContent, cancellationToken: _token);
+            return new Response(result.StatusCode);
+        }
+        public string FormUploadTest2_Url (Dictionary<string, string?> queryString = default)
+        {
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
+        }
     }
 
     public class YetAnotherClient

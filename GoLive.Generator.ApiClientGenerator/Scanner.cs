@@ -157,7 +157,12 @@ namespace GoLive.Generator.ApiClientGenerator
                     
                     var parameters = methodSymbol.Parameters.Where(t => true)
                         .Where(e=> FindAttribute(e, e=>e.OriginalDefinition.ToDisplayString() == "Microsoft.AspNetCore.Mvc.FromServicesAttribute") == null)
-                        .Select(delegate(IParameterSymbol t) { return new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)); })
+                        .Select(delegate(IParameterSymbol t) { return new ParameterMapping(
+                            t.Name, new Parameter(
+                                t.NullableAnnotation == NullableAnnotation.Annotated ? t.OriginalDefinition.Type.OriginalDefinition.ToDisplayString(): t.Type.ToString(), 
+                                t.HasExplicitDefaultValue, 
+                                t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
+                                t.NullableAnnotation == NullableAnnotation.Annotated )); })
                         .ToArray();
                     var bodyParameter = methodSymbol.Parameters.Where(t => (!IsPrimitive(t.Type)) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
                         .Select(t => new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)))
