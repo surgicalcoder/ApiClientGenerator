@@ -16,6 +16,8 @@ namespace GoLive.Generator.ApiClientGenerator
     [Generator]
     public class ApiClientGenerator : IIncrementalGenerator
     {
+        private const string TASK_FQ = "global::System.Threading.Tasks.Task";
+        
         public void Initialize(IncrementalGeneratorInitializationContext context) {
             IncrementalValuesProvider<ControllerRoute> controllerDeclarations = context.SyntaxProvider
                .CreateSyntaxProvider(
@@ -270,15 +272,18 @@ namespace GoLive.Generator.ApiClientGenerator
                 }
                 
                 source.AppendLine();
-
+                
                 var nullableReturnType = action.ReturnTypeStruct || action.ReturnTypeName.EndsWith("?")
                     ? action.ReturnTypeName
                     : $"{action.ReturnTypeName}?";
+                
+                
 
-                var returnType = config.UseResponseWrapper switch {
+                string returnType = config.UseResponseWrapper switch
+                {
                     true when action.ReturnTypeName is null => "Task<Response>",
                     true => $"Task<Response<{action.ReturnTypeName}>>",
-                    false when action.ReturnTypeName is null => "Task",
+                    false when action.ReturnTypeName is null or TASK_FQ => "Task",
                     false => $"Task<{nullableReturnType}>"
                 };
 
@@ -312,11 +317,6 @@ namespace GoLive.Generator.ApiClientGenerator
 
                 var methodString = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(action.Method.Method.ToLower());
 
-                //if (methodString == "Post" && action.Body == null)
-                //{
-                //    action.Body = new ParameterMapping()
-                //}
-
                 string callStatement;
 
                 if (containsFileUpload)
@@ -343,7 +343,7 @@ namespace GoLive.Generator.ApiClientGenerator
                     callStatement = $"await _client.{methodString}Async({routeString}, cancellationToken: _token);";
                 }
 
-                if (action.ReturnTypeName == null)
+                if (action.ReturnTypeName is null or TASK_FQ)
                 {
                     if (config.UseResponseWrapper)
                     {

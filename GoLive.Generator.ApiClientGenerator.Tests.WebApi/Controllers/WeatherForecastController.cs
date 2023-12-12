@@ -77,4 +77,8 @@ public class WeatherForecastController : ControllerBase
     {
         return Ok();
     }
+
+    public async Task TaskIssue()
+    {
+    }
 }
