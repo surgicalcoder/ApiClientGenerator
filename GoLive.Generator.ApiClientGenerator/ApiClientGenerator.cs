@@ -363,28 +363,65 @@ namespace GoLive.Generator.ApiClientGenerator
                 {
                     source.AppendLine($"using var result = {callStatement}");
 
+                    string readValueWithoutJsonTypeInformation;
                     string readValue;
                     if (byteReturnType)
                     {
                         readValue = "result.Content?.ReadAsByteArrayAsync()";
+                        readValueWithoutJsonTypeInformation = "result.Content?.ReadAsByteArrayAsync()";
                     }
                     else if (string.IsNullOrWhiteSpace(useCustomFormatter))
                     {
                         readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>(cancellationToken: _token {jsonTypeInfoMethodAppend})";
+                        readValueWithoutJsonTypeInformation = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>(cancellationToken: _token)";
                     }
                     else
                     {
                         readValue = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token {jsonTypeInfoMethodAppend})";
+                        readValueWithoutJsonTypeInformation = $"result.Content?.ReadFromJsonAsync<{action.ReturnTypeName}>({useCustomFormatter}, cancellationToken: _token)";
                     }
                     
-                    source.AppendMultipleLines(config.UseResponseWrapper
-                        ? $"""
-                        return new Response<{action.ReturnTypeName}>(
-                            result.StatusCode,
-                            await ({readValue} 
-                                    ?? Task.FromResult<{nullableReturnType}>(default)));
-                        """
-                        : $"return await {readValue};");
+                    if (!string.IsNullOrWhiteSpace(jsonTypeInfoMethodAppend))
+                    {
+                        if (config.UseResponseWrapper)
+                        {
+
+                            source.AppendMultipleLines($"""
+                                                        if (_typeInfo != default) 
+                                                            return new Response<{action.ReturnTypeName}>(result.StatusCode,await ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        else
+                                                            return new Response<{action.ReturnTypeName}>(result.StatusCode,await ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        """);
+                        }
+                        else
+                        {
+                            source.AppendLine("if (_typeInfo != default)");
+                            source.AppendOpenCurlyBracketLine();
+                            source.AppendLine($"return await {readValue};");
+                            source.AppendCloseCurlyBracketLine();
+                            source.AppendLine("else");
+                            source.AppendOpenCurlyBracketLine();
+                            source.AppendLine($"return await {readValueWithoutJsonTypeInformation};");
+                            source.AppendCloseCurlyBracketLine();
+                        }
+                    }
+                    else
+                    {
+                        if (config.UseResponseWrapper)
+                        {
+                            source.AppendMultipleLines($"""
+                                                        return new Response<{action.ReturnTypeName}>(
+                                                            result.StatusCode,
+                                                            await ({readValue}
+                                                                    ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        """);
+                        }
+                        else
+                        {
+                            source.AppendLine($"return await {readValue};");
+                        }
+                    }
+                    
                 }
 
                 source.AppendCloseCurlyBracketLine();

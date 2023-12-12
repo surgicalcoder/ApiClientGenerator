@@ -16,7 +16,7 @@
     "^_]*"
   ],
   "PrefixUrl" : "/api",
-  "UseResponseWrapper" : false,
+  "UseResponseWrapper" : true,
   "OutputUrls": true,
   "OutputUrlsPostfix": "_Url"
 }
