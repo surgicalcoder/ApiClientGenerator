@@ -305,11 +305,11 @@ namespace GoLive.Generator.ApiClientGenerator
                     {
                         if (parameterMapping.Parameter.FullTypeName == "string")
                         {
-                            source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
+                            source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                         }
                         else
                         {
-                            source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
+                            source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                         }
 
                         source.AppendOpenCurlyBracketLine();
@@ -415,11 +415,11 @@ namespace GoLive.Generator.ApiClientGenerator
                         {
                             if (parameterMapping.Parameter.FullTypeName == "string")
                             {
-                                source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
+                                source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                             }
                             else
                             {
-                                source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey({parameterMapping.Key}) )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
+                                source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                             }
 
                             source.AppendOpenCurlyBracketLine();
