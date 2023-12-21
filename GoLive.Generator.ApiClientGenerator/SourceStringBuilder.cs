@@ -3,85 +3,84 @@ using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 
-namespace GoLive.Generator.ApiClientGenerator
+namespace GoLive.Generator.ApiClientGenerator;
+
+public class SourceStringBuilder
 {
-    public class SourceStringBuilder
+    private readonly string SingleIndent = new string(' ', 4);
+
+    public int IndentLevel = 0;
+    private readonly StringBuilder _stringBuilder;
+
+    public SourceStringBuilder()
     {
-        private readonly string SingleIndent = new string(' ', 4);
+        _stringBuilder = new StringBuilder();
+    }
 
-        public int IndentLevel = 0;
-        private readonly StringBuilder _stringBuilder;
+    public void IncreaseIndent()
+    {
+        IndentLevel++;
+    }
 
-        public SourceStringBuilder()
+    public void DecreaseIndent()
+    {
+        IndentLevel--;
+    }
+
+    public void AppendOpenCurlyBracketLine()
+    {
+        AppendLine("{");
+        IncreaseIndent();
+    }
+
+    public void AppendCloseCurlyBracketLine()
+    {
+        DecreaseIndent();
+        AppendLine("}");
+    }
+
+    public void AppendMultipleLines(string text)
+    {
+        var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        foreach (string line in lines) {
+            AppendLine(line);
+        }
+    }
+
+    public void Append(string text, bool indent = true)
+    {
+        if (indent)
         {
-            _stringBuilder = new StringBuilder();
+            AppendIndent();
         }
 
-        public void IncreaseIndent()
-        {
-            IndentLevel++;
-        }
+        _stringBuilder.Append(text);
+    }
 
-        public void DecreaseIndent()
+    public void AppendIndent()
+    {
+        for (int i = 0; i < IndentLevel; i++)
         {
-            IndentLevel--;
+            _stringBuilder.Append(SingleIndent);
         }
+    }
 
-        public void AppendOpenCurlyBracketLine()
-        {
-            AppendLine("{");
-            IncreaseIndent();
-        }
+    public void AppendLine()
+    {
+        _stringBuilder.Append(Environment.NewLine);
+    }
 
-        public void AppendCloseCurlyBracketLine()
-        {
-            DecreaseIndent();
-            AppendLine("}");
-        }
+    public void AppendLine(string text)
+    {
+        Append(text);
+        AppendLine();
+    }
 
-        public void AppendMultipleLines(string text)
-        {
-            var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            foreach (string line in lines) {
-                AppendLine(line);
-            }
-        }
-
-        public void Append(string text, bool indent = true)
-        {
-            if (indent)
-            {
-                AppendIndent();
-            }
-
-            _stringBuilder.Append(text);
-        }
-
-        public void AppendIndent()
-        {
-            for (int i = 0; i < IndentLevel; i++)
-            {
-                _stringBuilder.Append(SingleIndent);
-            }
-        }
-
-        public void AppendLine()
-        {
-            _stringBuilder.Append(Environment.NewLine);
-        }
-
-        public void AppendLine(string text)
-        {
-            Append(text);
-            AppendLine();
-        }
-
-        public override string ToString()
-        {
-            var text = _stringBuilder.ToString();
-            return string.IsNullOrWhiteSpace(text)
-                ? string.Empty
-                : text;
-        }
+    public override string ToString()
+    {
+        var text = _stringBuilder.ToString();
+        return string.IsNullOrWhiteSpace(text)
+            ? string.Empty
+            : text;
     }
 }
