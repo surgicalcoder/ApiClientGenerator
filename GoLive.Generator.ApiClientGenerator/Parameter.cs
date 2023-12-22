@@ -1,3 +1,5 @@
-﻿namespace GoLive.Generator.ApiClientGenerator;
+﻿using System.Collections.Generic;
 
-public record Parameter(string FullTypeName, bool HasDefaultValue, object? DefaultValue, bool Nullable = false);
+namespace GoLive.Generator.ApiClientGenerator;
+
+public record Parameter(string FullTypeName, string? GenericTypeName, bool HasDefaultValue, object? DefaultValue, bool Nullable = false, List<string> Attributes=default);

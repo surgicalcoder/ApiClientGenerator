@@ -16,7 +16,18 @@
     "^_]*"
   ],
   "PrefixUrl" : "/api",
-  "UseResponseWrapper" : true,
+  "UseResponseWrapper" : false,
   "OutputUrls": true,
-  "OutputUrlsPostfix": "_Url"
+  "OutputUrlsPostfix": "_Url",
+  "Properties":{
+    "IgnoreGenericTypes" : [
+      "System.Collections.Generic.List<T>"
+    ],
+    "IgnoreTypes":[
+      "System.DateTime"
+    ],
+    "IgnoreThatHasAttribute":[
+      "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinderAttribute"
+    ]
+  }
 }

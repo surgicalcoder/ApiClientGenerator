@@ -187,6 +187,22 @@ public class ApiClientGenerator : IIncrementalGenerator
         {
             bool byteReturnType = action.ReturnTypeName == "byte[]";
 
+            if (config.Properties is { IgnoreTypes.Count: > 0 } || config.Properties.IgnoreGenericTypes?.Count > 0 || config.Properties.IgnoreThatHasAttribute?.Count > 0)
+            {
+                action.Mapping.RemoveAll(mapping => config.Properties.IgnoreTypes.Contains(mapping.Parameter.FullTypeName, StringComparer.InvariantCultureIgnoreCase));
+                action.Mapping.RemoveAll(mapping => config.Properties.IgnoreGenericTypes.Contains(mapping.Parameter.GenericTypeName, StringComparer.InvariantCultureIgnoreCase));
+                action.Mapping.RemoveAll(mapping => config.Properties.IgnoreThatHasAttribute.Intersect(mapping.Parameter.Attributes).Any());
+                
+                
+                action.Body.RemoveAll(mapping => config.Properties.IgnoreTypes.Contains(mapping.Parameter.FullTypeName, StringComparer.InvariantCultureIgnoreCase));
+                action.Body.RemoveAll(mapping => config.Properties.IgnoreGenericTypes.Contains(mapping.Parameter.GenericTypeName, StringComparer.InvariantCultureIgnoreCase));
+
+                if (config.Properties.IgnoreThatHasAttribute.Count > 0)
+                {
+                    action.Body.RemoveAll(mapping => mapping.Parameter.Attributes != null && config.Properties.IgnoreThatHasAttribute.Intersect(mapping.Parameter.Attributes).Any());
+                }
+            }
+
             var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
 
             bool containsFileUpload = action.Mapping.Any(f => f.Parameter.FullTypeName == "Microsoft.AspNetCore.Http.IFormFile");
@@ -299,9 +315,9 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             source.AppendLine("queryString ??= new();");
                 
-            if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)  ))
+            if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)  ))
             {
-                foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
+                foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
                     if (parameterMapping.Parameter.FullTypeName == "string")
                     {
@@ -327,7 +343,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent, cancellationToken: _token);";
             }
-            else if (action.Body is { Key: var key })
+            else if (action.Body != null && action.Body.Count > 0 && action.Body.FirstOrDefault() is { Key: var key })
             {
                 if (string.IsNullOrWhiteSpace(useCustomFormatter))
                 {
@@ -345,6 +361,11 @@ public class ApiClientGenerator : IIncrementalGenerator
             else
             {
                 callStatement = $"await _client.{methodString}Async({routeString}, cancellationToken: _token);";
+            }
+
+            if (callStatement.Contains("await _client.GetAsJsonAsync"))
+            {
+                callStatement = callStatement.Replace("await _client.GetAsJsonAsync", "await _client.GetFromJsonAsync"); // Issue with GET JSON method being named differently.
             }
 
             if (action.ReturnTypeName is null or TASK_FQ)
@@ -429,9 +450,9 @@ public class ApiClientGenerator : IIncrementalGenerator
             if (config.OutputUrls)
             {
                 List<string> secondParamList = new();
-                if (action.Mapping.Any(f => action.Body?.Key != f.Key))
+                if (action.Mapping.Any(f => action.Body?.FirstOrDefault()?.Key != f.Key))
                 {
-                    secondParamList.AddRange(action.Mapping.Where(f => action.Body?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                    secondParamList.AddRange(action.Mapping.Where(f => action.Body?.FirstOrDefault()?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                 }
 
                 if (secondParamList.Any())
@@ -446,9 +467,9 @@ public class ApiClientGenerator : IIncrementalGenerator
                     
                 source.AppendLine("queryString ??= new();");
                     
-                if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
+                if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
-                    foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.Key != f.Key && !routeParameters.Contains(f.Key)))
+                    foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
                         if (parameterMapping.Parameter.FullTypeName == "string")
                         {

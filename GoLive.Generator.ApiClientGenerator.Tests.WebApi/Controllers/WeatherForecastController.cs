@@ -18,6 +18,29 @@ public class WeatherForecastController : ControllerBase
         _logger = logger;
     }
 
+    [HttpPost]
+    public async Task<ActionResult> TestIgnoreGenericParmaeter(List<string> options, string optionNotRemoved)
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> TestIgnoreNormalParameter(DateTime option, string optionNotRemoved)
+    {
+        return Ok();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> TestIgnoreWithCustomAttribute([CustomAttributeModelBinder]string option, string optionNotRemoved)
+    {
+        return Ok();
+    }
+
+    /*public async Task<ActionResult<string>> TestIgnore(List<string> options)
+    {
+        return Ok("yes");
+    }*/
+
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {

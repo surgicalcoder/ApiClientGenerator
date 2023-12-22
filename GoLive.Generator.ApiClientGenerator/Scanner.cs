@@ -160,17 +160,25 @@ public static class Scanner
                     .Select(delegate(IParameterSymbol t) { return new ParameterMapping(
                         t.Name, new Parameter(
                             t.NullableAnnotation == NullableAnnotation.Annotated ? t.OriginalDefinition.Type.OriginalDefinition.ToDisplayString(): t.Type.ToString(), 
+                            t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null,
                             t.HasExplicitDefaultValue, 
                             t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
-                            t.NullableAnnotation == NullableAnnotation.Annotated )); })
+                            t.NullableAnnotation == NullableAnnotation.Annotated, 
+                            t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList()
+                            )); })
                     .ToArray();
+                
                 var bodyParameter = methodSymbol.Parameters.Where(t => (!IsPrimitive(t.Type)) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
-                    .Select(t => new ParameterMapping(t.Name, new Parameter(t.Type.ToString(), t.HasExplicitDefaultValue, t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)))
-                    .FirstOrDefault();
+                    .Select(t => new ParameterMapping(t.Name, new Parameter(
+                        t.Type.ToString(), 
+                        t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null, 
+                        t.HasExplicitDefaultValue, 
+                        t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)))
+                    .ToList();
 
                 yield return new ActionRoute(name, method, route, routeSetByAttr,
                     returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
-                    useCustomFormatter, parameters, bodyParameter);
+                    useCustomFormatter, parameters.ToList(), bodyParameter);
             }
         }
     }

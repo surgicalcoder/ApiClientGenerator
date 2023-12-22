@@ -24,4 +24,13 @@ public class RouteGeneratorSettings
     public bool OutputUrls { get; set; }
     public string OutputUrlsPrefix { get; set; }
     public string OutputUrlsPostfix { get; set; }
+
+    public RouteGeneratorSettings_Properties Properties { get; set; } = new();
+}
+
+public class RouteGeneratorSettings_Properties
+{
+    public List<string> IgnoreTypes { get; set; } = new();
+    public List<string> IgnoreGenericTypes { get; set; }= new();
+    public List<string> IgnoreThatHasAttribute { get; set; }= new();
 }
