@@ -19,3 +19,10 @@ public class CustomAttributeModelBinderAttribute : Attribute, IModelNameProvider
     public BindingSource? BindingSource { get; set; }
     public Type? BinderType { get; set; }
 }
+
+public class CustomAttributeModelBinder2Attribute : Attribute, IModelNameProvider, IBinderTypeProviderMetadata
+{
+    public string? Name { get; set; }
+    public BindingSource? BindingSource { get; set; }
+    public Type? BinderType { get; set; }
+}

@@ -40,6 +40,12 @@ public class WeatherForecastController : ControllerBase
     public async Task<ActionResult> TestRemapTypeWithAnotherType(TimeSpan option)
     {
         return Ok();
+    }    
+    
+    [HttpPost]
+    public async Task<ActionResult> TestRemapTypeWithAnotherType2([CustomAttributeModelBinder2]TimeSpan option)
+    {
+        return Ok();
     }
 
     /*public async Task<ActionResult<string>> TestIgnore(List<string> options)

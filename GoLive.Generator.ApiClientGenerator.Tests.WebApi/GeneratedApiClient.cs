@@ -468,12 +468,23 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
 
-        public async Task TestRemapTypeWithAnotherType(System.String option , Dictionary<string, string?> queryString = default, CancellationToken _token = default )
+        public async Task TestRemapTypeWithAnotherType(System.TimeSpan option , Dictionary<string, string?> queryString = default, CancellationToken _token = default )
         {
             queryString ??= new();
             await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), option, cancellationToken: _token);
         }
         public string TestRemapTypeWithAnotherType_Url (Dictionary<string, string?> queryString = default)
+        {
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
+        }
+
+        public async Task TestRemapTypeWithAnotherType2(System.String option , Dictionary<string, string?> queryString = default, CancellationToken _token = default )
+        {
+            queryString ??= new();
+            await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), option, cancellationToken: _token);
+        }
+        public string TestRemapTypeWithAnotherType2_Url (Dictionary<string, string?> queryString = default)
         {
             queryString ??= new();
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);

@@ -34,5 +34,11 @@ public class RouteGeneratorSettings_Properties
     public List<string> IgnoreGenericTypes { get; set; }= new();
     public List<string> IgnoreThatHasAttribute { get; set; }= new();
 
-    public Dictionary<string, string> TransformType { get; set; } = new();
+    public List<TransformTypeContainer> TransformType { get; set; } = new();
+}
+public class TransformTypeContainer
+{
+    public string SourceType { get; set; }
+    public string DestinationType { get; set; }
+    public string ContainsAttribute { get; set; }
 }

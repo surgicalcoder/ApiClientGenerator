@@ -205,9 +205,10 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     foreach (var (key, parameter) in action.Mapping)
                     {
-                        if (config.Properties.TransformType.TryGetValue(parameter.FullTypeName, out var val))
+                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase)) is {} tt 
+                            && (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute) ) )  )
                         {
-                            parameter.FullTypeName = val;
+                            parameter.FullTypeName = tt.DestinationType;
                         }
                     }
                 }
