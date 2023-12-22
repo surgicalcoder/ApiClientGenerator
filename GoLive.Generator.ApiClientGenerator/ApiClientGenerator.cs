@@ -187,12 +187,11 @@ public class ApiClientGenerator : IIncrementalGenerator
         {
             bool byteReturnType = action.ReturnTypeName == "byte[]";
 
-            if (config.Properties is { IgnoreTypes.Count: > 0 } || config.Properties.IgnoreGenericTypes?.Count > 0 || config.Properties.IgnoreThatHasAttribute?.Count > 0)
+            if (config.Properties is { IgnoreTypes.Count: > 0 } || config.Properties.IgnoreGenericTypes?.Count > 0 || config.Properties.IgnoreThatHasAttribute?.Count > 0 || config.Properties.TransformType?.Count > 0 )
             {
                 action.Mapping.RemoveAll(mapping => config.Properties.IgnoreTypes.Contains(mapping.Parameter.FullTypeName, StringComparer.InvariantCultureIgnoreCase));
                 action.Mapping.RemoveAll(mapping => config.Properties.IgnoreGenericTypes.Contains(mapping.Parameter.GenericTypeName, StringComparer.InvariantCultureIgnoreCase));
                 action.Mapping.RemoveAll(mapping => config.Properties.IgnoreThatHasAttribute.Intersect(mapping.Parameter.Attributes).Any());
-                
                 
                 action.Body.RemoveAll(mapping => config.Properties.IgnoreTypes.Contains(mapping.Parameter.FullTypeName, StringComparer.InvariantCultureIgnoreCase));
                 action.Body.RemoveAll(mapping => config.Properties.IgnoreGenericTypes.Contains(mapping.Parameter.GenericTypeName, StringComparer.InvariantCultureIgnoreCase));
@@ -201,6 +200,18 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     action.Body.RemoveAll(mapping => mapping.Parameter.Attributes != null && config.Properties.IgnoreThatHasAttribute.Intersect(mapping.Parameter.Attributes).Any());
                 }
+
+                if (config.Properties.TransformType?.Count > 0)
+                {
+                    foreach (var (key, parameter) in action.Mapping)
+                    {
+                        if (config.Properties.TransformType.TryGetValue(parameter.FullTypeName, out var val))
+                        {
+                            parameter.FullTypeName = val;
+                        }
+                    }
+                }
+                
             }
 
             var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));

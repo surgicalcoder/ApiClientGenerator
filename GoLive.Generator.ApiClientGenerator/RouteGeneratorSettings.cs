@@ -33,4 +33,6 @@ public class RouteGeneratorSettings_Properties
     public List<string> IgnoreTypes { get; set; } = new();
     public List<string> IgnoreGenericTypes { get; set; }= new();
     public List<string> IgnoreThatHasAttribute { get; set; }= new();
+
+    public Dictionary<string, string> TransformType { get; set; } = new();
 }

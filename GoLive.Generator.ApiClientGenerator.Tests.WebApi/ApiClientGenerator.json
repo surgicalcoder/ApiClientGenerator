@@ -28,6 +28,9 @@
     ],
     "IgnoreThatHasAttribute":[
       "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinderAttribute"
-    ]
+    ],
+    "TransformType":{
+        "System.TimeSpan": "System.String"
+    }
   }
 }

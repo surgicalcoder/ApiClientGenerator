@@ -36,6 +36,12 @@ public class WeatherForecastController : ControllerBase
         return Ok();
     }
 
+    [HttpPost]
+    public async Task<ActionResult> TestRemapTypeWithAnotherType(TimeSpan option)
+    {
+        return Ok();
+    }
+
     /*public async Task<ActionResult<string>> TestIgnore(List<string> options)
     {
         return Ok("yes");
