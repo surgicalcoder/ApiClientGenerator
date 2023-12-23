@@ -35,6 +35,12 @@ public class WeatherForecastController : ControllerBase
     {
         return Ok();
     }
+    
+    [HttpPost]
+    public async Task<ActionResult> TestModelBinderDifferentName([CustomAttributeModelBinder2(Name = "OtherName")]string option)
+    {
+        return Ok();
+    }
 
     [HttpPost]
     public async Task<ActionResult> TestRemapTypeWithAnotherType(TimeSpan option)

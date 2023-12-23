@@ -158,7 +158,7 @@ public static class Scanner
                 var parameters = methodSymbol.Parameters.Where(t => true)
                     .Where(e=> FindAttribute(e, e=>e.OriginalDefinition.ToDisplayString() == "Microsoft.AspNetCore.Mvc.FromServicesAttribute") == null)
                     .Select(delegate(IParameterSymbol t) { return new ParameterMapping(
-                        t.Name, new Parameter(
+                        getParameterName(t), new Parameter(
                             t.NullableAnnotation == NullableAnnotation.Annotated ? t.OriginalDefinition.Type.OriginalDefinition.ToDisplayString(): t.Type.ToString(), 
                             t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null,
                             t.HasExplicitDefaultValue, 
@@ -181,6 +181,24 @@ public static class Scanner
                     useCustomFormatter, parameters.ToList(), bodyParameter);
             }
         }
+    }
+
+    private static string getParameterName(IParameterSymbol t)
+    {
+        if (t.GetAttributes() is {Length: > 0} attr)
+        {
+            foreach (var attributeData in attr)
+            {
+                if ( attributeData.AttributeClass.AllInterfaces.Any(e=>e.ToDisplayString() == "Microsoft.AspNetCore.Mvc.ModelBinding.IModelNameProvider"))
+                {
+                    if (attributeData.NamedArguments != null && attributeData.NamedArguments.Any(f => f.Key == "Name"))
+                    {
+                        return attributeData.NamedArguments.FirstOrDefault(e => e.Key == "Name").Value.Value.ToString();
+                    }
+                } 
+            }
+        }
+        return t.Name;
     }
 
     private static string getParentRouteAttrs(INamedTypeSymbol classSymbol, string route = "")
