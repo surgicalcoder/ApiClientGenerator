@@ -2,14 +2,23 @@
 
 namespace GoLive.Generator.ApiClientGenerator;
 
-public class Parameter(string FullTypeName, string? GenericTypeName, bool HasDefaultValue, object? DefaultValue, bool Nullable = false, List<string> Attributes=default)
+public class Parameter
 {
-    public string FullTypeName { get; set; } = FullTypeName;
-    public string GenericTypeName { get; set; } = GenericTypeName;
-    public bool HasDefaultValue { get; set; } = HasDefaultValue;
-    public object DefaultValue { get; set; } = DefaultValue;
-    public bool Nullable { get; set; } = Nullable;
-    public List<string> Attributes { get; set; } = Attributes;
+    public Parameter(string FullTypeName, string? GenericTypeName, bool HasDefaultValue, object? DefaultValue, bool Nullable = false, List<string> Attributes=default)
+    {
+        this.FullTypeName = FullTypeName;
+        this.GenericTypeName = GenericTypeName;
+        this.HasDefaultValue = HasDefaultValue;
+        this.DefaultValue = DefaultValue;
+        this.Nullable = Nullable;
+        this.Attributes = Attributes;
+    }
+    public string FullTypeName { get; set; }
+    public string GenericTypeName { get; set; }
+    public bool HasDefaultValue { get; set; }
+    public object DefaultValue { get; set; }
+    public bool Nullable { get; set; }
+    public List<string> Attributes { get; set; }
     
     public void Deconstruct(out string FullTypeName, out string? GenericTypeName, out bool HasDefaultValue, out object? DefaultValue, out bool Nullable, out List<string> Attributes)
     {
