@@ -31,3 +31,17 @@ public class InheritingTwo : InheritingUser2Controller
       
       
 }
+
+public class NonApiController : ControllerBase
+{
+      [HttpGet]
+      public async Task<ActionResult> TestModelBinderDifferentNameUnderId([CustomAttributeModelBinder2(Name = "Id")]TestModel input)
+      {
+            return Ok();
+      }
+}
+
+public class TestModel
+{
+      public string Blarg { get; set; }
+}

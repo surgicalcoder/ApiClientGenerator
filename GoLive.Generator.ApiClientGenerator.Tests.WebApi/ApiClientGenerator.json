@@ -1,5 +1,5 @@
 ﻿{
-  "OutputFile": "GeneratedApiClient.cs",
+  "OutputFile": "GeneratedApiClient.cs.txt",
   "Namespace": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated",
   "CustomDiscriminator": "",
   "Includes": [
@@ -33,6 +33,11 @@
       {
         "SourceType": "System.TimeSpan",
         "DestinationType" : "System.String",
+        "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+      },
+      {
+        "SourceType":"GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestModel",
+        "DestinationType":"System.String",
         "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
       }
     ]

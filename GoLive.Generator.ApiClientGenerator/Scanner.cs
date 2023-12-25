@@ -23,32 +23,20 @@ public static class Scanner
            && !c.Modifiers.Any(m => m.IsKind(SyntaxKind.AbstractKeyword))
            && c.BaseList?.Types.Count > 0;
 
-    public static IEnumerable<ControllerRoute> ScanForControllers(SemanticModel semantic)
-    {
-        var allNodes = semantic.SyntaxTree.GetRoot().DescendantNodes();
-
-        foreach (var node in allNodes) {
-            if (CanBeController(node)
-                && semantic.GetDeclaredSymbol(node) is INamedTypeSymbol classSymbol
-                && IsController(classSymbol))
-                yield return ConvertToRoute(classSymbol);
-        }
-    }
-
-    public static ControllerRoute ConvertToRoute(INamedTypeSymbol classSymbol)
+    public static ControllerRoute ConvertToRoute(SemanticModel model, INamedTypeSymbol classSymbol)
     {
         const string suffix = "Controller";
         var name = classSymbol.Name.EndsWith(suffix)
             ? classSymbol.Name.Substring(0, classSymbol.Name.Length - suffix.Length)
             : classSymbol.Name;
 
-        var actionMethods = ScanForActionMethods(classSymbol).ToList();
+        var actionMethods = ScanForActionMethods(model, classSymbol).ToList();
 
         var parentClass = classSymbol.BaseType;
 
         if (parentClass != null && !parentClass.ToDisplayString(symbolDisplayFormat).StartsWith(ASPNETCORE_NAMESPACE, StringComparison.InvariantCultureIgnoreCase))
         {
-            var addRoutes = ConvertToRoute(parentClass);
+            var addRoutes = ConvertToRoute(model, parentClass);
 
             if (addRoutes != null && addRoutes.Actions.Any())
             {
@@ -65,7 +53,7 @@ public static class Scanner
         return new ControllerRoute(name, area, route, actionMethods.ToArray());
     }
 
-    private static IEnumerable<ActionRoute> ScanForActionMethods(INamedTypeSymbol classSymbol)
+    private static IEnumerable<ActionRoute> ScanForActionMethods(SemanticModel model, INamedTypeSymbol classSymbol)
     {
         foreach (var member in classSymbol.GetMembers())
         {
@@ -168,12 +156,15 @@ public static class Scanner
                             )); })
                     .ToArray();
                 
-                var bodyParameter = methodSymbol.Parameters.Where(t => (!IsPrimitive(t.Type)) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
-                    .Select(t => new ParameterMapping(t.Name, new Parameter(
+                //var bodyParameter = methodSymbol.Parameters.Where(t => (!isReplaced(t) && !IsPrimitive(t.Type)) || (isReplaced(t) && !IsPrimitive(getReplacedType(model, t)))  || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
+                var bodyParameter = methodSymbol.Parameters.Where(t => !IsPrimitive(t.Type) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
+                    .Select(t => new ParameterMapping(getParameterName(t), new Parameter(
                         t.Type.ToString(), 
                         t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null, 
-                        t.HasExplicitDefaultValue, 
-                        t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null)))
+                        HasDefaultValue: t.HasExplicitDefaultValue, 
+                        DefaultValue: t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
+                        Attributes: t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList()
+                        )))
                     .ToList();
 
                 yield return new ActionRoute(name, method, route, routeSetByAttr,
@@ -181,6 +172,45 @@ public static class Scanner
                     useCustomFormatter, parameters.ToList(), bodyParameter);
             }
         }
+    }
+
+    private static bool isReplaced(ISymbol t)
+    {
+        if (t.GetAttributes() is {Length: > 0} attr)
+        {
+            foreach (var attributeData in attr)
+            {
+                if ( attributeData.AttributeClass.AllInterfaces.Any(e=>e.ToDisplayString() == "Microsoft.AspNetCore.Mvc.ModelBinding.IModelNameProvider"))
+                {
+                    if (attributeData.NamedArguments != null && attributeData.NamedArguments.Any(f => f.Key == "Name"))
+                    {
+                        return true;
+                    }
+                } 
+            }
+        }
+        return false;
+    }
+
+    private static ITypeSymbol getReplacedType(SemanticModel model, IParameterSymbol t)
+    {
+        if (t.GetAttributes() is {Length: > 0} attr)
+        {
+            foreach (var attributeData in attr)
+            {
+                if (attributeData.AttributeClass.AllInterfaces.Any(e=>e.ToDisplayString() == "Microsoft.AspNetCore.Mvc.ModelBinding.IModelNameProvider"))
+                {
+                    if (attributeData.NamedArguments != null && attributeData.NamedArguments.Any(f => f.Key == "Name"))
+                    {
+                        var type= attributeData.NamedArguments.FirstOrDefault(e => e.Key == "Name").Value.Value.ToString();
+
+                        return model.Compilation.GetTypeByMetadataName(type);
+                    }
+                } 
+            }
+        }
+
+        return t.Type;
     }
 
     private static string getParameterName(IParameterSymbol t)
@@ -225,8 +255,7 @@ public static class Scanner
         return route;
     }
 
-    public static bool IsController(INamedTypeSymbol classDeclaration)
-        => InheritsFrom(classDeclaration, "Microsoft.AspNetCore.Mvc.ControllerBase");
+    public static bool IsController(INamedTypeSymbol classDeclaration) => InheritsFrom(classDeclaration, "Microsoft.AspNetCore.Mvc.ControllerBase");
 
     private static bool InheritsFrom(INamedTypeSymbol classDeclaration, string qualifiedBaseTypeName)
     {

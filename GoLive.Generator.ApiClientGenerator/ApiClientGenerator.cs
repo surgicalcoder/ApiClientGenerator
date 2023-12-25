@@ -18,27 +18,28 @@ public class ApiClientGenerator : IIncrementalGenerator
 {
     private const string TASK_FQ = "global::System.Threading.Tasks.Task";
         
-    public void Initialize(IncrementalGeneratorInitializationContext context) {
+    public void Initialize(IncrementalGeneratorInitializationContext context) 
+    {
         IncrementalValuesProvider<ControllerRoute> controllerDeclarations = context.SyntaxProvider
             .CreateSyntaxProvider(
                 predicate: static (s, _) => Scanner.CanBeController(s), 
                 transform: static (ctx, _) => GetControllerDeclarations(ctx))
-            .Where(static c => c is not null)
-            .Select(static (c, _) => Scanner.ConvertToRoute(c));
+            .Where(static c => c != default)
+            .Select(static (c, _) => Scanner.ConvertToRoute(c.SemanticModel, c.symbol));
 
         var configFiles = context.AdditionalTextsProvider.Where(IsConfigurationFile);
+        
         var controllersAndConfig = controllerDeclarations.Collect().Combine(configFiles.Collect());
-        context.RegisterSourceOutput(controllersAndConfig, 
-            static (spc, source) => Execute(source.Left, source.Right, spc));
+        context.RegisterSourceOutput(controllersAndConfig, static (spc, source) => Execute(source.Left, source.Right, spc));
     }
 
-    private static INamedTypeSymbol GetControllerDeclarations(GeneratorSyntaxContext context)
+    private static (INamedTypeSymbol symbol, SemanticModel SemanticModel) GetControllerDeclarations(GeneratorSyntaxContext context)
     {
         // we know the node is a ClassDeclarationSyntax thanks to CanBeController
         var classDeclarationSyntax = (ClassDeclarationSyntax)context.Node;
 
         var symbol = context.SemanticModel.GetDeclaredSymbol(classDeclarationSyntax);
-        return symbol is not null && Scanner.IsController(symbol) ? symbol : null;
+        return symbol is not null && Scanner.IsController(symbol) ? (symbol, context.SemanticModel) : default;
     }
 
     private static bool IsConfigurationFile(AdditionalText text)
@@ -211,6 +212,16 @@ public class ApiClientGenerator : IIncrementalGenerator
                             parameter.FullTypeName = tt.DestinationType;
                         }
                     }
+
+                    foreach (var (key, parameter) in action.Body)
+                    {
+                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase)) is {} tt 
+                            && (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes?.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute) ) )  )
+                        {
+                            //var destinationType = model.Compilation.GetTypeByMetadataName(tt.DestinationType);
+                            parameter.FullTypeName = tt.DestinationType;
+                        }
+                    }
                 }
                 
             }
@@ -327,7 +338,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             source.AppendLine("queryString ??= new();");
                 
-            if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)  ))
+            if (action.Mapping.Any(f => !string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase) && !routeParameters.Contains(f.Key, StringComparer.InvariantCultureIgnoreCase)))
             {
                 foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
@@ -355,7 +366,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent, cancellationToken: _token);";
             }
-            else if (action.Body != null && action.Body.Count > 0 && action.Body.FirstOrDefault() is { Key: var key })
+            else if (action.Body is { Count: > 0 } && action.Body.FirstOrDefault() is { Key: var key } && !string.Equals(key, "id", StringComparison.InvariantCultureIgnoreCase))
             {
                 if (string.IsNullOrWhiteSpace(useCustomFormatter))
                 {
