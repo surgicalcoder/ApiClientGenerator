@@ -306,7 +306,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             queryString ??= new();
             await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}", queryString), cancellationToken: _token);
         }
-        public string TestModelBinderDifferentNameUnderId_Url (Dictionary<string, string?> queryString = default)
+        public string TestModelBinderDifferentNameUnderId_Url (System.String Id , Dictionary<string, string?> queryString = default)
         {
             queryString ??= new();
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}", queryString), queryString);

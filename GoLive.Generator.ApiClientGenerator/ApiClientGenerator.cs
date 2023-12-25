@@ -338,6 +338,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             source.AppendLine("queryString ??= new();");
                 
+            // TODO do something with actual route parameters here
             if (action.Mapping.Any(f => !string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase) && !routeParameters.Contains(f.Key, StringComparer.InvariantCultureIgnoreCase)))
             {
                 foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
@@ -473,11 +474,11 @@ public class ApiClientGenerator : IIncrementalGenerator
             if (config.OutputUrls)
             {
                 List<string> secondParamList = new();
-                if (action.Mapping.Any(f => action.Body?.FirstOrDefault()?.Key != f.Key))
+                if (action.Mapping.Any(f => string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) || !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    secondParamList.AddRange(action.Mapping.Where(f => action.Body?.FirstOrDefault()?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                    secondParamList.AddRange(action.Mapping.Where(f => string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) ||  action.Body?.FirstOrDefault()?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                 }
-
+// TODO need to do something with all route values not just ID
                 if (secondParamList.Any())
                 {
                     source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)}, Dictionary<string, string?> queryString = default)");
