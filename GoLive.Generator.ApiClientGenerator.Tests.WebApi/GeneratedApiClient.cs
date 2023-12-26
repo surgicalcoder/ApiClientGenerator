@@ -492,7 +492,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), queryString);
         }
 
-        public async Task TestModelBinderDifferentName(string OtherName , Dictionary<string, string?> queryString = default, CancellationToken _token = default )
+        public async Task TestModelBinderDifferentName(System.String OtherName , Dictionary<string, string?> queryString = default, CancellationToken _token = default )
         {
             queryString ??= new();
             if (!string.IsNullOrWhiteSpace(OtherName) && !queryString.ContainsKey("OtherName") )
@@ -501,7 +501,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             await _client.PostAsJsonAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/WeatherForecast/", queryString), new {}, cancellationToken: _token);
         }
-        public string TestModelBinderDifferentName_Url (string OtherName , Dictionary<string, string?> queryString = default)
+        public string TestModelBinderDifferentName_Url (System.String OtherName , Dictionary<string, string?> queryString = default)
         {
             queryString ??= new();
             if (!string.IsNullOrWhiteSpace(OtherName) && !queryString.ContainsKey("OtherName") )

@@ -206,7 +206,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     foreach (var (key, parameter) in action.Mapping)
                     {
-                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase)) is {} tt 
+                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || r.SourceType == "*" ) is {} tt 
                             && (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute) ) )  )
                         {
                             parameter.FullTypeName = tt.DestinationType;
@@ -215,10 +215,9 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                     foreach (var (key, parameter) in action.Body)
                     {
-                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase)) is {} tt 
+                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || r.SourceType == "*") is {} tt 
                             && (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes?.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute) ) )  )
                         {
-                            //var destinationType = model.Compilation.GetTypeByMetadataName(tt.DestinationType);
                             parameter.FullTypeName = tt.DestinationType;
                         }
                     }
@@ -343,7 +342,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
-                    if (parameterMapping.Parameter.FullTypeName == "string")
+                    if (parameterMapping.Parameter.FullTypeName is "string" or "System.String") // TODO
                     {
                         source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                     }
@@ -495,7 +494,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
-                        if (parameterMapping.Parameter.FullTypeName == "string")
+                        if (parameterMapping.Parameter.FullTypeName is "string" or "System.String") // TODO
                         {
                             source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
                         }
