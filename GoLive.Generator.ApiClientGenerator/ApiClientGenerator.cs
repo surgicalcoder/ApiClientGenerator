@@ -66,6 +66,11 @@ public class ApiClientGenerator : IIncrementalGenerator
         source.AppendLine("using System.Diagnostics.CodeAnalysis;");
         source.AppendLine("using System.Text.Json.Serialization.Metadata;");
 
+        if (config.OutputJSONSourceGenerator)
+        {
+            source.AppendLine("using System.Text.Json.Serialization;");
+        }
+
         if (config.UseResponseWrapper)
         {
             source.AppendLine("using System.Net;");
@@ -100,6 +105,32 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
 
         source.AppendCloseCurlyBracketLine();
+
+        if (config.OutputJSONSourceGenerator)
+        {
+            List<string> ignoreTypesList =
+            [
+                "global::System.Threading.Tasks.Task"
+            ];
+            
+            source.AppendLine("// JSON Source Generator");
+            
+            source.AppendLine("[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]");
+
+            var returnTypes = orderedControllerRoutes.SelectMany(e => e.Actions.Select(f => f.ReturnTypeName)).Distinct()
+                .Where(r=>!string.IsNullOrWhiteSpace(r) && r.StartsWith("global::") ).Except(ignoreTypesList);
+            
+            foreach (var returnType in returnTypes)
+            {
+                source.AppendLine($"[JsonSerializable(typeof({returnType}))]");
+            }
+            
+            source.AppendLine("public partial class ApiJsonSerializerContext : JsonSerializerContext");
+            source.AppendOpenCurlyBracketLine();
+            source.AppendCloseCurlyBracketLine();
+            
+            source.AppendLine("// JSON Source Generator");
+        }
 
         if (config.PostAppendLines is { Count: > 0 })
         {
@@ -325,15 +356,25 @@ public class ApiClientGenerator : IIncrementalGenerator
                 false when action.ReturnTypeName is null or TASK_FQ => "Task",
                 false => $"Task<{nullableReturnType}>"
             };
+            
+            bool appendJsonTypeInfoMethodParameter = (action.ReturnTypeName != null && action.ReturnTypeName != TASK_FQ && !byteReturnType);
                 
-            string jsonTypeInfoMethodParameter = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
-            string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
+            string jsonTypeInfoMethodParameter = appendJsonTypeInfoMethodParameter ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
+            string jsonTypeInfoMethodAppend = appendJsonTypeInfoMethodParameter ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
             source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
                 ? $"public async {returnType} {action.Name}(Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
                 : $"public async {returnType} {action.Name}({parameterList}, Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})");
 
             source.AppendOpenCurlyBracketLine();
+
+            if (config.OutputJSONSourceGenerator && appendJsonTypeInfoMethodParameter)
+            {
+                source.AppendLine("if (_typeInfo == default)");
+                source.AppendOpenCurlyBracketLine();
+                source.AppendLine($"_typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof({action.ReturnTypeName})) as JsonTypeInfo<{action.ReturnTypeName}>;");
+                source.AppendCloseCurlyBracketLine();
+            }
 
             source.AppendLine("queryString ??= new();");
                 

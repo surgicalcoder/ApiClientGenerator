@@ -21,6 +21,8 @@ public class RouteGeneratorSettings
 
     public bool UseResponseWrapper { get; set; }
 
+    public bool OutputJSONSourceGenerator { get; set; }
+    
     public bool OutputUrls { get; set; }
     public string OutputUrlsPrefix { get; set; }
     public string OutputUrlsPostfix { get; set; }

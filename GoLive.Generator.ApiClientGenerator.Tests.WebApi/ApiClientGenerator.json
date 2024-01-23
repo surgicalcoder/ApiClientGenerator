@@ -19,6 +19,7 @@
   "UseResponseWrapper" : false,
   "OutputUrls": true,
   "OutputUrlsPostfix": "_Url",
+  "OutputJSONSourceGenerator": true,
   "Properties":{
     "IgnoreGenericTypes" : [
       "System.Collections.Generic.List<T>"
