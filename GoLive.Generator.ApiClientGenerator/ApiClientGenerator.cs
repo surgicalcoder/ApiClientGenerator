@@ -115,7 +115,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             
             source.AppendLine("// JSON Source Generator");
             
-            source.AppendLine("[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]");
+            source.AppendLine("[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase, AllowTrailingCommas = true)]"); // TODO move this out to config at one point
 
             var returnTypes = orderedControllerRoutes.SelectMany(e => e.Actions.Select(f => f.ReturnTypeName)).Distinct()
                 .Where(r=>!string.IsNullOrWhiteSpace(r) && r.StartsWith("global::") ).Except(ignoreTypesList);
@@ -357,18 +357,16 @@ public class ApiClientGenerator : IIncrementalGenerator
                 false => $"Task<{nullableReturnType}>"
             };
             
-            bool appendJsonTypeInfoMethodParameter = (action.ReturnTypeName != null && action.ReturnTypeName != TASK_FQ && !byteReturnType);
-                
-            string jsonTypeInfoMethodParameter = appendJsonTypeInfoMethodParameter ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
-            string jsonTypeInfoMethodAppend = appendJsonTypeInfoMethodParameter ? string.Empty : $", jsonTypeInfo: _typeInfo";
+            string jsonTypeInfoMethodParameter = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
+            string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
             source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
                 ? $"public async {returnType} {action.Name}(Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
                 : $"public async {returnType} {action.Name}({parameterList}, Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})");
 
             source.AppendOpenCurlyBracketLine();
-
-            if (config.OutputJSONSourceGenerator && appendJsonTypeInfoMethodParameter)
+            
+            if (config.OutputJSONSourceGenerator && (!string.IsNullOrWhiteSpace(action.ReturnTypeName) && action.ReturnTypeName != TASK_FQ && !byteReturnType))
             {
                 source.AppendLine("if (_typeInfo == default)");
                 source.AppendOpenCurlyBracketLine();
