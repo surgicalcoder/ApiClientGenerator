@@ -20,6 +20,12 @@
   "OutputUrls": true,
   "OutputUrlsPostfix": "_Url",
   "OutputJSONSourceGenerator": true,
+  "JSONSourceGeneratorSettings":{
+    "Converters": [
+      "abc",
+      "def"
+    ]
+  },
   "Properties":{
     "IgnoreGenericTypes" : [
       "System.Collections.Generic.List<T>"

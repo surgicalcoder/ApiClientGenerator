@@ -22,12 +22,22 @@ public class RouteGeneratorSettings
     public bool UseResponseWrapper { get; set; }
 
     public bool OutputJSONSourceGenerator { get; set; }
+
+    public RouteGeneratorSettings_JSONSourceGeneratorSettings JSONSourceGeneratorSettings { get; set; } = new();
     
     public bool OutputUrls { get; set; }
     public string OutputUrlsPrefix { get; set; }
     public string OutputUrlsPostfix { get; set; }
 
     public RouteGeneratorSettings_Properties Properties { get; set; } = new();
+}
+
+public class RouteGeneratorSettings_JSONSourceGeneratorSettings
+{
+    public string[] Converters { get; set; } = [];
+    public string PropertyNamingPolicy { get; set; } = "JsonKnownNamingPolicy.CamelCase";
+    public bool AllowTrailingCommas { get; set; } = true;
+    public string[] AdditionalOptions { get; set; } = [];
 }
 
 public class RouteGeneratorSettings_Properties

@@ -781,13 +781,37 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             queryString ??= new();
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/YetAnother/YetAnotherTest/{Id}", queryString), queryString);
         }
+
+        public async Task<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest?> JSONDynamicTestDynamic(Dictionary<string, string?> queryString = default, CancellationToken _token = default , JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>;
+            }
+            queryString ??= new();
+            using var result = await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/YetAnother/JSONDynamicTestDynamic", queryString), cancellationToken: _token);
+            if (_typeInfo != default)
+            {
+                return await result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>(cancellationToken: _token , jsonTypeInfo: _typeInfo);
+            }
+            else
+            {
+                return await result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>(cancellationToken: _token);
+            }
+        }
+        public string JSONDynamicTestDynamic_Url (Dictionary<string, string?> queryString = default)
+        {
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/YetAnother/JSONDynamicTestDynamic", queryString), queryString);
+        }
     }
 }
 // JSON Source Generator
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase)]
+[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,AllowTrailingCommas = true,Converters = new[]{ typeof(abc),typeof(def) })]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<string>))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>))]
 [JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast))]
+[JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest))]
 public partial class ApiJsonSerializerContext : JsonSerializerContext
 {
 }

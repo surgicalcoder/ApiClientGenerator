@@ -115,7 +115,38 @@ public class ApiClientGenerator : IIncrementalGenerator
             
             source.AppendLine("// JSON Source Generator");
             
-            source.AppendLine("[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase, AllowTrailingCommas = true)]"); // TODO move this out to config at one point
+            source.Append("[JsonSourceGenerationOptions(");
+
+            if (config.JSONSourceGeneratorSettings != null)
+            {
+                Dictionary<string, string> jsonGenOptions = new();
+                
+                if (!string.IsNullOrWhiteSpace(config.JSONSourceGeneratorSettings.PropertyNamingPolicy))
+                {
+                    jsonGenOptions.Add("PropertyNamingPolicy",config.JSONSourceGeneratorSettings.PropertyNamingPolicy );
+                }
+
+                if (config.JSONSourceGeneratorSettings.AllowTrailingCommas)
+                {
+                    jsonGenOptions.Add("AllowTrailingCommas", "true");
+                }
+
+                if (config.JSONSourceGeneratorSettings.Converters is { Length: > 0 })
+                {
+                    var valsToUse = config.JSONSourceGeneratorSettings.Converters.Select(r => $"typeof({r})");
+                    jsonGenOptions.Add("Converters", $"new[]{{ {string.Join(",", valsToUse)} }}");
+                }
+                
+                source.Append(string.Join(",", jsonGenOptions.Select(r=> $"{r.Key} = {r.Value}" ) ));
+                
+                if (config.JSONSourceGeneratorSettings.AdditionalOptions is { Length: > 0 })
+                {
+                    source.Append(", ");
+                    source.Append(string.Join(", ", config.JSONSourceGeneratorSettings.AdditionalOptions));
+                }
+            }
+            
+            source.Append(")]\n");
 
             var returnTypes = orderedControllerRoutes.SelectMany(e => e.Actions.Select(f => f.ReturnTypeName)).Distinct()
                 .Where(r=>!string.IsNullOrWhiteSpace(r) && r.StartsWith("global::") ).Except(ignoreTypesList);
