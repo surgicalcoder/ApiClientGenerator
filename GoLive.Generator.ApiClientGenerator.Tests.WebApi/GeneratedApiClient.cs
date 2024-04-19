@@ -352,6 +352,17 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             queryString ??= new();
             return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}", queryString), queryString);
         }
+
+        public async Task TestModelBinderDifferentNameUnderId3(System.String Id , Dictionary<string, string?> queryString = default, CancellationToken _token = default )
+        {
+            queryString ??= new();
+            await _client.GetAsync(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}", queryString), cancellationToken: _token);
+        }
+        public string TestModelBinderDifferentNameUnderId3_Url (System.String Id , Dictionary<string, string?> queryString = default)
+        {
+            queryString ??= new();
+            return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString($"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}", queryString), queryString);
+        }
     }
 
     public class UserClient
@@ -807,7 +818,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
     }
 }
 // JSON Source Generator
-[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,AllowTrailingCommas = true,Converters = new[]{ typeof(abc),typeof(def) })]
+[JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,AllowTrailingCommas = true)]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<string>))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>))]
 [JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast))]

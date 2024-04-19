@@ -39,6 +39,12 @@ public class NonApiController : ControllerBase
       {
             return Ok();
       }
+      
+      [HttpGet]
+      public async Task<ActionResult> TestModelBinderDifferentNameUnderId3([CustomAttributeModelBinder3(Name = "Id")]TestModel input)
+      {
+            return Ok();
+      }
 }
 
 public class TestModel

@@ -22,8 +22,7 @@
   "OutputJSONSourceGenerator": true,
   "JSONSourceGeneratorSettings":{
     "Converters": [
-      "abc",
-      "def"
+      
     ]
   },
   "Properties":{
@@ -41,6 +40,11 @@
         "SourceType": "*",
         "DestinationType" : "System.String",
         "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+      },
+      {
+        "SourceType": "*",
+        "DestinationType" : "System.String",
+        "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
       }
     ]
   }

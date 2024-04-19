@@ -268,8 +268,10 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     foreach (var (key, parameter) in action.Mapping)
                     {
-                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || r.SourceType == "*" ) is {} tt 
-                            && (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute) ) )  )
+                        if (config.Properties.TransformType.FirstOrDefault(tt =>
+                                (string.Equals(tt.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || tt.SourceType == "*") &&
+                                (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute)))) is {} tt)
+
                         {
                             parameter.FullTypeName = tt.DestinationType;
                         }
@@ -277,8 +279,9 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                     foreach (var (key, parameter) in action.Body)
                     {
-                        if (config.Properties.TransformType.FirstOrDefault(r=> string.Equals(r.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || r.SourceType == "*") is {} tt 
-                            && (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes?.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute) ) )  )
+                        if (config.Properties.TransformType.FirstOrDefault(tt =>
+                                (string.Equals(tt.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || tt.SourceType == "*") &&
+                                (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes?.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute)))) is {} tt)
                         {
                             parameter.FullTypeName = tt.DestinationType;
                         }

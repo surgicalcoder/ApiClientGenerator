@@ -26,3 +26,10 @@ public class CustomAttributeModelBinder2Attribute : Attribute, IModelNameProvide
     public BindingSource? BindingSource { get; set; }
     public Type? BinderType { get; set; }
 }
+
+public class CustomAttributeModelBinder3Attribute : Attribute, IModelNameProvider, IBinderTypeProviderMetadata
+{
+    public string? Name { get; set; }
+    public BindingSource? BindingSource { get; set; }
+    public Type? BinderType { get; set; }
+}
