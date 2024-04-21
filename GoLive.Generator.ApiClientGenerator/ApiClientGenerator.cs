@@ -506,21 +506,23 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                         source.AppendMultipleLines($"""
                                                     if (_typeInfo != default)
-                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, await ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));
                                                     else
-                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, await ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));
                                                     """);
                     }
                     else
                     {
                         source.AppendLine("if (_typeInfo != default)");
-                        source.AppendOpenCurlyBracketLine();
-                        source.AppendLine($"return await {readValue};");
-                        source.AppendCloseCurlyBracketLine();
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine($"return await {readValue};");
+                        }
                         source.AppendLine("else");
-                        source.AppendOpenCurlyBracketLine();
-                        source.AppendLine($"return await {readValueWithoutJsonTypeInformation};");
-                        source.AppendCloseCurlyBracketLine();
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine($"return await {readValueWithoutJsonTypeInformation};");
+                        }
                     }
                 }
                 else
@@ -531,7 +533,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                     return new Response<{action.ReturnTypeName}>(
                                                         result.StatusCode,
                                                         result.Headers,
-                                                        await ({readValue}
+                                                        ({readValue}
                                                                 ?? Task.FromResult<{nullableReturnType}>(default)));
                                                     """);
                     }
@@ -746,7 +748,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                 if (config.ResponseWrapper.ExtractHeaders.Count > 0)
                 {
-                    source.AppendLine("public Response(HttpStatusCode statusCode, HttpResponseHeaders headers, T? data) : base(statusCode, headers)");
+                    source.AppendLine("public Response(HttpStatusCode statusCode, HttpResponseHeaders headers, Task<T?> data) : base(statusCode, headers)");
                     using (source.CreateBracket())
                     {
                         source.AppendLine("Data = data;");
@@ -760,7 +762,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
                 else
                 {
-                    source.AppendLine("public Response(HttpStatusCode statusCode, T? data) : base(statusCode)");
+                    source.AppendLine("public Response(HttpStatusCode statusCode, Task<T?> data) : base(statusCode)");
                     using (source.CreateBracket())
                     {
                         source.AppendLine("Data = data;");
@@ -768,12 +770,12 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
 
                 source.AppendMultipleLines("""
-                                           public T? Data { get; }
+                                           public Task<T?> Data { get; }
 
-                                           public T SuccessData => Success ? Data ?? throw new  EmptyBodyException((int)StatusCode, Headers)
+                                           public Task<T> SuccessData => Success ? Data ?? throw new  EmptyBodyException((int)StatusCode, Headers)
                                                                            : throw new UnsuccessfulException((int)StatusCode, Headers);
                                            """);
-                source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out T? data)");
+                source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out Task<T?> data)");
 
                 using (source.CreateBracket())
                 {
