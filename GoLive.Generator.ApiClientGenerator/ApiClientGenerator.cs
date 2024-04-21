@@ -635,6 +635,36 @@ public class ApiClientGenerator : IIncrementalGenerator
             
         if (config.ResponseWrapper.Enabled)
         {
+            source.AppendLine("public class EmptyBodyException : ApplicationException");
+
+            using (source.CreateBracket())
+            {
+                source.AppendLine("public EmptyBodyException(int statusCode, HttpResponseHeaders headers)");
+
+                using (source.CreateBracket())
+                {
+                    source.AppendLine("StatusCode = statusCode;");
+                    source.AppendLine("Headers = headers;");
+                }
+                
+                source.AppendLine("public int StatusCode { get; set; }");
+                source.AppendLine("public HttpResponseHeaders Headers { get; set; }");
+            }
+            
+            source.AppendLine("public class UnsuccessfulException : ApplicationException");
+            using (source.CreateBracket())
+            {
+                source.AppendLine("public UnsuccessfulException(int statusCode, HttpResponseHeaders headers)");
+
+                using (source.CreateBracket())
+                {
+                    source.AppendLine("StatusCode = statusCode;");
+                    source.AppendLine("Headers = headers;");
+                }
+                
+                source.AppendLine("public int StatusCode { get; set; }");
+                source.AppendLine("public HttpResponseHeaders Headers { get; set; }");
+            }
             
             source.AppendLine("public class Response");
 
@@ -702,7 +732,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     foreach (var header in config.ResponseWrapper.ExtractHeaders)
                     {
-                        source.AppendLine($"public IEnumerable<string> {header.Key} {{get; set; }}");
+                        source.AppendLine($"public IEnumerable<string> {header.Key} {{get; set; }} = [];");
                     }
                 }
                 
@@ -740,8 +770,8 @@ public class ApiClientGenerator : IIncrementalGenerator
                 source.AppendMultipleLines("""
                                            public T? Data { get; }
 
-                                           public T SuccessData => Success ? Data ?? throw new NullReferenceException("Response had an empty body!")
-                                                                           : throw new InvalidOperationException("Request was not successful!");
+                                           public T SuccessData => Success ? Data ?? throw new  EmptyBodyException((int)StatusCode, Headers)
+                                                                           : throw new UnsuccessfulException((int)StatusCode, Headers);
                                            """);
                 source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out T? data)");
 

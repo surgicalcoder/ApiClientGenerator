@@ -38,6 +38,26 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public YetAnotherClient YetAnother { get; }
     }
+    public class EmptyBodyException : ApplicationException
+    {
+        public EmptyBodyException(int statusCode, HttpResponseHeaders headers)
+        {
+            StatusCode = statusCode;
+            Headers = headers;
+        }
+        public int StatusCode { get; set; }
+        public HttpResponseHeaders Headers { get; set; }
+    }
+    public class UnsuccessfulException : ApplicationException
+    {
+        public UnsuccessfulException(int statusCode, HttpResponseHeaders headers)
+        {
+            StatusCode = statusCode;
+            Headers = headers;
+        }
+        public int StatusCode { get; set; }
+        public HttpResponseHeaders Headers { get; set; }
+    }
     public class Response
     {
         public HttpResponseHeaders Headers {get; set;}
@@ -67,7 +87,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public HttpStatusCode StatusCode { get; }
         public bool Success => ((int)StatusCode >= 200) && ((int)StatusCode <= 299);
-        public IEnumerable<string> CorrelationId {get; set; }
+        public IEnumerable<string> CorrelationId {get; set; } = [];
     }
     public class Response<T> : Response
     {
@@ -83,8 +103,8 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public T? Data { get; }
         
-        public T SuccessData => Success ? Data ?? throw new NullReferenceException("Response had an empty body!")
-                                        : throw new InvalidOperationException("Request was not successful!");
+        public T SuccessData => Success ? Data ?? throw new  EmptyBodyException((int)StatusCode, Headers)
+                                        : throw new UnsuccessfulException((int)StatusCode, Headers);
         public bool TryGetSuccessData([NotNullWhen(true)] out T? data)
         {
             data = Data;
