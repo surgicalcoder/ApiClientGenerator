@@ -65,6 +65,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         source.AppendLine("using System.Threading;");
         source.AppendLine("using System.Diagnostics.CodeAnalysis;");
         source.AppendLine("using System.Text.Json.Serialization.Metadata;");
+        source.AppendLine("using Microsoft.Extensions.Primitives;");
 
         if (config.OutputJSONSourceGenerator)
         {
@@ -340,7 +341,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                 routeValue = $"{config.PrefixUrl}{routeValue}";
             }
                 
-            var routeString = $"$\"{routeValue}\"";
+            var routeString = $"$\"{routeValue}{{queryString}}\"";
 
             if (config.HideUrlsRegex is { Count: > 0 })
             {
@@ -396,41 +397,31 @@ public class ApiClientGenerator : IIncrementalGenerator
             string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
             source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
-                ? $"public async {returnType} {action.Name}(Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
-                : $"public async {returnType} {action.Name}({parameterList}, Dictionary<string, string?> queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})");
+                ? $"public async {returnType} {action.Name}(QueryString queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
+                : $"public async {returnType} {action.Name}({parameterList}, QueryString queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})");
 
             source.AppendOpenCurlyBracketLine();
             
             if (config.OutputJSONSourceGenerator && (!string.IsNullOrWhiteSpace(action.ReturnTypeName) && action.ReturnTypeName != TASK_FQ && !byteReturnType))
             {
                 source.AppendLine("if (_typeInfo == default)");
-                source.AppendOpenCurlyBracketLine();
-                source.AppendLine($"_typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof({action.ReturnTypeName})) as JsonTypeInfo<{action.ReturnTypeName}>;");
-                source.AppendCloseCurlyBracketLine();
-            }
 
-            source.AppendLine("queryString ??= new();");
+                using (source.CreateBracket())
+                {
+                    source.AppendLine($"_typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof({action.ReturnTypeName})) as JsonTypeInfo<{action.ReturnTypeName}>;");
+                }
+            }
                 
             // TODO do something with actual route parameters here
             if (action.Mapping.Any(f => !string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase) && !routeParameters.Contains(f.Key, StringComparer.InvariantCultureIgnoreCase)))
             {
                 foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
-                    if (parameterMapping.Parameter.FullTypeName is "string" or "System.String") // TODO
-                    {
-                        source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
-                    }
-                    else
-                    {
-                        source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
-                    }
-
-                    source.AppendOpenCurlyBracketLine();
-                    source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
-                    source.AppendCloseCurlyBracketLine();
+                    source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
                 }
             }
-            routeString = $"Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString)";
+            
+            routeString = $"{routeString}";
 
             var methodString = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(action.Method.Method.ToLower());
 
@@ -503,13 +494,17 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     if (config.ResponseWrapper.Enabled)
                     {
+                        source.AppendLine("if (_typeInfo != default)");
 
-                        source.AppendMultipleLines($"""
-                                                    if (_typeInfo != default)
-                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));
-                                                    else
-                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));
-                                                    """);
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));");
+                        }
+                        source.AppendLine("else");
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));");
+                        }
                     }
                     else
                     {
@@ -557,36 +552,25 @@ public class ApiClientGenerator : IIncrementalGenerator
 // TODO need to do something with all route values not just ID
                 if (secondParamList.Any())
                 {
-                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)}, Dictionary<string, string?> queryString = default)");
+                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)}, QueryString queryString = default)");
                 }
                 else
                 {
-                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (Dictionary<string, string?> queryString = default)");
+                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (QueryString queryString = default)");
                 }
                 source.AppendOpenCurlyBracketLine();
                     
-                source.AppendLine("queryString ??= new();");
+                
                     
                 if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
                     foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                     {
-                        if (parameterMapping.Parameter.FullTypeName is "string" or "System.String") // TODO
-                        {
-                            source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}) && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
-                        }
-                        else
-                        {
-                            source.AppendLine($"if ({parameterMapping.Key} != default && !queryString.ContainsKey(\"{parameterMapping.Key}\") )"); // TODO need to fix to allow multiple keys with same value as allowed in http querystring
-                        }
-
-                        source.AppendOpenCurlyBracketLine();
                         source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
-                        source.AppendCloseCurlyBracketLine();
                     }
                 }
                     
-                source.AppendLine($"return Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString({routeString}, queryString);");
+                source.AppendLine($"return {routeString};");
                     
                 source.AppendCloseCurlyBracketLine();
             }
