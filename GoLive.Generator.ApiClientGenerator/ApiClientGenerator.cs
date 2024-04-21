@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -385,7 +385,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             string returnType = config.UseResponseWrapper switch
             {
-                true when action.ReturnTypeName is null => "Task<Response>",
+                true when action.ReturnTypeName is null or TASK_FQ => "Task<Response>",
                 true => $"Task<Response<{action.ReturnTypeName}>>",
                 false when action.ReturnTypeName is null or TASK_FQ => "Task",
                 false => $"Task<{nullableReturnType}>"
