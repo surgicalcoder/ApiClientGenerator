@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -71,9 +71,10 @@ public class ApiClientGenerator : IIncrementalGenerator
             source.AppendLine("using System.Text.Json.Serialization;");
         }
 
-        if (config.UseResponseWrapper)
+        if (config.ResponseWrapper.Enabled)
         {
             source.AppendLine("using System.Net;");
+            source.AppendLine("using System.Net.Http.Headers;");
         }
 
         if (config.Includes != null && config.Includes.Any())
@@ -383,14 +384,14 @@ public class ApiClientGenerator : IIncrementalGenerator
                 
                 
 
-            string returnType = config.UseResponseWrapper switch
+            string returnType = config.ResponseWrapper.Enabled switch
             {
                 true when action.ReturnTypeName is null or TASK_FQ => "Task<Response>",
                 true => $"Task<Response<{action.ReturnTypeName}>>",
                 false when action.ReturnTypeName is null or TASK_FQ => "Task",
                 false => $"Task<{nullableReturnType}>"
             };
-            
+
             string jsonTypeInfoMethodParameter = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
             string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
@@ -466,10 +467,10 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             if (action.ReturnTypeName is null or TASK_FQ)
             {
-                if (config.UseResponseWrapper)
+                if (config.ResponseWrapper.Enabled)
                 {
                     source.AppendLine($"using var result = {callStatement}");
-                    source.AppendLine($"return new Response(result.StatusCode);");
+                    source.AppendLine($"return new Response(result.StatusCode, result.Headers);");
                 }
                 else
                 {
@@ -500,14 +501,14 @@ public class ApiClientGenerator : IIncrementalGenerator
                     
                 if (!string.IsNullOrWhiteSpace(jsonTypeInfoMethodAppend))
                 {
-                    if (config.UseResponseWrapper)
+                    if (config.ResponseWrapper.Enabled)
                     {
 
                         source.AppendMultipleLines($"""
                                                     if (_typeInfo != default)
-                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode,await ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, await ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));
                                                     else
-                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode,await ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                        return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, await ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));
                                                     """);
                     }
                     else
@@ -524,11 +525,12 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
                 else
                 {
-                    if (config.UseResponseWrapper)
+                    if (config.ResponseWrapper.Enabled)
                     {
                         source.AppendMultipleLines($"""
                                                     return new Response<{action.ReturnTypeName}>(
                                                         result.StatusCode,
+                                                        result.Headers,
                                                         await ({readValue}
                                                                 ?? Task.FromResult<{nullableReturnType}>(default)));
                                                     """);
@@ -631,37 +633,124 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         source.AppendCloseCurlyBracketLine();
             
-        if (config.UseResponseWrapper)
+        if (config.ResponseWrapper.Enabled)
         {
+            
             source.AppendLine("public class Response");
-            source.AppendOpenCurlyBracketLine();
-            source.AppendLine("public Response() {}");
-            source.AppendLine("public Response(HttpStatusCode statusCode)");
-            source.AppendOpenCurlyBracketLine();
-            source.AppendLine("StatusCode = statusCode;");
-            source.AppendCloseCurlyBracketLine();
-            source.AppendLine("public HttpStatusCode StatusCode { get; }");
-            source.AppendLine("public bool Success => ((int)StatusCode >= 200) && ((int)StatusCode <= 299);");
-            source.AppendCloseCurlyBracketLine();
-            source.AppendLine("public class Response<T> : Response");
-            source.AppendOpenCurlyBracketLine();
-            source.AppendLine("public Response() {}");
-            source.AppendLine("public Response(HttpStatusCode statusCode, T? data) : base(statusCode)");
-            source.AppendOpenCurlyBracketLine();
-            source.AppendLine("Data = data;");
-            source.AppendCloseCurlyBracketLine();
-            source.AppendMultipleLines("""
-                                       public T? Data { get; }
 
-                                       public T SuccessData => Success ? Data ?? throw new NullReferenceException("Response had an empty body!")
-                                                                       : throw new InvalidOperationException("Request was not successful!");
-                                       """);
-            source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out T? data)");
-            source.AppendOpenCurlyBracketLine();
-            source.AppendLine("data = Data;");
-            source.AppendLine("return Success && data is not null;");
-            source.AppendCloseCurlyBracketLine();
-            source.AppendCloseCurlyBracketLine();
+            using (source.CreateBracket())
+            {
+
+                if (config.ResponseWrapper.ExtractHeaders.Count > 0)
+                {
+                    source.AppendLine("public HttpResponseHeaders Headers {get; set;}");
+                    source.AppendLine("public Response(HttpResponseHeaders headers)");
+
+                    using (source.CreateBracket())
+                    {
+                        source.AppendLine("this.Headers = headers;");
+                        source.AppendLine("if (headers != null)");
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine("_populateValuesFromHeaders();");
+                        }
+                    }
+                    
+                    source.AppendLine("public Response(HttpStatusCode statusCode, HttpResponseHeaders headers)");
+
+                    using (source.CreateBracket())
+                    {
+                        source.AppendLine("StatusCode = statusCode;");
+                        source.AppendLine("this.Headers = headers;");
+                        
+                        source.AppendLine("if (headers != null)");
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine("_populateValuesFromHeaders();");
+                        }
+                    }
+                    
+                    source.AppendLine("public void _populateValuesFromHeaders()");
+                    using (source.CreateBracket())
+                    {
+                        foreach (var header in config.ResponseWrapper.ExtractHeaders)
+                        {
+                            source.AppendLine($"if (Headers != null && Headers.Contains(\"{header.Value}\") )");
+
+                            using (source.CreateBracket())
+                            {
+                                source.AppendLine($"{header.Key} = Headers.GetValues(\"{header.Value}\");");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    source.AppendLine("public Response() {}");
+                    source.AppendLine("public Response(HttpStatusCode statusCode)");
+
+                    using (source.CreateBracket())
+                    {
+                        source.AppendLine("StatusCode = statusCode;");
+                    }
+                }
+                
+                source.AppendLine("public HttpStatusCode StatusCode { get; }");
+                source.AppendLine("public bool Success => ((int)StatusCode >= 200) && ((int)StatusCode <= 299);");
+                
+                if (config.ResponseWrapper.ExtractHeaders.Count > 0)
+                {
+                    foreach (var header in config.ResponseWrapper.ExtractHeaders)
+                    {
+                        source.AppendLine($"public IEnumerable<string> {header.Key} {{get; set; }}");
+                    }
+                }
+                
+            }
+
+            source.AppendLine("public class Response<T> : Response");
+
+            using (source.CreateBracket())
+            {
+                source.AppendLine("public Response(HttpResponseHeaders headers) : base(headers) {}");
+
+                if (config.ResponseWrapper.ExtractHeaders.Count > 0)
+                {
+                    source.AppendLine("public Response(HttpStatusCode statusCode, HttpResponseHeaders headers, T? data) : base(statusCode, headers)");
+                    using (source.CreateBracket())
+                    {
+                        source.AppendLine("Data = data;");
+                        source.AppendLine("this.Headers = headers;");
+                        source.AppendLine("if (headers != null)");
+                        using (source.CreateBracket())
+                        {
+                            source.AppendLine("_populateValuesFromHeaders();");
+                        }
+                    }
+                }
+                else
+                {
+                    source.AppendLine("public Response(HttpStatusCode statusCode, T? data) : base(statusCode)");
+                    using (source.CreateBracket())
+                    {
+                        source.AppendLine("Data = data;");
+                    }
+                }
+
+                source.AppendMultipleLines("""
+                                           public T? Data { get; }
+
+                                           public T SuccessData => Success ? Data ?? throw new NullReferenceException("Response had an empty body!")
+                                                                           : throw new InvalidOperationException("Request was not successful!");
+                                           """);
+                source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out T? data)");
+
+                using (source.CreateBracket())
+                {
+                    source.AppendLine("data = Data;");
+                    source.AppendLine("return Success && data is not null;");
+                }
+            }
         }
     }
 }

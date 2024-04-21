@@ -5,6 +5,20 @@ using Microsoft.CodeAnalysis.CSharp;
 
 namespace GoLive.Generator.ApiClientGenerator;
 
+public class SourceStringBuilderBracket : IDisposable
+{
+    private SourceStringBuilder builder;
+    public SourceStringBuilderBracket(SourceStringBuilder source)
+    {
+        builder = source;
+        builder.AppendOpenCurlyBracketLine();
+    }
+    public void Dispose()
+    {
+        builder.AppendCloseCurlyBracketLine();
+    }
+}
+
 public class SourceStringBuilder
 {
     private readonly string SingleIndent = new string(' ', 4);
@@ -15,6 +29,11 @@ public class SourceStringBuilder
     public SourceStringBuilder()
     {
         _stringBuilder = new StringBuilder();
+    }
+
+    public SourceStringBuilderBracket CreateBracket()
+    {
+        return new SourceStringBuilderBracket(this);
     }
 
     public void IncreaseIndent()

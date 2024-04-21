@@ -18,8 +18,9 @@ public class RouteGeneratorSettings
     public List<string> HideUrlsRegex { get; set; }
 
     public string PrefixUrl { get; set; }
+    public RouteGeneratorSettings_ResponseWrapperSettings ResponseWrapper { get; set; } = new();
 
-    public bool UseResponseWrapper { get; set; }
+    /*public bool UseResponseWrapper { get; set; }*/
 
     public bool OutputJSONSourceGenerator { get; set; }
 
@@ -30,6 +31,12 @@ public class RouteGeneratorSettings
     public string OutputUrlsPostfix { get; set; }
 
     public RouteGeneratorSettings_Properties Properties { get; set; } = new();
+}
+
+public class RouteGeneratorSettings_ResponseWrapperSettings
+{
+    public bool Enabled { get; set; }
+    public Dictionary<string, string> ExtractHeaders { get; set; } = new();
 }
 
 public class RouteGeneratorSettings_JSONSourceGeneratorSettings

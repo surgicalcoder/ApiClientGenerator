@@ -16,7 +16,12 @@
     "^_]*"
   ],
   "PrefixUrl" : "/api",
-  "UseResponseWrapper" : false,
+  "ResponseWrapper" :{
+    "Enabled": true,
+    "ExtractHeaders":{
+      "CorrelationId": "X-Correlation-Id"
+    }
+  },
   "OutputUrls": true,
   "OutputUrlsPostfix": "_Url",
   "OutputJSONSourceGenerator": true,
