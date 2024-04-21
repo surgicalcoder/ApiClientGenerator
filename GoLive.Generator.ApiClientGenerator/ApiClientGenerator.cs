@@ -59,6 +59,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
             
         source.AppendLine("using System.Net.Http;");
+        source.AppendLine("using System;");
         source.AppendLine("using System.Threading.Tasks;");
         source.AppendLine("using System.Net.Http.Json;");
         source.AppendLine("using System.Collections.Generic;");
@@ -66,6 +67,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         source.AppendLine("using System.Diagnostics.CodeAnalysis;");
         source.AppendLine("using System.Text.Json.Serialization.Metadata;");
         source.AppendLine("using Microsoft.Extensions.Primitives;");
+        source.AppendLine("using Microsoft.AspNetCore.Http;");
 
         if (config.OutputJSONSourceGenerator)
         {
@@ -498,12 +500,12 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                         using (source.CreateBracket())
                         {
-                            source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));");
+                            source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));"); // TODO store value for repeated use
                         }
                         source.AppendLine("else");
                         using (source.CreateBracket())
                         {
-                            source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));");
+                            source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));"); // TODO store value for repeated use
                         }
                     }
                     else

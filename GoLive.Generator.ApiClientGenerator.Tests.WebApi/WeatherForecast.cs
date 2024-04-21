@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi;

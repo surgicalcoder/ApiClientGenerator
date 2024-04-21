@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers;
