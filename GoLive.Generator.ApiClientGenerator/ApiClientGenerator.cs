@@ -419,7 +419,12 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
-                    source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
+                    source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
+
+                    using (source.CreateBracket())
+                    {
+                        source.AppendLine($"queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
+                    }
                 }
             }
             

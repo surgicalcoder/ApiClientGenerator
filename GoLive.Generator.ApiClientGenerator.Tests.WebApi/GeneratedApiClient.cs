@@ -126,7 +126,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default, CancellationToken _token = default )
         {
-            queryString.Add("Filter", Filter.ToString());
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                queryString.Add("Filter", Filter.ToString());
+            }
             using var result = await _client.GetAsync($"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -215,7 +218,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            queryString.Add("Id2", Id2.ToString());
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/InheritingTwo/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
             {
@@ -332,7 +338,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            queryString.Add("Id2", Id2.ToString());
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/InheritingUser2/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
             {
@@ -479,7 +488,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            queryString.Add("Id2", Id2.ToString());
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString.Add("Id2", Id2.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/User/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
             {
@@ -529,7 +541,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestIgnoreGenericParmaeter(string optionNotRemoved , QueryString queryString = default, CancellationToken _token = default )
         {
-            queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+            {
+                queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -541,7 +556,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestIgnoreNormalParameter(string optionNotRemoved , QueryString queryString = default, CancellationToken _token = default )
         {
-            queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+            {
+                queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -553,7 +571,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestIgnoreWithCustomAttribute(string optionNotRemoved , QueryString queryString = default, CancellationToken _token = default )
         {
-            queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+            {
+                queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -565,7 +586,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestModelBinderDifferentName(System.String OtherName , QueryString queryString = default, CancellationToken _token = default )
         {
-            queryString.Add("OtherName", OtherName.ToString());
+            if (!string.IsNullOrWhiteSpace(OtherName))
+            {
+                queryString.Add("OtherName", OtherName.ToString());
+            }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -638,7 +662,10 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> UrlWithParametersFromRoute2(string Input1 , string Input2 , string Input3 , QueryString queryString = default, CancellationToken _token = default )
         {
-            queryString.Add("Input3", Input3.ToString());
+            if (!string.IsNullOrWhiteSpace(Input3))
+            {
+                queryString.Add("Input3", Input3.ToString());
+            }
             using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
