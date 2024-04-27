@@ -40,6 +40,11 @@ public class UserController : Controller
     {
         return "Ignore me";
     }
+
+    public string GetUser4(int Id3)
+    {
+        return "ok";
+    }
     
 
     public class ComplexObjectExample

@@ -258,6 +258,32 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             return $"/InheritingTwo/{queryString}";
         }
+
+        public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (Id3 != default)
+            {
+                queryString.Add("Id3", Id3.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingTwo/{queryString}", cancellationToken: _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string GetUser4_Url (int Id3 , QueryString queryString = default)
+        {
+            queryString.Add("Id3", Id3.ToString());
+            return $"/InheritingTwo/{queryString}";
+        }
     }
 
     public class InheritingUser2Client
@@ -376,6 +402,32 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string OverrideTest_Url (string Id , QueryString queryString = default)
         {
+            return $"/InheritingUser2/{queryString}";
+        }
+
+        public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (Id3 != default)
+            {
+                queryString.Add("Id3", Id3.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingUser2/{queryString}", cancellationToken: _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string GetUser4_Url (int Id3 , QueryString queryString = default)
+        {
+            queryString.Add("Id3", Id3.ToString());
             return $"/InheritingUser2/{queryString}";
         }
     }
@@ -526,6 +578,32 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string OverrideTest_Url (string Id , QueryString queryString = default)
         {
+            return $"/User/{queryString}";
+        }
+
+        public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (Id3 != default)
+            {
+                queryString.Add("Id3", Id3.ToString());
+            }
+            using var result = await _client.GetAsync($"/User/{queryString}", cancellationToken: _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string GetUser4_Url (int Id3 , QueryString queryString = default)
+        {
+            queryString.Add("Id3", Id3.ToString());
             return $"/User/{queryString}";
         }
     }

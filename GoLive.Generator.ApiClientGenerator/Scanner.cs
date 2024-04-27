@@ -152,7 +152,8 @@ public static class Scanner
                             t.HasExplicitDefaultValue, 
                             t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
                             t.NullableAnnotation == NullableAnnotation.Annotated, 
-                            t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList()
+                            t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList(),
+                            t.Type.SpecialType
                             )); })
                     .ToArray();
                 
@@ -163,7 +164,8 @@ public static class Scanner
                         t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null, 
                         HasDefaultValue: t.HasExplicitDefaultValue, 
                         DefaultValue: t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
-                        Attributes: t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList()
+                        Attributes: t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList(),
+                        SpecialType: t.Type.SpecialType
                         )))
                     .ToList();
 
