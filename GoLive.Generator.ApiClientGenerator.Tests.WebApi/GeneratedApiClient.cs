@@ -128,14 +128,14 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             if (!string.IsNullOrWhiteSpace(Filter))
             {
-                queryString.Add("Filter", Filter.ToString());
+                queryString = queryString.Add("Filter", Filter.ToString());
             }
             using var result = await _client.GetAsync($"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string GetPagedApiTest_Url (int Page  = 1,string Filter  = null,int PageSize  = 20, QueryString queryString = default)
         {
-            queryString.Add("Filter", Filter.ToString());
+            queryString = queryString.Add("Filter", Filter.ToString());
             return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
         }
 
@@ -220,7 +220,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             if (!string.IsNullOrWhiteSpace(Id2))
             {
-                queryString.Add("Id2", Id2.ToString());
+                queryString = queryString.Add("Id2", Id2.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/InheritingTwo/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
@@ -234,7 +234,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser2_Url (string Id ,string Id2 , QueryString queryString = default)
         {
-            queryString.Add("Id2", Id2.ToString());
+            queryString = queryString.Add("Id2", Id2.ToString());
             return $"/InheritingTwo/{queryString}";
         }
 
@@ -267,7 +267,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             if (Id3 != default)
             {
-                queryString.Add("Id3", Id3.ToString());
+                queryString = queryString.Add("Id3", Id3.ToString());
             }
             using var result = await _client.GetAsync($"/InheritingTwo/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
@@ -281,7 +281,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser4_Url (int Id3 , QueryString queryString = default)
         {
-            queryString.Add("Id3", Id3.ToString());
+            queryString = queryString.Add("Id3", Id3.ToString());
             return $"/InheritingTwo/{queryString}";
         }
     }
@@ -366,7 +366,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             if (!string.IsNullOrWhiteSpace(Id2))
             {
-                queryString.Add("Id2", Id2.ToString());
+                queryString = queryString.Add("Id2", Id2.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/InheritingUser2/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
@@ -380,7 +380,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser2_Url (string Id ,string Id2 , QueryString queryString = default)
         {
-            queryString.Add("Id2", Id2.ToString());
+            queryString = queryString.Add("Id2", Id2.ToString());
             return $"/InheritingUser2/{queryString}";
         }
 
@@ -413,7 +413,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             if (Id3 != default)
             {
-                queryString.Add("Id3", Id3.ToString());
+                queryString = queryString.Add("Id3", Id3.ToString());
             }
             using var result = await _client.GetAsync($"/InheritingUser2/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
@@ -427,7 +427,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser4_Url (int Id3 , QueryString queryString = default)
         {
-            queryString.Add("Id3", Id3.ToString());
+            queryString = queryString.Add("Id3", Id3.ToString());
             return $"/InheritingUser2/{queryString}";
         }
     }
@@ -542,7 +542,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             if (!string.IsNullOrWhiteSpace(Id2))
             {
-                queryString.Add("Id2", Id2.ToString());
+                queryString = queryString.Add("Id2", Id2.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/User/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
@@ -556,7 +556,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser2_Url (string Id ,string Id2 , QueryString queryString = default)
         {
-            queryString.Add("Id2", Id2.ToString());
+            queryString = queryString.Add("Id2", Id2.ToString());
             return $"/User/{queryString}";
         }
 
@@ -589,7 +589,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             }
             if (Id3 != default)
             {
-                queryString.Add("Id3", Id3.ToString());
+                queryString = queryString.Add("Id3", Id3.ToString());
             }
             using var result = await _client.GetAsync($"/User/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
@@ -603,7 +603,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser4_Url (int Id3 , QueryString queryString = default)
         {
-            queryString.Add("Id3", Id3.ToString());
+            queryString = queryString.Add("Id3", Id3.ToString());
             return $"/User/{queryString}";
         }
     }
@@ -621,14 +621,14 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             if (!string.IsNullOrWhiteSpace(optionNotRemoved))
             {
-                queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+                queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestIgnoreGenericParmaeter_Url (string optionNotRemoved , QueryString queryString = default)
         {
-            queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
             return $"/WeatherForecast/{queryString}";
         }
 
@@ -636,14 +636,14 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             if (!string.IsNullOrWhiteSpace(optionNotRemoved))
             {
-                queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+                queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestIgnoreNormalParameter_Url (string optionNotRemoved , QueryString queryString = default)
         {
-            queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
             return $"/WeatherForecast/{queryString}";
         }
 
@@ -651,14 +651,14 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             if (!string.IsNullOrWhiteSpace(optionNotRemoved))
             {
-                queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+                queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestIgnoreWithCustomAttribute_Url (string optionNotRemoved , QueryString queryString = default)
         {
-            queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
             return $"/WeatherForecast/{queryString}";
         }
 
@@ -666,14 +666,14 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             if (!string.IsNullOrWhiteSpace(OtherName))
             {
-                queryString.Add("OtherName", OtherName.ToString());
+                queryString = queryString.Add("OtherName", OtherName.ToString());
             }
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestModelBinderDifferentName_Url (System.String OtherName , QueryString queryString = default)
         {
-            queryString.Add("OtherName", OtherName.ToString());
+            queryString = queryString.Add("OtherName", OtherName.ToString());
             return $"/WeatherForecast/{queryString}";
         }
 
@@ -742,14 +742,14 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             if (!string.IsNullOrWhiteSpace(Input3))
             {
-                queryString.Add("Input3", Input3.ToString());
+                queryString = queryString.Add("Input3", Input3.ToString());
             }
             using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string UrlWithParametersFromRoute2_Url (string Input1 ,string Input2 ,string Input3 , QueryString queryString = default)
         {
-            queryString.Add("Input3", Input3.ToString());
+            queryString = queryString.Add("Input3", Input3.ToString());
             return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}";
         }
 
