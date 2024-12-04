@@ -15,7 +15,7 @@
     "^/_]*",
     "^_]*"
   ],
-  "PrefixUrl" : "/api",
+  "RouteTemplate":"/api/{area:exists}/{controller=Home}/{action=Index}/{id?}",
   "ResponseWrapper" :{
     "Enabled": true,
     "ExtractHeaders":{

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using GoLive.Generator.ApiClientGenerator.Routing;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -214,6 +215,11 @@ public class ApiClientGenerator : IIncrementalGenerator
         var fullPath = Path.Combine(configFileDirectory, config.OutputFile);
         config.OutputFile = Path.GetFullPath(fullPath);
 
+        if (!string.IsNullOrWhiteSpace(config.JsonOutputFilename))
+        {
+            config.JsonOutputFilename = Path.GetFullPath(Path.Combine(configFileDirectory, config.JsonOutputFilename));
+        }
+
         if (config.OutputFiles is { Count: > 0 })
         {
             config.OutputFiles = config.OutputFiles.Select(e => Path.GetFullPath(Path.Combine(configFileDirectory, e))).ToList();
@@ -307,43 +313,52 @@ public class ApiClientGenerator : IIncrementalGenerator
             }
 
             string useCustomFormatter = config.CustomDiscriminator;
-                
-            string routeValue = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(action.Route))
+            
+            URLTemplate urlTemplate;
+            
+            if (action.RouteSetByAttributes)
             {
-                // TODO need to replace params
-                routeValue = action.Route;
+                urlTemplate = URLTemplate.Parse(action.Route);
             }
             else
             {
-                if (controllerRoute.Area != null && !string.IsNullOrWhiteSpace(controllerRoute.Area))
-                {
-                    routeValue = $"/{controllerRoute.Area}/{controllerRoute.Name}/{action.Name}";
-                }
-                else
-                {
-                    routeValue = $"/{controllerRoute.Name}/{action.Name}";
-                }
-
-                if (!routeValue.ToLower().EndsWith("{id}"))
-                {
-                    if (action.Mapping.FirstOrDefault(e => e.Key.ToLower() == "id") != null)
-                    {
-                        routeValue = $"{routeValue}/{{{action.Mapping.FirstOrDefault(e => e.Key.ToLower() == "id")?.Key}}}";
-                    }
-                }
+                urlTemplate = URLTemplate.Parse(config.RouteTemplate);
             }
 
-            routeValue = routeValue.TrimStart('~');
-            routeValue = routeValue.Replace("*", ""); // TODO - to remove greedy url params
-
-            if (!string.IsNullOrWhiteSpace(config.PrefixUrl) && !action.RouteSetByAttributes) // TODO want to change this to use a single way to determine routes, not prefixing
+            var routeValues = new CaseInSensitiveDictionary
             {
-                routeValue = $"{config.PrefixUrl}{routeValue}";
+                { "Controller", controllerRoute.Name },
+                { "Action", action.Name }
+            };
+
+            if (controllerRoute.Area != null && !string.IsNullOrWhiteSpace(controllerRoute.Area))
+            {
+                routeValues.Add("Area", controllerRoute.Area);
             }
-                
-            var routeString = $"$\"{routeValue}{{queryString}}\"";
+            
+            CaseInSensitiveDictionary actionValues = new(); 
+            
+            if (controllerRoute.Area != null && !string.IsNullOrWhiteSpace(controllerRoute.Area))
+            {
+                actionValues.Add("Area", controllerRoute.Area); // TODO replace Area with const
+            }
+            
+            actionValues.Add("Controller", controllerRoute.Name);
+            actionValues.Add("Action", action.Name);
+            
+            
+            foreach (var (key, parameter) in action.Mapping)
+            {
+                actionValues.Add(key, $"{{{key}}}");
+            }
+            
+           /*
+           foreach (var urlTemplateSegment in urlTemplate.Segments.Where(r=>r.Restriction == URLTemplateSegmentKnownRestrictions.Optional))
+           {
+               action.Mapping.Where(r=>r.Key == urlTemplateSegment.Parameter).ToList().ForEach(r=>actionValues.Add(r.Key, r.Key));
+           }*/
+           
+           string routeValue = urlTemplate.Render(actionValues);
 
             if (config.HideUrlsRegex is { Count: > 0 })
             {
@@ -352,40 +367,14 @@ public class ApiClientGenerator : IIncrementalGenerator
                     continue;
                 }
             }
-                
-                
-            routeString = routeString.Replace("[controller]", controllerRoute.Name);
-            routeString = routeString.Replace("[action]", action.Name);
-                
-            List<string> routeParameters = new();
-                
-            if (routeString.Contains("{"))
-            {
-                var regexPattern = @".*?\{(?<param>.*?)}.*?";
-                var matches = Regex.Matches(routeString,regexPattern,RegexOptions.Multiline);
-                routeParameters.AddRange(matches.Cast<Match>().Select(match => match.Groups["param"].Value.Contains(":") ? match.Groups["param"].Value.Substring(0, match.Groups["param"].Value.IndexOf(":", StringComparison.Ordinal)) : match.Groups["param"].Value));
-
-                if (matches.Count > 0)
-                {
-                    foreach (Match match in matches)
-                    {
-                        var orig = match.Groups["param"].Value;
-
-                        if (orig.Contains(":"))
-                        {
-                            routeString = routeString.Replace(orig, orig.Substring(0, orig.IndexOf(":")));
-                        }
-                    }
-                }
-            }
+            
+            var routeString = $"$\"{routeValue}{{queryString}}\"";
                 
             source.AppendLine();
                 
             var nullableReturnType = action.ReturnTypeStruct || action.ReturnTypeName.EndsWith("?")
                 ? action.ReturnTypeName
                 : $"{action.ReturnTypeName}?";
-                
-                
 
             string returnType = config.ResponseWrapper.Enabled switch
             {
@@ -415,9 +404,9 @@ public class ApiClientGenerator : IIncrementalGenerator
             }
                 
             // TODO do something with actual route parameters here
-            if (action.Mapping.Any(f => !string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase) && !routeParameters.Contains(f.Key, StringComparer.InvariantCultureIgnoreCase)))
-            {
-                foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
+            /*if (action.Mapping.Any(f => !string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase) && !routeParameters.Contains(f.Key, StringComparer.InvariantCultureIgnoreCase)))
+            {*/
+                foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
                 {
                     if (parameterMapping.Parameter.SpecialType == SpecialType.System_String)
                     {
@@ -433,7 +422,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                         source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
                     }
                 }
-            }
+           // }
             
             routeString = $"{routeString}";
 
@@ -574,7 +563,8 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
                 source.AppendOpenCurlyBracketLine();
                     
-                
+                // foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
+
                     
                 if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
                 {
