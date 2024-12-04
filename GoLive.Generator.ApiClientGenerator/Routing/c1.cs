@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -119,14 +120,17 @@ public class URLTemplate
                 if (part.Contains("="))
                 {
                     string[] parts2 = part.Split('=');
-                    segment.BuiltInReplaceable = Enum.Parse<URLTemplateReplaceableElement>(parts2[0][1..], true);
+                    segment.BuiltInReplaceable = (URLTemplateReplaceableElement)Enum.Parse(typeof(URLTemplateReplaceableElement), parts2[0][1..], true);
                     segment.Parameter = parts2[0][1..];
                     segment.DefaultValue = parts2[1][..^1];
                 }
                 else if (part.Contains(":"))
                 {
                     string[] parts2 = part.Split(':');
-                    segment.BuiltInReplaceable = Enum.Parse<URLTemplateReplaceableElement>(parts2[0][1..], true);
+                    if (Enum.TryParse<URLTemplateReplaceableElement>(parts2[0][1..], true, out var replaceable))
+                    {
+                        segment.BuiltInReplaceable = replaceable;
+                    }
                     segment.Parameter = parts2[0][1..];
                     segment.Restriction = parts2[1][..^1];
                 }
@@ -137,7 +141,8 @@ public class URLTemplate
                 }
                 else if (part.StartsWith("{*"))
                 {
-                    segment.BuiltInReplaceable = Enum.Parse<URLTemplateReplaceableElement>(part[2..^1], true);
+                    segment.BuiltInReplaceable = (URLTemplateReplaceableElement)Enum.Parse(typeof(URLTemplateReplaceableElement), part[2..^1], true);
+
                     segment.Parameter = part[2..^1];
                     segment.IsCatchall = true;
                 }
@@ -275,7 +280,7 @@ public readonly struct QueryString : IEquatable<QueryString>
     /// <returns>The resulting QueryString</returns>
     public static QueryString FromUriComponent(Uri uri)
     {
-        ArgumentNullException.ThrowIfNull(uri);
+        ExArgumentNullExceptionExt.ThrowIfNull(uri);
 
         string queryValue = uri.GetComponents(UriComponents.Query, UriFormat.UriEscaped);
         if (!string.IsNullOrEmpty(queryValue))
@@ -293,7 +298,7 @@ public readonly struct QueryString : IEquatable<QueryString>
     /// <returns>The resulting QueryString</returns>
     public static QueryString Create(string name, string value)
     {
-        ArgumentNullException.ThrowIfNull(name);
+        ExArgumentNullExceptionExt.ThrowIfNull(name);
 
         if (!string.IsNullOrEmpty(value))
         {
@@ -367,7 +372,7 @@ public readonly struct QueryString : IEquatable<QueryString>
         }
 
         // ?name1=value1 Add ?name2=value2 returns ?name1=value1&name2=value2
-        return new QueryString(string.Concat(Value, "&", other.Value.AsSpan(1)));
+        return new QueryString(string.Concat(Value, "&", other.Value.AsSpan(1).ToString()));
     }
 
     /// <summary>
@@ -379,7 +384,7 @@ public readonly struct QueryString : IEquatable<QueryString>
     /// <returns>The concatenated <see cref="QueryString"/>.</returns>
     public QueryString Add(string name, string value)
     {
-        ArgumentNullException.ThrowIfNull(name);
+        ExArgumentNullExceptionExt.ThrowIfNull(name);
 
         if (!HasValue || Value.Equals("?", StringComparison.Ordinal))
         {

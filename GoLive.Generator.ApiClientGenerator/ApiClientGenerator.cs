@@ -548,11 +548,11 @@ public class ApiClientGenerator : IIncrementalGenerator
             if (config.OutputUrls)
             {
                 List<string> secondParamList = new();
-                if (action.Mapping.Any(f => string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) || !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase)))
+                if (action.Mapping.Any(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
                 {
-                    secondParamList.AddRange(action.Mapping.Where(f => string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) ||  action.Body?.FirstOrDefault()?.Key != f.Key).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                    secondParamList.AddRange(action.Mapping.Where(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                 }
-// TODO need to do something with all route values not just ID
+
                 if (secondParamList.Any())
                 {
                     source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)}, QueryString queryString = default)");
@@ -562,13 +562,10 @@ public class ApiClientGenerator : IIncrementalGenerator
                     source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (QueryString queryString = default)");
                 }
                 source.AppendOpenCurlyBracketLine();
-                    
-                // foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
-
-                    
-                if (action.Mapping.Any(f => f.Key.ToLower() != "id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
+   
+                if (action.Mapping.Any(f => !urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
                 {
-                    foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !routeParameters.Contains(f.Key)))
+                    foreach (var parameterMapping in action.Mapping.Where(f => !urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
                     {
                         source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
                     }
