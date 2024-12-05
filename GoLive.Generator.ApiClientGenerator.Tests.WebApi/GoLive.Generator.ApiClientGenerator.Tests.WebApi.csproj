@@ -4,6 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <Nullable>enable</Nullable>
         <LangVersion>12</LangVersion>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +16,12 @@
 </ItemGroup>
 <ItemGroup>
   <ProjectReference Include="..\GoLive.Generator.ApiClientGenerator\GoLive.Generator.ApiClientGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+</ItemGroup>
+<ItemGroup>
+  <Content Remove="GeneratedApiClient.json" />
+  <None Include="GeneratedApiClient.json">
+    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+  </None>
 </ItemGroup>
     
 </Project>

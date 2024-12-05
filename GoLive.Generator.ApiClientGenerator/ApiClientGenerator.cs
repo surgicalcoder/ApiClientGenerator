@@ -254,6 +254,21 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         className = $"{className}Client";
 
+        
+        if (!string.IsNullOrWhiteSpace(controllerRoute.XmlComments))
+        {
+            var xmlDoc = new System.Xml.XmlDocument();
+            xmlDoc.LoadXml(controllerRoute.XmlComments);
+            var memberNode = xmlDoc.SelectSingleNode("//member");
+            if (memberNode != null)
+            {
+                foreach (var line in memberNode.InnerXml.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
+                {
+                    source.AppendLine($"/// {line}");
+                }
+            }
+        }
+        
         source.AppendLine($"public class {className}");
         source.AppendOpenCurlyBracketLine();
 
@@ -396,6 +411,22 @@ public class ApiClientGenerator : IIncrementalGenerator
             string jsonTypeInfoMethodParameter = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
             string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
+            
+            if (!string.IsNullOrWhiteSpace(action.XmlComments))
+            {
+                var xmlDoc = new System.Xml.XmlDocument();
+                xmlDoc.LoadXml(action.XmlComments);
+                var memberNode = xmlDoc.SelectSingleNode("//member");
+                if (memberNode != null)
+                {
+                    foreach (var line in memberNode.InnerXml.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        source.AppendLine($"/// {line}");
+                    }
+                }
+            }
+            
+            
             source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
                 ? $"public async {returnType} {action.Name}(QueryString queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
                 : $"public async {returnType} {action.Name}({parameterList}, QueryString queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})");

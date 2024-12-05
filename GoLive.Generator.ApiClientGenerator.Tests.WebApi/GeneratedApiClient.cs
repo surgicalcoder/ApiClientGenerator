@@ -614,6 +614,9 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
     }
 
+    /// <summary>
+    ///     This is a test of the XML Documentation feature for Weather Forecast Controller
+    ///     </summary>
     public class WeatherForecastClient
     {
         private readonly HttpClient _client;
@@ -710,16 +713,9 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             return $"/WeatherForecast{queryString}";
         }
 
-        public async Task<Response> SecretUrl(QueryString queryString = default, CancellationToken _token = default )
-        {
-            using var result = await _client.GetAsync($"/WeatherForecast/_secretUrl{queryString}", cancellationToken: _token);
-            return new Response(result.StatusCode, result.Headers);
-        }
-        public string SecretUrl_Url (QueryString queryString = default)
-        {
-            return $"/WeatherForecast/_secretUrl{queryString}";
-        }
-
+        /// <summary>
+        ///     This is a test of the XML Documentation feature for UrlWithParametersFromRoute
+        ///     </summary><param name="Input1">This is the string of the input param1</param><param name="Input2">This is the string of the input param2</param><returns></returns>
         public async Task<Response> UrlWithParametersFromRoute(string Input1 , string Input2 , QueryString queryString = default, CancellationToken _token = default )
         {
             using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}", cancellationToken: _token);

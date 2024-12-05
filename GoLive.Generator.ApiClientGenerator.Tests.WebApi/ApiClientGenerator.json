@@ -18,6 +18,7 @@
   ] ,
   "HideUrlsRegex": [
     "^/_]*",
+    "^/WeatherForecast/_]*",
     "^_]*"
   ],
   "RouteTemplate":"/api/{area:exists}/{controller=Home}/{action=Index}/{id?}",

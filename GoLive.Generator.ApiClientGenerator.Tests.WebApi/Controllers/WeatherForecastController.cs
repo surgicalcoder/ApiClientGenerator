@@ -8,6 +8,9 @@ using Microsoft.Extensions.Logging;
 
 namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers;
 
+/// <summary>
+/// This is a test of the XML Documentation feature for Weather Forecast Controller
+/// </summary>
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
@@ -77,12 +80,22 @@ public class WeatherForecastController : ControllerBase
             .ToArray();
     }
 
+    /// <summary>
+    /// This is a secret URL! This shouldn't be outputted
+    /// </summary>
+    /// <returns>A 400 error</returns>
     [HttpGet("_secretUrl")]
     public async Task<ActionResult> SecretUrl()
     {
         return Ok();
     }
 
+    /// <summary>
+    /// This is a test of the XML Documentation feature for UrlWithParametersFromRoute
+    /// </summary>
+    /// <param name="Input1">This is the string of the input param1</param>
+    /// <param name="Input2">This is the string of the input param2</param>
+    /// <returns></returns>
     [HttpGet]
     [Route("/[controller]/UrlWithParametersFromRoute/{Input1}/{Input2}")]
     public async Task<ActionResult> UrlWithParametersFromRoute(string Input1, string Input2)

@@ -50,7 +50,10 @@ public static class Scanner
 
         var areaAttribute = FindAttribute(classSymbol, a => a.ToString() == "Microsoft.AspNetCore.Mvc.AreaAttribute");
         var area = areaAttribute?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? null;
-        return new ControllerRoute(name, area, route, actionMethods.ToArray());
+    
+        var xmlComments = classSymbol.GetDocumentationCommentXml();
+    
+        return new ControllerRoute(name, area, route, actionMethods.ToArray(), xmlComments);
     }
 
     private static IEnumerable<ActionRoute> ScanForActionMethods(SemanticModel model, INamedTypeSymbol classSymbol)
@@ -157,7 +160,6 @@ public static class Scanner
                             )); })
                     .ToArray();
                 
-                //var bodyParameter = methodSymbol.Parameters.Where(t => (!isReplaced(t) && !IsPrimitive(t.Type)) || (isReplaced(t) && !IsPrimitive(getReplacedType(model, t)))  || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
                 var bodyParameter = methodSymbol.Parameters.Where(t => !IsPrimitive(t.Type) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
                     .Select(t => new ParameterMapping(getParameterName(t), new Parameter(
                         t.Type.ToString(), 
@@ -172,9 +174,13 @@ public static class Scanner
                 
                 route = route.Replace("[", "{").Replace("]", "}");
                 
-                yield return new ActionRoute(name, method, route, routeSetByAttr,
+                var xmlComments = methodSymbol.GetDocumentationCommentXml();
+
+                var fullMethodName = member.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted).WithMemberOptions(SymbolDisplayMemberOptions.IncludeContainingType | SymbolDisplayMemberOptions.IncludeType)).Split(' ')[1];
+
+                yield return new ActionRoute(name, fullMethodName, method, route, routeSetByAttr,
                     returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
-                    useCustomFormatter, parameters.ToList(), bodyParameter);
+                    useCustomFormatter, parameters.ToList(), bodyParameter, xmlComments);
             }
         }
     }

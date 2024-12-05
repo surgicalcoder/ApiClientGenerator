@@ -6,6 +6,7 @@
     "Actions": [
       {
         "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
         "Method": {
           "Method": "GET"
         },
@@ -15,10 +16,12 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
           "Method": "GET"
         },
@@ -41,10 +44,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
           "Method": "POST"
         },
@@ -84,10 +89,12 @@
               "SpecialType": 20
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
         "Method": {
           "Method": "POST"
         },
@@ -147,10 +154,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
         "Method": {
           "Method": "GET"
         },
@@ -173,10 +182,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
         "Method": {
           "Method": "GET"
         },
@@ -199,9 +210,11 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       }
-    ]
+    ],
+    "XmlComments": ""
   },
   {
     "Name": "InheritingTwo",
@@ -210,6 +223,7 @@
     "Actions": [
       {
         "Name": "GetPagedApiTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
         "Method": {
           "Method": "GET"
         },
@@ -256,10 +270,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetApiTest2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetApiTest2",
         "Method": {
           "Method": "GET"
         },
@@ -282,10 +298,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
         "Method": {
           "Method": "GET"
         },
@@ -295,10 +313,12 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
           "Method": "GET"
         },
@@ -321,10 +341,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
           "Method": "POST"
         },
@@ -364,10 +386,12 @@
               "SpecialType": 20
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
         "Method": {
           "Method": "POST"
         },
@@ -427,10 +451,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
         "Method": {
           "Method": "GET"
         },
@@ -453,10 +479,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
         "Method": {
           "Method": "GET"
         },
@@ -479,9 +507,11 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       }
-    ]
+    ],
+    "XmlComments": ""
   },
   {
     "Name": "NonApi",
@@ -490,6 +520,7 @@
     "Actions": [
       {
         "Name": "TestModelBinderDifferentNameUnderId",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId",
         "Method": {
           "Method": "GET"
         },
@@ -529,10 +560,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "TestModelBinderDifferentNameUnderId3",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId3",
         "Method": {
           "Method": "GET"
         },
@@ -572,9 +605,11 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       }
-    ]
+    ],
+    "XmlComments": ""
   },
   {
     "Name": "User",
@@ -583,6 +618,7 @@
     "Actions": [
       {
         "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
         "Method": {
           "Method": "GET"
         },
@@ -592,10 +628,12 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
           "Method": "GET"
         },
@@ -618,10 +656,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
           "Method": "POST"
         },
@@ -661,10 +701,12 @@
               "SpecialType": 20
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
         "Method": {
           "Method": "POST"
         },
@@ -724,10 +766,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
         "Method": {
           "Method": "GET"
         },
@@ -750,10 +794,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
         "Method": {
           "Method": "GET"
         },
@@ -776,9 +822,11 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       }
-    ]
+    ],
+    "XmlComments": ""
   },
   {
     "Name": "WeatherForecast",
@@ -787,6 +835,7 @@
     "Actions": [
       {
         "Name": "TestIgnoreGenericParmaeter",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestIgnoreGenericParmaeter",
         "Method": {
           "Method": "POST"
         },
@@ -809,10 +858,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "TestIgnoreNormalParameter",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestIgnoreNormalParameter",
         "Method": {
           "Method": "POST"
         },
@@ -835,10 +886,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "TestIgnoreWithCustomAttribute",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestIgnoreWithCustomAttribute",
         "Method": {
           "Method": "POST"
         },
@@ -861,10 +914,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "TestModelBinderDifferentName",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestModelBinderDifferentName",
         "Method": {
           "Method": "POST"
         },
@@ -889,10 +944,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "TestRemapTypeWithAnotherType",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestRemapTypeWithAnotherType",
         "Method": {
           "Method": "POST"
         },
@@ -928,10 +985,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "TestRemapTypeWithAnotherType2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestRemapTypeWithAnotherType2",
         "Method": {
           "Method": "POST"
         },
@@ -971,10 +1030,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.Get",
         "Method": {
           "Method": "GET"
         },
@@ -984,10 +1045,12 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "SecretUrl",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl",
         "Method": {
           "Method": "GET"
         },
@@ -997,10 +1060,12 @@
         "ReturnTypeStruct": true,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a secret URL! This shouldn\u0027t be outputted\r\n    \u003C/summary\u003E\r\n    \u003Creturns\u003EA 400 error\u003C/returns\u003E\r\n\u003C/member\u003E\r\n"
       },
       {
         "Name": "UrlWithParametersFromRoute",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute",
         "Method": {
           "Method": "GET"
         },
@@ -1035,10 +1100,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n"
       },
       {
         "Name": "UrlWithParametersFromRoute2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute2",
         "Method": {
           "Method": "GET"
         },
@@ -1085,10 +1152,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetBytes",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetBytes",
         "Method": {
           "Method": "GET"
         },
@@ -1098,10 +1167,12 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetSingle",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetSingle",
         "Method": {
           "Method": "GET"
         },
@@ -1124,10 +1195,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "GetSingleFromServiceExample",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetSingleFromServiceExample",
         "Method": {
           "Method": "GET"
         },
@@ -1137,10 +1210,12 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "FormUploadTest1",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.FormUploadTest1",
         "Method": {
           "Method": "POST"
         },
@@ -1176,10 +1251,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "FormUploadTest2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.FormUploadTest2",
         "Method": {
           "Method": "POST"
         },
@@ -1215,10 +1292,12 @@
               "SpecialType": 0
             }
           }
-        ]
+        ],
+        "XmlComments": ""
       },
       {
         "Name": "TaskIssue",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TaskIssue",
         "Method": {
           "Method": "GET"
         },
@@ -1228,9 +1307,11 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       }
-    ]
+    ],
+    "XmlComments": "\u003Cmember name=\u0022T:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for Weather Forecast Controller\r\n    \u003C/summary\u003E\r\n\u003C/member\u003E\r\n"
   },
   {
     "Name": "YetAnother",
@@ -1239,6 +1320,7 @@
     "Actions": [
       {
         "Name": "YetAnotherTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.YetAnotherTest",
         "Method": {
           "Method": "POST"
         },
@@ -1261,10 +1343,12 @@
             }
           }
         ],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       },
       {
         "Name": "JSONDynamicTestDynamic",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.JSONDynamicTestDynamic",
         "Method": {
           "Method": "GET"
         },
@@ -1274,8 +1358,10 @@
         "ReturnTypeStruct": false,
         "hasCustomFormatter": false,
         "Mapping": [],
-        "Body": []
+        "Body": [],
+        "XmlComments": ""
       }
-    ]
+    ],
+    "XmlComments": ""
   }
 ]
