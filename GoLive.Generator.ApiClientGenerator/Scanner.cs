@@ -169,6 +169,9 @@ public static class Scanner
                         )))
                     .ToList();
 
+                
+                route = route.Replace("[", "{").Replace("]", "}");
+                
                 yield return new ActionRoute(name, method, route, routeSetByAttr,
                     returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
                     useCustomFormatter, parameters.ToList(), bodyParameter);
