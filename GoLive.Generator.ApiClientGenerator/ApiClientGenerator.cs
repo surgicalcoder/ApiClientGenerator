@@ -301,16 +301,19 @@ public class ApiClientGenerator : IIncrementalGenerator
             }
 
             var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
-
             bool containsFileUpload = action.Mapping.Any(f => f.Parameter.FullTypeName == "Microsoft.AspNetCore.Http.IFormFile");
 
-            if (containsFileUpload) {
+            if (containsFileUpload) 
+            {
                 parameterList = string.Join(", ",
                     action.Mapping.Select(m =>
                         m.Parameter.FullTypeName == "Microsoft.AspNetCore.Http.IFormFile"
                             ? $"System.Net.Http.MultipartFormDataContent{(m.Parameter.Nullable ? "?" : "")} multiPartContent"
                             : $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+                
+                
             }
+            string parameterListWithoutFile = string.Join(", ", action.Mapping.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
 
             string useCustomFormatter = config.CustomDiscriminator;
             
@@ -347,7 +350,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             actionValues.Add("Action", action.Name);
             
             
-            foreach (var (key, parameter) in action.Mapping)
+            foreach (var (key, parameter) in action.Mapping.Where(m=> !string.Equals(m.Parameter.FullTypeName, "Microsoft.AspNetCore.Http.IFormFile", StringComparison.InvariantCultureIgnoreCase)))
             {
                 actionValues.Add(key, $"{{{key}}}");
             }
@@ -553,9 +556,9 @@ public class ApiClientGenerator : IIncrementalGenerator
                     secondParamList.AddRange(action.Mapping.Where(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                 }
 
-                if (secondParamList.Any())
+                if (parameterListWithoutFile.Any())
                 {
-                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", secondParamList)}, QueryString queryString = default)");
+                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
                 }
                 else
                 {
@@ -564,8 +567,8 @@ public class ApiClientGenerator : IIncrementalGenerator
                 source.AppendOpenCurlyBracketLine();
    
                 if (action.Mapping.Any(f => !urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
-                {
-                    foreach (var parameterMapping in action.Mapping.Where(f => !urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
+                { 
+                    foreach (var parameterMapping in action.Mapping.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").Where(f => !urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
                     {
                         source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
                     }

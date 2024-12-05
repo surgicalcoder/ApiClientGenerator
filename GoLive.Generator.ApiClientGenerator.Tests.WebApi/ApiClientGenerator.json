@@ -6,12 +6,10 @@
     "GoLive.Generator.ApiClientGenerator"
   ],
   "PreAppendLines": [
-    "// ReSharper disable All",
-    "/*"
+    "// ReSharper disable All"
   ],
   "PostAppendLines": [
-    "// ReSharper disable All",
-    "*/"
+    "// ReSharper disable All"
   ] ,
   "HideUrlsRegex": [
     "^/_]*",
