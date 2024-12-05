@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace GoLive.Generator.ApiClientGenerator;
 
 public class RouteGeneratorSettings
 {
-    public string OutputFile { get; set; }
+    [JsonConverter(typeof(StringOrArrayJsonConverter))]
     public List<string> OutputFiles { get; set; }
     public List<string> Includes { get; set; }
 
@@ -29,7 +30,8 @@ public class RouteGeneratorSettings
     public string OutputUrlsPrefix { get; set; }
     public string OutputUrlsPostfix { get; set; }
 
-    public string JsonOutputFilename { get; set; }
+    [JsonConverter(typeof(StringOrArrayJsonConverter))]
+    public List<string> JSONAPIRepresentationFile { get; set; }
 
     public RouteGeneratorSettings_Properties Properties { get; set; } = new();
 }

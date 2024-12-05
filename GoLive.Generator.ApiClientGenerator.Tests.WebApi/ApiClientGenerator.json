@@ -1,5 +1,10 @@
 ﻿{
-  "OutputFile": "GeneratedApiClient.cs",
+  "OutputFiles":[
+    "GeneratedApiClient.cs"
+  ],
+  "JSONAPIRepresentationFile":[
+    "GeneratedApiClient.json"
+  ],
   "Namespace": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated",
   "CustomDiscriminator": "",
   "Includes": [

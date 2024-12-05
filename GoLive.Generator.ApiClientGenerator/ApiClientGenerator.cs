@@ -45,10 +45,10 @@ public class ApiClientGenerator : IIncrementalGenerator
 
     private static bool IsConfigurationFile(AdditionalText text)
         => text.Path.EndsWith("ApiClientGenerator.json");
-        
+
     public static void Execute(
         ImmutableArray<ControllerRoute> controllerRoutes,
-        IEnumerable<AdditionalText> configurationFiles, SourceProductionContext context) 
+        IEnumerable<AdditionalText> configurationFiles, SourceProductionContext context)
     {
         var config = LoadConfig(configurationFiles);
 
@@ -58,7 +58,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         {
             config.PreAppendLines.ForEach(source.AppendLine);
         }
-            
+
         source.AppendLine("using System.Net.Http;");
         source.AppendLine("using System;");
         source.AppendLine("using System.Threading.Tasks;");
@@ -117,18 +117,18 @@ public class ApiClientGenerator : IIncrementalGenerator
             [
                 "global::System.Threading.Tasks.Task"
             ];
-            
+
             source.AppendLine("// JSON Source Generator");
-            
+
             source.Append("[JsonSourceGenerationOptions(");
 
             if (config.JSONSourceGeneratorSettings != null)
             {
                 Dictionary<string, string> jsonGenOptions = new();
-                
+
                 if (!string.IsNullOrWhiteSpace(config.JSONSourceGeneratorSettings.PropertyNamingPolicy))
                 {
-                    jsonGenOptions.Add("PropertyNamingPolicy",config.JSONSourceGeneratorSettings.PropertyNamingPolicy );
+                    jsonGenOptions.Add("PropertyNamingPolicy", config.JSONSourceGeneratorSettings.PropertyNamingPolicy);
                 }
 
                 if (config.JSONSourceGeneratorSettings.AllowTrailingCommas)
@@ -141,30 +141,30 @@ public class ApiClientGenerator : IIncrementalGenerator
                     var valsToUse = config.JSONSourceGeneratorSettings.Converters.Select(r => $"typeof({r})");
                     jsonGenOptions.Add("Converters", $"new[]{{ {string.Join(",", valsToUse)} }}");
                 }
-                
-                source.Append(string.Join(",", jsonGenOptions.Select(r=> $"{r.Key} = {r.Value}" ) ));
-                
+
+                source.Append(string.Join(",", jsonGenOptions.Select(r => $"{r.Key} = {r.Value}")));
+
                 if (config.JSONSourceGeneratorSettings.AdditionalOptions is { Length: > 0 })
                 {
                     source.Append(", ");
                     source.Append(string.Join(", ", config.JSONSourceGeneratorSettings.AdditionalOptions));
                 }
             }
-            
+
             source.Append(")]\n");
 
             var returnTypes = orderedControllerRoutes.SelectMany(e => e.Actions.Select(f => f.ReturnTypeName)).Distinct()
-                .Where(r=>!string.IsNullOrWhiteSpace(r) && r.StartsWith("global::") ).Except(ignoreTypesList);
-            
+                .Where(r => !string.IsNullOrWhiteSpace(r) && r.StartsWith("global::")).Except(ignoreTypesList);
+
             foreach (var returnType in returnTypes)
             {
                 source.AppendLine($"[JsonSerializable(typeof({returnType}))]");
             }
-            
+
             source.AppendLine("public partial class ApiJsonSerializerContext : JsonSerializerContext");
             source.AppendOpenCurlyBracketLine();
             source.AppendCloseCurlyBracketLine();
-            
+
             source.AppendLine("// JSON Source Generator");
         }
 
@@ -173,7 +173,12 @@ public class ApiClientGenerator : IIncrementalGenerator
             config.PostAppendLines.ForEach(source.AppendLine);
         }
 
-        if ((string.IsNullOrWhiteSpace(config.OutputFile) && (config.OutputFiles == null || config.OutputFiles.Count == 0)))
+        if (config.JSONAPIRepresentationFile?.Count > 0)
+        {
+            GenerateJSONRepresentation(controllerRoutes, config);
+        }
+
+        if (config.OutputFiles == null || config.OutputFiles.Count == 0)
         {
             context.AddSource("GeneratedApiClient", source.ToString());
         }
@@ -183,19 +188,27 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
     }
 
+    private static void GenerateJSONRepresentation(ImmutableArray<ControllerRoute> controllerRoutes, RouteGeneratorSettings config)
+    {
+        var jsonOutput = System.Text.Json.JsonSerializer.Serialize(controllerRoutes, new JsonSerializerOptions { WriteIndented = true });
+        foreach (var file in config.JSONAPIRepresentationFile)
+        {
+            File.WriteAllText(file, jsonOutput);
+        }
+    }
+
     private static void SaveSourceToFile(RouteGeneratorSettings config, SourceStringBuilder source)
     {
         var content = source.ToString();
-        if (config.OutputFiles is { Count: > 0 })
+
+        if (config.OutputFiles is not { Count: > 0 })
         {
-            foreach (var configOutputFile in config.OutputFiles)
-            {
-                File.WriteAllText(configOutputFile, content);
-            }
+            return;
         }
-        else
+
+        foreach (var configOutputFile in config.OutputFiles)
         {
-            File.WriteAllText(config.OutputFile, content);
+            File.WriteAllText(configOutputFile, content);
         }
     }
 
@@ -211,13 +224,10 @@ public class ApiClientGenerator : IIncrementalGenerator
         var jsonString = File.ReadAllText(configFilePath.Path);
         var config = JsonSerializer.Deserialize<RouteGeneratorSettings>(jsonString);
         var configFileDirectory = Path.GetDirectoryName(configFilePath.Path);
-
-        var fullPath = Path.Combine(configFileDirectory, config.OutputFile);
-        config.OutputFile = Path.GetFullPath(fullPath);
-
-        if (!string.IsNullOrWhiteSpace(config.JsonOutputFilename))
+        
+        if (config.JSONAPIRepresentationFile is { Count: > 0 })
         {
-            config.JsonOutputFilename = Path.GetFullPath(Path.Combine(configFileDirectory, config.JsonOutputFilename));
+            config.JSONAPIRepresentationFile = config.JSONAPIRepresentationFile.Select(e => Path.GetFullPath(Path.Combine(configFileDirectory, e))).ToList();
         }
 
         if (config.OutputFiles is { Count: > 0 })
@@ -350,18 +360,14 @@ public class ApiClientGenerator : IIncrementalGenerator
             actionValues.Add("Action", action.Name);
             
             
-            foreach (var (key, parameter) in action.Mapping.Where(m=> !string.Equals(m.Parameter.FullTypeName, "Microsoft.AspNetCore.Http.IFormFile", StringComparison.InvariantCultureIgnoreCase)))
+            foreach (var (key, parameter) in action.Mapping
+                .Where(m => !string.Equals(m.Parameter.FullTypeName, "Microsoft.AspNetCore.Http.IFormFile", StringComparison.InvariantCultureIgnoreCase))
+                .Where(m => !m.Parameter.Nullable && !m.Parameter.HasDefaultValue))
             {
                 actionValues.Add(key, $"{{{key}}}");
             }
             
-           /*
-           foreach (var urlTemplateSegment in urlTemplate.Segments.Where(r=>r.Restriction == URLTemplateSegmentKnownRestrictions.Optional))
-           {
-               action.Mapping.Where(r=>r.Key == urlTemplateSegment.Parameter).ToList().ForEach(r=>actionValues.Add(r.Key, r.Key));
-           }*/
-           
-           string routeValue = urlTemplate.Render(actionValues);
+            string routeValue = urlTemplate.Render(actionValues);
 
             if (config.HideUrlsRegex is { Count: > 0 })
             {
@@ -406,26 +412,26 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
             }
                 
-            // TODO do something with actual route parameters here
-            /*if (action.Mapping.Any(f => !string.Equals(f.Key, "id", StringComparison.InvariantCultureIgnoreCase) && !string.Equals(action.Body?.FirstOrDefault()?.Key, f.Key, StringComparison.InvariantCultureIgnoreCase) && !routeParameters.Contains(f.Key, StringComparer.InvariantCultureIgnoreCase)))
-            {*/
-                foreach (var parameterMapping in action.Mapping.Where(f => f.Key != "Id" && action.Body?.FirstOrDefault()?.Key != f.Key && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
-                {
-                    if (parameterMapping.Parameter.SpecialType == SpecialType.System_String)
-                    {
-                        source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
-                    }
-                    else
-                    {
-                        source.AppendLine($"if ({parameterMapping.Key} != default)");
-                    }
 
-                    using (source.CreateBracket())
-                    {
-                        source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
-                    }
+            foreach (var parameterMapping in action.Mapping.Where(f => action.Body?.FirstOrDefault()?.Key != f.Key 
+                                                                       && !actionValues.ContainsKey(f.Key) && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) 
+                                                                                                        && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
+            {
+                if (parameterMapping.Parameter.SpecialType == SpecialType.System_String)
+                {
+                    source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
                 }
-           // }
+                else
+                {
+                    source.AppendLine($"if ({parameterMapping.Key} != default)");
+                }
+
+                using (source.CreateBracket())
+                {
+                    source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
+                }
+            }
+
             
             routeString = $"{routeString}";
 

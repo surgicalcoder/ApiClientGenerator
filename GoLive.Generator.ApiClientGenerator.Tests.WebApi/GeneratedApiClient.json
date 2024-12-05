@@ -1,0 +1,1281 @@
+[
+  {
+    "Name": "InheritingUser2",
+    "Area": null,
+    "BaseRoute": "[controller]",
+    "Actions": [
+      {
+        "Name": "Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      }
+    ]
+  },
+  {
+    "Name": "InheritingTwo",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "GetPagedApiTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/{controller}/{Page:int}/{PageSize:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          },
+          {
+            "Key": "Filter",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "PageSize",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 20,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetApiTest2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/ThisIsTestTwo/{Page:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      }
+    ]
+  },
+  {
+    "Name": "NonApi",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "TestModelBinderDifferentNameUnderId",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId3",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
+              ],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
+              ],
+              "SpecialType": 0
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "Name": "User",
+    "Area": null,
+    "BaseRoute": "[controller]",
+    "Actions": [
+      {
+        "Name": "Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      }
+    ]
+  },
+  {
+    "Name": "WeatherForecast",
+    "Area": null,
+    "BaseRoute": "[controller]",
+    "Actions": [
+      {
+        "Name": "TestIgnoreGenericParmaeter",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "optionNotRemoved",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "TestIgnoreNormalParameter",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "optionNotRemoved",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "TestIgnoreWithCustomAttribute",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "optionNotRemoved",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "TestModelBinderDifferentName",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "OtherName",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "TestRemapTypeWithAnotherType",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "option",
+            "Parameter": {
+              "FullTypeName": "System.TimeSpan",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "option",
+            "Parameter": {
+              "FullTypeName": "System.TimeSpan",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "TestRemapTypeWithAnotherType2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "option",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "option",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cglobal::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast\u003E",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "SecretUrl",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/_secretUrl",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "UrlWithParametersFromRoute",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/UrlWithParametersFromRoute/{Input1}/{Input2}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Input1",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "Input2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "UrlWithParametersFromRoute2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/UrlWithParametersFromRoute2/{Input1}/{Input2}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Input1",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "Input2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          },
+          {
+            "Key": "Input3",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetBytes",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "byte[]",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "GetSingle",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "GetSingleFromServiceExample",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      },
+      {
+        "Name": "FormUploadTest1",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "formFile",
+            "Parameter": {
+              "FullTypeName": "Microsoft.AspNetCore.Http.IFormFile",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "formFile",
+            "Parameter": {
+              "FullTypeName": "Microsoft.AspNetCore.Http.IFormFile",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "FormUploadTest2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "formFile",
+            "Parameter": {
+              "FullTypeName": "Microsoft.AspNetCore.Http.IFormFile",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": true,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "formFile",
+            "Parameter": {
+              "FullTypeName": "Microsoft.AspNetCore.Http.IFormFile?",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0
+            }
+          }
+        ]
+      },
+      {
+        "Name": "TaskIssue",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Threading.Tasks.Task",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      }
+    ]
+  },
+  {
+    "Name": "YetAnother",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "YetAnotherTest",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20
+            }
+          }
+        ],
+        "Body": []
+      },
+      {
+        "Name": "JSONDynamicTestDynamic",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest",
+        "ReturnTypeStruct": false,
+        "hasCustomFormatter": false,
+        "Mapping": [],
+        "Body": []
+      }
+    ]
+  }
+]
