@@ -463,8 +463,8 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
             }
 
-            
-            routeString = $"{routeString}";
+
+            action.CalculatedURL = routeValue;
 
             var methodString = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(action.Method.Method.ToLower());
 

@@ -17,7 +17,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2"
       },
       {
         "Name": "GetUser",
@@ -45,7 +46,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2?Id={Id}"
       },
       {
         "Name": "GetUser",
@@ -90,7 +92,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2?user={user}"
       },
       {
         "Name": "GetUser2",
@@ -155,7 +158,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2?Id={Id}\u0026Id2={Id2}\u0026example={example}"
       },
       {
         "Name": "OverrideTest",
@@ -183,7 +187,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2?Id={Id}"
       },
       {
         "Name": "GetUser4",
@@ -211,7 +216,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2?Id3={Id3}"
       }
     ],
     "XmlComments": ""
@@ -271,7 +277,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo/InheritingTwo/"
       },
       {
         "Name": "GetApiTest2",
@@ -299,7 +306,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/ThisIsTestTwo"
       },
       {
         "Name": "Get",
@@ -314,7 +322,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo"
       },
       {
         "Name": "GetUser",
@@ -342,7 +351,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo?Id={Id}"
       },
       {
         "Name": "GetUser",
@@ -387,7 +397,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo?user={user}"
       },
       {
         "Name": "GetUser2",
@@ -452,7 +463,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo?Id={Id}\u0026Id2={Id2}\u0026example={example}"
       },
       {
         "Name": "OverrideTest",
@@ -480,7 +492,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo?Id={Id}"
       },
       {
         "Name": "GetUser4",
@@ -508,7 +521,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo?Id3={Id3}"
       }
     ],
     "XmlComments": ""
@@ -561,7 +575,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}"
       },
       {
         "Name": "TestModelBinderDifferentNameUnderId3",
@@ -606,7 +621,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}"
       }
     ],
     "XmlComments": ""
@@ -629,7 +645,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/User"
       },
       {
         "Name": "GetUser",
@@ -657,7 +674,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/User?Id={Id}"
       },
       {
         "Name": "GetUser",
@@ -702,7 +720,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/User?user={user}"
       },
       {
         "Name": "GetUser2",
@@ -767,7 +786,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/User?Id={Id}\u0026Id2={Id2}\u0026example={example}"
       },
       {
         "Name": "OverrideTest",
@@ -795,7 +815,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/User?Id={Id}"
       },
       {
         "Name": "GetUser4",
@@ -823,7 +844,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/User?Id3={Id3}"
       }
     ],
     "XmlComments": ""
@@ -859,7 +881,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?optionNotRemoved={optionNotRemoved}"
       },
       {
         "Name": "TestIgnoreNormalParameter",
@@ -887,7 +910,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?optionNotRemoved={optionNotRemoved}"
       },
       {
         "Name": "TestIgnoreWithCustomAttribute",
@@ -915,7 +939,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?optionNotRemoved={optionNotRemoved}"
       },
       {
         "Name": "TestModelBinderDifferentName",
@@ -945,7 +970,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?OtherName={OtherName}"
       },
       {
         "Name": "TestRemapTypeWithAnotherType",
@@ -986,7 +1012,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?option={option}"
       },
       {
         "Name": "TestRemapTypeWithAnotherType2",
@@ -1031,7 +1058,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?option={option}"
       },
       {
         "Name": "Get",
@@ -1046,7 +1074,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast"
       },
       {
         "Name": "SecretUrl",
@@ -1061,7 +1090,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a secret URL! This shouldn\u0027t be outputted\r\n    \u003C/summary\u003E\r\n    \u003Creturns\u003EA 400 error\u003C/returns\u003E\r\n\u003C/member\u003E\r\n"
+        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a secret URL! This shouldn\u0027t be outputted\r\n    \u003C/summary\u003E\r\n    \u003Creturns\u003EA 400 error\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
+        "CalculatedURL": null
       },
       {
         "Name": "UrlWithParametersFromRoute",
@@ -1101,7 +1131,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n"
+        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
+        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}"
       },
       {
         "Name": "UrlWithParametersFromRoute2",
@@ -1153,7 +1184,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}?Input3={Input3}"
       },
       {
         "Name": "GetBytes",
@@ -1168,7 +1200,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast"
       },
       {
         "Name": "GetSingle",
@@ -1196,7 +1229,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast?Id={Id}"
       },
       {
         "Name": "GetSingleFromServiceExample",
@@ -1211,7 +1245,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast"
       },
       {
         "Name": "FormUploadTest1",
@@ -1252,7 +1287,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast"
       },
       {
         "Name": "FormUploadTest2",
@@ -1293,7 +1329,8 @@
             }
           }
         ],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast"
       },
       {
         "Name": "TaskIssue",
@@ -1308,7 +1345,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast"
       }
     ],
     "XmlComments": "\u003Cmember name=\u0022T:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for Weather Forecast Controller\r\n    \u003C/summary\u003E\r\n\u003C/member\u003E\r\n"
@@ -1344,7 +1382,8 @@
           }
         ],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/YetAnotherTest/{Id}"
       },
       {
         "Name": "JSONDynamicTestDynamic",
@@ -1359,7 +1398,8 @@
         "hasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
-        "XmlComments": ""
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/JSONDynamicTestDynamic"
       }
     ],
     "XmlComments": ""
