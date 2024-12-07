@@ -338,7 +338,8 @@ public class ApiClientGenerator : IIncrementalGenerator
                 
                 
             }
-//            string parameterListWithoutFile = string.Join(", ", action.Mapping.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+            
+            var mappingsWithoutFile = action.Mapping.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").ToList();
 
             string useCustomFormatter = config.CustomDiscriminator;
             
@@ -603,12 +604,10 @@ public class ApiClientGenerator : IIncrementalGenerator
                     .Where(m => !urlTemplate.Segments.Any(s => string.Equals(s.Parameter, m.Key, StringComparison.InvariantCultureIgnoreCase)))
                     .Where(e => !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase)))
                     .ToList();
-                
-                // string parameterListWithoutFile = string.Join(", ", action.Mapping.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
 
-                if (queryStringParameters.Any())
+                if (mappingsWithoutFile.Any())
                 {
-                    string parameterListWithoutFile = string.Join(", ", queryStringParameters.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+                    string parameterListWithoutFile = string.Join(", ", mappingsWithoutFile.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
                     source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
                 }
                 else
