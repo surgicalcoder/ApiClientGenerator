@@ -89,10 +89,10 @@ public class URLTemplate
         
         string result = sb.ToString().Replace("//", "/");
         
-        if (result.Length > 0 && result[^1] == '/')
+        /*if (result.Length > 0 && result[^1] == '/')
         {
             result = result[..^1]; 
-        }
+        }*/
         
         return $"{result}{qs}";
     }

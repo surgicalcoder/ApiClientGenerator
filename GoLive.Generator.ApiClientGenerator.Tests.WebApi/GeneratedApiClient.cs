@@ -126,42 +126,27 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default, CancellationToken _token = default )
         {
-            if (Page != default)
-            {
-                queryString = queryString.Add("Page", Page.ToString());
-            }
             if (!string.IsNullOrWhiteSpace(Filter))
             {
                 queryString = queryString.Add("Filter", Filter.ToString());
             }
-            if (PageSize != default)
-            {
-                queryString = queryString.Add("PageSize", PageSize.ToString());
-            }
-            using var result = await _client.GetAsync($"/InheritingTwo/InheritingTwo/{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/InheritingTwo/InheritingTwo/{Page}/{PageSize}/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string GetPagedApiTest_Url (int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default)
         {
-            queryString = queryString.Add("Page", Page.ToString());
             queryString = queryString.Add("Filter", Filter.ToString());
-            queryString = queryString.Add("PageSize", PageSize.ToString());
-            return $"/InheritingTwo/InheritingTwo/{queryString}";
+            return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}/{queryString}";
         }
 
         public async Task<Response> GetApiTest2(int Page  = 1, QueryString queryString = default, CancellationToken _token = default )
         {
-            if (Page != default)
-            {
-                queryString = queryString.Add("Page", Page.ToString());
-            }
-            using var result = await _client.GetAsync($"/ThisIsTestTwo{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/ThisIsTestTwo/{Page}/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string GetApiTest2_Url (int Page  = 1, QueryString queryString = default)
         {
-            queryString = queryString.Add("Page", Page.ToString());
-            return $"/ThisIsTestTwo{queryString}";
+            return $"/ThisIsTestTwo/{Page}/{queryString}";
         }
 
         public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
@@ -170,7 +155,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<string>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>;
             }
-            using var result = await _client.GetAsync($"/InheritingTwo{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/InheritingTwo/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
@@ -182,7 +167,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string Get_Url (QueryString queryString = default)
         {
-            return $"/InheritingTwo{queryString}";
+            return $"/InheritingTwo/{queryString}";
         }
 
         public async Task<Response<string>> GetUser(int Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -191,7 +176,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/InheritingTwo?Id={Id}{queryString}", cancellationToken: _token);
+            if (Id != default)
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingTwo/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -204,7 +193,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetUser_Url (int Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/InheritingTwo?Id={Id}{queryString}";
+            return $"/InheritingTwo/{queryString}";
         }
 
         public async Task<Response<int>> GetUser(string user , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<int> _typeInfo = default)
@@ -213,7 +202,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
             }
-            using var result = await _client.PostAsJsonAsync($"/InheritingTwo?user={user}{queryString}", user, cancellationToken: _token);
+            using var result = await _client.PostAsJsonAsync($"/InheritingTwo/{queryString}", user, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)));
@@ -225,8 +214,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser_Url (string user , QueryString queryString = default)
         {
-            queryString = queryString.Add("user", user.ToString());
-            return $"/InheritingTwo?user={user}{queryString}";
+            return $"/InheritingTwo/{queryString}";
         }
 
         public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -235,7 +223,15 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.PostAsJsonAsync($"/InheritingTwo?Id={Id}&Id2={Id2}&example={example}{queryString}", example, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString = queryString.Add("Id2", Id2.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/InheritingTwo/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -249,8 +245,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             queryString = queryString.Add("Id", Id.ToString());
             queryString = queryString.Add("Id2", Id2.ToString());
-            queryString = queryString.Add("example", example.ToString());
-            return $"/InheritingTwo?Id={Id}&Id2={Id2}&example={example}{queryString}";
+            return $"/InheritingTwo/{queryString}";
         }
 
         public async Task<Response<string>> OverrideTest(string Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -259,7 +254,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/InheritingTwo?Id={Id}{queryString}", cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingTwo/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -272,7 +271,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string OverrideTest_Url (string Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/InheritingTwo?Id={Id}{queryString}";
+            return $"/InheritingTwo/{queryString}";
         }
 
         public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -281,7 +280,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/InheritingTwo?Id3={Id3}{queryString}", cancellationToken: _token);
+            if (Id3 != default)
+            {
+                queryString = queryString.Add("Id3", Id3.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingTwo/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -294,7 +297,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetUser4_Url (int Id3 , QueryString queryString = default)
         {
             queryString = queryString.Add("Id3", Id3.ToString());
-            return $"/InheritingTwo?Id3={Id3}{queryString}";
+            return $"/InheritingTwo/{queryString}";
         }
     }
 
@@ -313,7 +316,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<string>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>;
             }
-            using var result = await _client.GetAsync($"/InheritingUser2{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/InheritingUser2/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
@@ -325,7 +328,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string Get_Url (QueryString queryString = default)
         {
-            return $"/InheritingUser2{queryString}";
+            return $"/InheritingUser2/{queryString}";
         }
 
         public async Task<Response<string>> GetUser(int Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -334,7 +337,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/InheritingUser2?Id={Id}{queryString}", cancellationToken: _token);
+            if (Id != default)
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingUser2/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -347,7 +354,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetUser_Url (int Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/InheritingUser2?Id={Id}{queryString}";
+            return $"/InheritingUser2/{queryString}";
         }
 
         public async Task<Response<int>> GetUser(string user , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<int> _typeInfo = default)
@@ -356,7 +363,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
             }
-            using var result = await _client.PostAsJsonAsync($"/InheritingUser2?user={user}{queryString}", user, cancellationToken: _token);
+            using var result = await _client.PostAsJsonAsync($"/InheritingUser2/{queryString}", user, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)));
@@ -368,8 +375,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser_Url (string user , QueryString queryString = default)
         {
-            queryString = queryString.Add("user", user.ToString());
-            return $"/InheritingUser2?user={user}{queryString}";
+            return $"/InheritingUser2/{queryString}";
         }
 
         public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -378,7 +384,15 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.PostAsJsonAsync($"/InheritingUser2?Id={Id}&Id2={Id2}&example={example}{queryString}", example, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString = queryString.Add("Id2", Id2.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/InheritingUser2/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -392,8 +406,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             queryString = queryString.Add("Id", Id.ToString());
             queryString = queryString.Add("Id2", Id2.ToString());
-            queryString = queryString.Add("example", example.ToString());
-            return $"/InheritingUser2?Id={Id}&Id2={Id2}&example={example}{queryString}";
+            return $"/InheritingUser2/{queryString}";
         }
 
         public async Task<Response<string>> OverrideTest(string Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -402,7 +415,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/InheritingUser2?Id={Id}{queryString}", cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingUser2/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -415,7 +432,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string OverrideTest_Url (string Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/InheritingUser2?Id={Id}{queryString}";
+            return $"/InheritingUser2/{queryString}";
         }
 
         public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -424,7 +441,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/InheritingUser2?Id3={Id3}{queryString}", cancellationToken: _token);
+            if (Id3 != default)
+            {
+                queryString = queryString.Add("Id3", Id3.ToString());
+            }
+            using var result = await _client.GetAsync($"/InheritingUser2/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -437,7 +458,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetUser4_Url (int Id3 , QueryString queryString = default)
         {
             queryString = queryString.Add("Id3", Id3.ToString());
-            return $"/InheritingUser2?Id3={Id3}{queryString}";
+            return $"/InheritingUser2/{queryString}";
         }
     }
 
@@ -452,22 +473,22 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestModelBinderDifferentNameUnderId(System.String Id , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.GetAsync($"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestModelBinderDifferentNameUnderId_Url (System.String Id , QueryString queryString = default)
         {
-            return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}";
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}/{queryString}";
         }
 
         public async Task<Response> TestModelBinderDifferentNameUnderId3(System.String Id , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.GetAsync($"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestModelBinderDifferentNameUnderId3_Url (System.String Id , QueryString queryString = default)
         {
-            return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}/{queryString}";
         }
     }
 
@@ -486,7 +507,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<string>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>;
             }
-            using var result = await _client.GetAsync($"/User{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/User/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
@@ -498,7 +519,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string Get_Url (QueryString queryString = default)
         {
-            return $"/User{queryString}";
+            return $"/User/{queryString}";
         }
 
         public async Task<Response<string>> GetUser(int Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -507,7 +528,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/User?Id={Id}{queryString}", cancellationToken: _token);
+            if (Id != default)
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/User/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -520,7 +545,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetUser_Url (int Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/User?Id={Id}{queryString}";
+            return $"/User/{queryString}";
         }
 
         public async Task<Response<int>> GetUser(string user , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<int> _typeInfo = default)
@@ -529,7 +554,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
             }
-            using var result = await _client.PostAsJsonAsync($"/User?user={user}{queryString}", user, cancellationToken: _token);
+            using var result = await _client.PostAsJsonAsync($"/User/{queryString}", user, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)));
@@ -541,8 +566,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetUser_Url (string user , QueryString queryString = default)
         {
-            queryString = queryString.Add("user", user.ToString());
-            return $"/User?user={user}{queryString}";
+            return $"/User/{queryString}";
         }
 
         public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -551,7 +575,15 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.PostAsJsonAsync($"/User?Id={Id}&Id2={Id2}&example={example}{queryString}", example, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString = queryString.Add("Id2", Id2.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/User/{queryString}", example, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -565,8 +597,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             queryString = queryString.Add("Id", Id.ToString());
             queryString = queryString.Add("Id2", Id2.ToString());
-            queryString = queryString.Add("example", example.ToString());
-            return $"/User?Id={Id}&Id2={Id2}&example={example}{queryString}";
+            return $"/User/{queryString}";
         }
 
         public async Task<Response<string>> OverrideTest(string Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -575,7 +606,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/User?Id={Id}{queryString}", cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/User/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -588,7 +623,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string OverrideTest_Url (string Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/User?Id={Id}{queryString}";
+            return $"/User/{queryString}";
         }
 
         public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
@@ -597,7 +632,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.GetAsync($"/User?Id3={Id3}{queryString}", cancellationToken: _token);
+            if (Id3 != default)
+            {
+                queryString = queryString.Add("Id3", Id3.ToString());
+            }
+            using var result = await _client.GetAsync($"/User/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -610,7 +649,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetUser4_Url (int Id3 , QueryString queryString = default)
         {
             queryString = queryString.Add("Id3", Id3.ToString());
-            return $"/User?Id3={Id3}{queryString}";
+            return $"/User/{queryString}";
         }
     }
 
@@ -628,68 +667,82 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestIgnoreGenericParmaeter(string optionNotRemoved , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsJsonAsync($"/WeatherForecast?optionNotRemoved={optionNotRemoved}{queryString}", new {}, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+            {
+                queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestIgnoreGenericParmaeter_Url (string optionNotRemoved , QueryString queryString = default)
         {
             queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
-            return $"/WeatherForecast?optionNotRemoved={optionNotRemoved}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> TestIgnoreNormalParameter(string optionNotRemoved , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsJsonAsync($"/WeatherForecast?optionNotRemoved={optionNotRemoved}{queryString}", new {}, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+            {
+                queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestIgnoreNormalParameter_Url (string optionNotRemoved , QueryString queryString = default)
         {
             queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
-            return $"/WeatherForecast?optionNotRemoved={optionNotRemoved}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> TestIgnoreWithCustomAttribute(string optionNotRemoved , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsJsonAsync($"/WeatherForecast?optionNotRemoved={optionNotRemoved}{queryString}", new {}, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+            {
+                queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestIgnoreWithCustomAttribute_Url (string optionNotRemoved , QueryString queryString = default)
         {
             queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
-            return $"/WeatherForecast?optionNotRemoved={optionNotRemoved}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> TestModelBinderDifferentName(System.String OtherName , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsJsonAsync($"/WeatherForecast?OtherName={OtherName}{queryString}", new {}, cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(OtherName))
+            {
+                queryString = queryString.Add("OtherName", OtherName.ToString());
+            }
+            using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", new {}, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestModelBinderDifferentName_Url (System.String OtherName , QueryString queryString = default)
         {
             queryString = queryString.Add("OtherName", OtherName.ToString());
-            return $"/WeatherForecast?OtherName={OtherName}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> TestRemapTypeWithAnotherType(System.TimeSpan option , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsJsonAsync($"/WeatherForecast?option={option}{queryString}", option, cancellationToken: _token);
+            using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", option, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestRemapTypeWithAnotherType_Url (System.TimeSpan option , QueryString queryString = default)
         {
-            queryString = queryString.Add("option", option.ToString());
-            return $"/WeatherForecast?option={option}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> TestRemapTypeWithAnotherType2(System.String option , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsJsonAsync($"/WeatherForecast?option={option}{queryString}", option, cancellationToken: _token);
+            using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", option, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TestRemapTypeWithAnotherType2_Url (System.String option , QueryString queryString = default)
         {
-            queryString = queryString.Add("option", option.ToString());
-            return $"/WeatherForecast?option={option}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> _typeInfo = default)
@@ -698,7 +751,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>;
             }
-            using var result = await _client.GetAsync($"/WeatherForecast{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/WeatherForecast/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)));
@@ -710,7 +763,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string Get_Url (QueryString queryString = default)
         {
-            return $"/WeatherForecast{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         /// <summary>
@@ -718,32 +771,32 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         ///     </summary><param name="Input1">This is the string of the input param1</param><param name="Input2">This is the string of the input param2</param><returns></returns>
         public async Task<Response> UrlWithParametersFromRoute(string Input1 , string Input2 , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string UrlWithParametersFromRoute_Url (string Input1 , string Input2 , QueryString queryString = default)
         {
-            queryString = queryString.Add("Input1", Input1.ToString());
-            queryString = queryString.Add("Input2", Input2.ToString());
-            return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}";
+            return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}/{queryString}";
         }
 
         public async Task<Response> UrlWithParametersFromRoute2(string Input1 , string Input2 , string Input3 , QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}?Input3={Input3}{queryString}", cancellationToken: _token);
+            if (!string.IsNullOrWhiteSpace(Input3))
+            {
+                queryString = queryString.Add("Input3", Input3.ToString());
+            }
+            using var result = await _client.GetAsync($"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string UrlWithParametersFromRoute2_Url (string Input1 , string Input2 , string Input3 , QueryString queryString = default)
         {
-            queryString = queryString.Add("Input1", Input1.ToString());
-            queryString = queryString.Add("Input2", Input2.ToString());
             queryString = queryString.Add("Input3", Input3.ToString());
-            return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}?Input3={Input3}{queryString}";
+            return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}/{queryString}";
         }
 
         public async Task<Response<byte[]>> GetBytes(QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.GetAsync($"/WeatherForecast{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/WeatherForecast/{queryString}", cancellationToken: _token);
             return new Response<byte[]>(
                 result.StatusCode,
                 result.Headers,
@@ -752,7 +805,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetBytes_Url (QueryString queryString = default)
         {
-            return $"/WeatherForecast{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
@@ -761,7 +814,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>;
             }
-            using var result = await _client.GetAsync($"/WeatherForecast?Id={Id}{queryString}", cancellationToken: _token);
+            if (Id != default)
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var result = await _client.GetAsync($"/WeatherForecast/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)));
@@ -774,7 +831,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public string GetSingle_Url (int Id , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
-            return $"/WeatherForecast?Id={Id}{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
@@ -783,7 +840,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>;
             }
-            using var result = await _client.GetAsync($"/WeatherForecast{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/WeatherForecast/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)));
@@ -795,37 +852,37 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetSingleFromServiceExample_Url (QueryString queryString = default)
         {
-            return $"/WeatherForecast{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> FormUploadTest1(System.Net.Http.MultipartFormDataContent multiPartContent, QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsync($"/WeatherForecast{queryString}", multiPartContent, cancellationToken: _token);
+            using var result = await _client.PostAsync($"/WeatherForecast/{queryString}", multiPartContent, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string FormUploadTest1_Url (QueryString queryString = default)
         {
-            return $"/WeatherForecast{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> FormUploadTest2(System.Net.Http.MultipartFormDataContent? multiPartContent, QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.PostAsync($"/WeatherForecast{queryString}", multiPartContent, cancellationToken: _token);
+            using var result = await _client.PostAsync($"/WeatherForecast/{queryString}", multiPartContent, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string FormUploadTest2_Url (QueryString queryString = default)
         {
-            return $"/WeatherForecast{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
 
         public async Task<Response> TaskIssue(QueryString queryString = default, CancellationToken _token = default )
         {
-            using var result = await _client.GetAsync($"/WeatherForecast{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/WeatherForecast/{queryString}", cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
         public string TaskIssue_Url (QueryString queryString = default)
         {
-            return $"/WeatherForecast{queryString}";
+            return $"/WeatherForecast/{queryString}";
         }
     }
 
@@ -844,7 +901,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
             }
-            using var result = await _client.PostAsJsonAsync($"/api/YetAnother/YetAnotherTest/{Id}{queryString}", new {}, cancellationToken: _token);
+            using var result = await _client.PostAsJsonAsync($"/api/YetAnother/YetAnotherTest/{Id}/{queryString}", new {}, cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
@@ -856,7 +913,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string YetAnotherTest_Url (string Id , QueryString queryString = default)
         {
-            return $"/api/YetAnother/YetAnotherTest/{Id}{queryString}";
+            return $"/api/YetAnother/YetAnotherTest/{Id}/{queryString}";
         }
 
         public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>> JSONDynamicTestDynamic(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest> _typeInfo = default)
@@ -865,7 +922,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             {
                 _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>;
             }
-            using var result = await _client.GetAsync($"/api/YetAnother/JSONDynamicTestDynamic{queryString}", cancellationToken: _token);
+            using var result = await _client.GetAsync($"/api/YetAnother/JSONDynamicTestDynamic/{queryString}", cancellationToken: _token);
             if (_typeInfo != default)
             {
                 return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest?>(default)));
@@ -877,7 +934,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string JSONDynamicTestDynamic_Url (QueryString queryString = default)
         {
-            return $"/api/YetAnother/JSONDynamicTestDynamic{queryString}";
+            return $"/api/YetAnother/JSONDynamicTestDynamic/{queryString}";
         }
     }
 }

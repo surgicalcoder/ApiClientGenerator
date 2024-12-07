@@ -18,7 +18,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2"
+        "CalculatedURL": "/InheritingUser2/"
       },
       {
         "Name": "GetUser",
@@ -47,7 +47,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2?Id={Id}"
+        "CalculatedURL": "/InheritingUser2/"
       },
       {
         "Name": "GetUser",
@@ -93,7 +93,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2?user={user}"
+        "CalculatedURL": "/InheritingUser2/"
       },
       {
         "Name": "GetUser2",
@@ -159,7 +159,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2?Id={Id}\u0026Id2={Id2}\u0026example={example}"
+        "CalculatedURL": "/InheritingUser2/"
       },
       {
         "Name": "OverrideTest",
@@ -188,7 +188,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2?Id={Id}"
+        "CalculatedURL": "/InheritingUser2/"
       },
       {
         "Name": "GetUser4",
@@ -217,7 +217,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2?Id3={Id3}"
+        "CalculatedURL": "/InheritingUser2/"
       }
     ],
     "XmlComments": ""
@@ -278,7 +278,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo/InheritingTwo/"
+        "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}/"
       },
       {
         "Name": "GetApiTest2",
@@ -307,7 +307,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/ThisIsTestTwo"
+        "CalculatedURL": "/ThisIsTestTwo/{Page}/"
       },
       {
         "Name": "Get",
@@ -323,7 +323,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo"
+        "CalculatedURL": "/InheritingTwo/"
       },
       {
         "Name": "GetUser",
@@ -352,7 +352,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo?Id={Id}"
+        "CalculatedURL": "/InheritingTwo/"
       },
       {
         "Name": "GetUser",
@@ -398,7 +398,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo?user={user}"
+        "CalculatedURL": "/InheritingTwo/"
       },
       {
         "Name": "GetUser2",
@@ -464,7 +464,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo?Id={Id}\u0026Id2={Id2}\u0026example={example}"
+        "CalculatedURL": "/InheritingTwo/"
       },
       {
         "Name": "OverrideTest",
@@ -493,7 +493,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo?Id={Id}"
+        "CalculatedURL": "/InheritingTwo/"
       },
       {
         "Name": "GetUser4",
@@ -522,7 +522,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo?Id3={Id3}"
+        "CalculatedURL": "/InheritingTwo/"
       }
     ],
     "XmlComments": ""
@@ -576,7 +576,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}"
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}/"
       },
       {
         "Name": "TestModelBinderDifferentNameUnderId3",
@@ -622,7 +622,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}"
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}/"
       }
     ],
     "XmlComments": ""
@@ -646,7 +646,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/User"
+        "CalculatedURL": "/User/"
       },
       {
         "Name": "GetUser",
@@ -675,7 +675,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/User?Id={Id}"
+        "CalculatedURL": "/User/"
       },
       {
         "Name": "GetUser",
@@ -721,7 +721,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/User?user={user}"
+        "CalculatedURL": "/User/"
       },
       {
         "Name": "GetUser2",
@@ -787,7 +787,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/User?Id={Id}\u0026Id2={Id2}\u0026example={example}"
+        "CalculatedURL": "/User/"
       },
       {
         "Name": "OverrideTest",
@@ -816,7 +816,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/User?Id={Id}"
+        "CalculatedURL": "/User/"
       },
       {
         "Name": "GetUser4",
@@ -845,7 +845,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/User?Id3={Id3}"
+        "CalculatedURL": "/User/"
       }
     ],
     "XmlComments": ""
@@ -882,7 +882,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?optionNotRemoved={optionNotRemoved}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "TestIgnoreNormalParameter",
@@ -911,7 +911,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?optionNotRemoved={optionNotRemoved}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "TestIgnoreWithCustomAttribute",
@@ -940,7 +940,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?optionNotRemoved={optionNotRemoved}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "TestModelBinderDifferentName",
@@ -971,7 +971,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?OtherName={OtherName}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "TestRemapTypeWithAnotherType",
@@ -1013,7 +1013,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?option={option}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "TestRemapTypeWithAnotherType2",
@@ -1059,7 +1059,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?option={option}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "Get",
@@ -1075,7 +1075,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "SecretUrl",
@@ -1132,7 +1132,7 @@
         ],
         "Body": [],
         "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
-        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}"
+        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}/"
       },
       {
         "Name": "UrlWithParametersFromRoute2",
@@ -1185,7 +1185,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}?Input3={Input3}"
+        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}/"
       },
       {
         "Name": "GetBytes",
@@ -1201,7 +1201,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "GetSingle",
@@ -1230,7 +1230,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast?Id={Id}"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "GetSingleFromServiceExample",
@@ -1246,7 +1246,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "FormUploadTest1",
@@ -1288,7 +1288,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "FormUploadTest2",
@@ -1330,7 +1330,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast"
+        "CalculatedURL": "/WeatherForecast/"
       },
       {
         "Name": "TaskIssue",
@@ -1346,7 +1346,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast"
+        "CalculatedURL": "/WeatherForecast/"
       }
     ],
     "XmlComments": "\u003Cmember name=\u0022T:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for Weather Forecast Controller\r\n    \u003C/summary\u003E\r\n\u003C/member\u003E\r\n"
@@ -1383,7 +1383,7 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/api/YetAnother/YetAnotherTest/{Id}"
+        "CalculatedURL": "/api/YetAnother/YetAnotherTest/{Id}/"
       },
       {
         "Name": "JSONDynamicTestDynamic",
@@ -1399,7 +1399,7 @@
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/api/YetAnother/JSONDynamicTestDynamic"
+        "CalculatedURL": "/api/YetAnother/JSONDynamicTestDynamic/"
       }
     ],
     "XmlComments": ""
