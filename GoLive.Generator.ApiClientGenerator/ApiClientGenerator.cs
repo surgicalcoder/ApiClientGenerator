@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using GoLive.Generator.ApiClientGenerator.Routing;
@@ -18,6 +19,7 @@ namespace GoLive.Generator.ApiClientGenerator;
 public class ApiClientGenerator : IIncrementalGenerator
 {
     private const string TASK_FQ = "global::System.Threading.Tasks.Task";
+    private const string IFormFile_Q = "Microsoft.AspNetCore.Http.IFormFile";
         
     public void Initialize(IncrementalGeneratorInitializationContext context) 
     {
@@ -326,20 +328,21 @@ public class ApiClientGenerator : IIncrementalGenerator
             }
 
             var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
-            bool containsFileUpload = action.Mapping.Any(f => f.Parameter.FullTypeName == "Microsoft.AspNetCore.Http.IFormFile");
+            
+            bool containsFileUpload = action.Mapping.Any(f => f.Parameter.FullTypeName == IFormFile_Q);
 
             if (containsFileUpload) 
             {
                 parameterList = string.Join(", ",
                     action.Mapping.Select(m =>
-                        m.Parameter.FullTypeName == "Microsoft.AspNetCore.Http.IFormFile"
+                        m.Parameter.FullTypeName == IFormFile_Q
                             ? $"System.Net.Http.MultipartFormDataContent{(m.Parameter.Nullable ? "?" : "")} multiPartContent"
                             : $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
                 
                 
             }
             
-            var mappingsWithoutFile = action.Mapping.Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile").ToList();
+            var mappingsWithoutFile = action.Mapping.Where(f => f.Parameter.FullTypeName != IFormFile_Q).ToList();
 
             string useCustomFormatter = config.CustomDiscriminator;
             
@@ -377,7 +380,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             
             
             foreach (var (key, parameter) in action.Mapping
-                .Where(m => !string.Equals(m.Parameter.FullTypeName, "Microsoft.AspNetCore.Http.IFormFile", StringComparison.InvariantCultureIgnoreCase))
+                .Where(m => !string.Equals(m.Parameter.FullTypeName, IFormFile_Q, StringComparison.InvariantCultureIgnoreCase))
                 .Where(m => 
                     urlTemplate.Segments.Any(s => string.Equals(s.Parameter, m.Key, StringComparison.InvariantCultureIgnoreCase) 
                                                   /*|| 
@@ -594,20 +597,26 @@ public class ApiClientGenerator : IIncrementalGenerator
             if (config.OutputUrls)
             {
                 List<string> secondParamList = new();
-                if (action.Mapping.Any(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
-                {
-                    secondParamList.AddRange(action.Mapping.Where(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)).Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
-                }
-                
-                var queryStringParameters =  action.Mapping
-                    .Where(f => f.Parameter.FullTypeName != "Microsoft.AspNetCore.Http.IFormFile")
-                    .Where(m => !urlTemplate.Segments.Any(s => string.Equals(s.Parameter, m.Key, StringComparison.InvariantCultureIgnoreCase)))
-                    .Where(e => !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase)))
+
+                var methodParameterMappings = action.Mapping
+                    .Where(f => f.Parameter.FullTypeName != IFormFile_Q)
+                    .Where(e => action.Method == HttpMethod.Get || (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
+                   // .Where(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase)))
                     .ToList();
 
-                if (mappingsWithoutFile.Any())
+                if (methodParameterMappings.Any())
                 {
-                    string parameterListWithoutFile = string.Join(", ", mappingsWithoutFile.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+                    secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                }
+                
+                /*foreach (var (key, parameter) in methodParameterMappings)
+                {
+                    source.AppendLine($"// {key} {parameter.FullTypeName}");
+                }*/
+                
+                if (methodParameterMappings.Any())
+                {
+                    string parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
                     source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
                 }
                 else
@@ -616,9 +625,9 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
                 source.AppendOpenCurlyBracketLine();
    
-                if (queryStringParameters != null && queryStringParameters.Any())
+                if (methodParameterMappings != null && methodParameterMappings.Any())
                 { 
-                    foreach (var parameterMapping in queryStringParameters)
+                    foreach (var parameterMapping in methodParameterMappings)
                     {
                         source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
                     }

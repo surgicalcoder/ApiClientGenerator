@@ -135,7 +135,9 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetPagedApiTest_Url (int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default)
         {
+            queryString = queryString.Add("Page", Page.ToString());
             queryString = queryString.Add("Filter", Filter.ToString());
+            queryString = queryString.Add("PageSize", PageSize.ToString());
             return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}/{queryString}";
         }
 
@@ -146,6 +148,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string GetApiTest2_Url (int Page  = 1, QueryString queryString = default)
         {
+            queryString = queryString.Add("Page", Page.ToString());
             return $"/ThisIsTestTwo/{Page}/{queryString}";
         }
 
@@ -212,7 +215,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)));
             }
         }
-        public string GetUser_Url (string user , QueryString queryString = default)
+        public string GetUser_Url (QueryString queryString = default)
         {
             return $"/InheritingTwo/{queryString}";
         }
@@ -241,7 +244,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
             }
         }
-        public string GetUser2_Url (string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default)
+        public string GetUser2_Url (string Id , string Id2 , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
             queryString = queryString.Add("Id2", Id2.ToString());
@@ -373,7 +376,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)));
             }
         }
-        public string GetUser_Url (string user , QueryString queryString = default)
+        public string GetUser_Url (QueryString queryString = default)
         {
             return $"/InheritingUser2/{queryString}";
         }
@@ -402,7 +405,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
             }
         }
-        public string GetUser2_Url (string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default)
+        public string GetUser2_Url (string Id , string Id2 , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
             queryString = queryString.Add("Id2", Id2.ToString());
@@ -478,6 +481,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string TestModelBinderDifferentNameUnderId_Url (System.String Id , QueryString queryString = default)
         {
+            queryString = queryString.Add("Id", Id.ToString());
             return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}/{queryString}";
         }
 
@@ -488,6 +492,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string TestModelBinderDifferentNameUnderId3_Url (System.String Id , QueryString queryString = default)
         {
+            queryString = queryString.Add("Id", Id.ToString());
             return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}/{queryString}";
         }
     }
@@ -564,7 +569,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)));
             }
         }
-        public string GetUser_Url (string user , QueryString queryString = default)
+        public string GetUser_Url (QueryString queryString = default)
         {
             return $"/User/{queryString}";
         }
@@ -593,7 +598,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
                 return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
             }
         }
-        public string GetUser2_Url (string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default)
+        public string GetUser2_Url (string Id , string Id2 , QueryString queryString = default)
         {
             queryString = queryString.Add("Id", Id.ToString());
             queryString = queryString.Add("Id2", Id2.ToString());
@@ -730,7 +735,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", option, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
-        public string TestRemapTypeWithAnotherType_Url (System.TimeSpan option , QueryString queryString = default)
+        public string TestRemapTypeWithAnotherType_Url (QueryString queryString = default)
         {
             return $"/WeatherForecast/{queryString}";
         }
@@ -740,7 +745,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
             using var result = await _client.PostAsJsonAsync($"/WeatherForecast/{queryString}", option, cancellationToken: _token);
             return new Response(result.StatusCode, result.Headers);
         }
-        public string TestRemapTypeWithAnotherType2_Url (System.String option , QueryString queryString = default)
+        public string TestRemapTypeWithAnotherType2_Url (QueryString queryString = default)
         {
             return $"/WeatherForecast/{queryString}";
         }
@@ -776,6 +781,8 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string UrlWithParametersFromRoute_Url (string Input1 , string Input2 , QueryString queryString = default)
         {
+            queryString = queryString.Add("Input1", Input1.ToString());
+            queryString = queryString.Add("Input2", Input2.ToString());
             return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}/{queryString}";
         }
 
@@ -790,6 +797,8 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string UrlWithParametersFromRoute2_Url (string Input1 , string Input2 , string Input3 , QueryString queryString = default)
         {
+            queryString = queryString.Add("Input1", Input1.ToString());
+            queryString = queryString.Add("Input2", Input2.ToString());
             queryString = queryString.Add("Input3", Input3.ToString());
             return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}/{queryString}";
         }
@@ -913,6 +922,7 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         }
         public string YetAnotherTest_Url (string Id , QueryString queryString = default)
         {
+            queryString = queryString.Add("Id", Id.ToString());
             return $"/api/YetAnother/YetAnotherTest/{Id}/{queryString}";
         }
 
