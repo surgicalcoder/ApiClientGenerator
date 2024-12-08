@@ -257,7 +257,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         className = $"{className}Client";
 
         
-        if (!string.IsNullOrWhiteSpace(controllerRoute.XmlComments))
+        if (!string.IsNullOrWhiteSpace(controllerRoute.XmlComments) && !config.DisableXMLComments)
         {
             var xmlDoc = new System.Xml.XmlDocument();
             xmlDoc.LoadXml(controllerRoute.XmlComments);
@@ -421,7 +421,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             string jsonTypeInfoMethodAppend = (action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType) ? string.Empty : $", jsonTypeInfo: _typeInfo";
 
             
-            if (!string.IsNullOrWhiteSpace(action.XmlComments))
+            if (!string.IsNullOrWhiteSpace(action.XmlComments) && !config.DisableXMLComments)
             {
                 var xmlDoc = new System.Xml.XmlDocument();
                 xmlDoc.LoadXml(action.XmlComments);

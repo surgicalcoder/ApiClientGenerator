@@ -29,6 +29,8 @@ public class RouteGeneratorSettings
     public bool OutputUrls { get; set; }
     public string OutputUrlsPrefix { get; set; }
     public string OutputUrlsPostfix { get; set; }
+    
+    public bool DisableXMLComments { get; set; }
 
     [JsonConverter(typeof(StringOrArrayJsonConverter))]
     public List<string> JSONAPIRepresentationFile { get; set; }
