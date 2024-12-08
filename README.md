@@ -112,4 +112,5 @@ If you don't want XML comments enabled, set the config variable of "DisableXMLCo
 # Changelog
 
 - Version 3.0 - changed the way the API generation works (uses a central route template as opposed to hard coded), changed json settings file (not backwards compatible but not that different)
-- 3.0.45 - Small issue where _Url's were getting erroneous querystring parameters that were part of URL.
+- 3.0.46 - Small issue where _Url's were getting erroneous querystring parameters that were part of URL.
+- 3.0.47 - Remove trailing / from URLs as it will break optional parameters, might need to think about a better way to do this.
