@@ -600,8 +600,8 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                 var methodParameterMappings = action.Mapping
                     .Where(f => f.Parameter.FullTypeName != IFormFile_Q)
-                    .Where(e => action.Method == HttpMethod.Get || (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
-                   // .Where(f => urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase)))
+                    .Where(e => action.Method == HttpMethod.Get || 
+                                (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
                     .ToList();
 
                 if (methodParameterMappings.Any())
