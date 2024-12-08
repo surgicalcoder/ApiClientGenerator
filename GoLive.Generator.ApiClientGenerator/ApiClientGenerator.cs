@@ -627,7 +627,7 @@ public class ApiClientGenerator : IIncrementalGenerator
    
                 if (methodParameterMappings != null && methodParameterMappings.Any())
                 { 
-                    foreach (var parameterMapping in methodParameterMappings)
+                    foreach (var parameterMapping in methodParameterMappings.Where(r=> !actionValues.ContainsKey(r.Key)))
                     {
                         source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
                     }
