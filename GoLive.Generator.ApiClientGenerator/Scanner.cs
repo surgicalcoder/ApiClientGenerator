@@ -52,8 +52,10 @@ public static class Scanner
         var area = areaAttribute?.ConstructorArguments.FirstOrDefault().Value?.ToString() ?? null;
     
         var xmlComments = classSymbol.GetDocumentationCommentXml();
+
+        var allAttributes = classSymbol.GetAttributes().Select(r => r.AttributeClass.ToDisplayString());
     
-        return new ControllerRoute(name, area, route, actionMethods.ToArray(), xmlComments);
+        return new ControllerRoute(name, area, route, actionMethods.ToArray(), xmlComments, allAttributes.ToArray());
     }
 
     private static IEnumerable<ActionRoute> ScanForActionMethods(SemanticModel model, INamedTypeSymbol classSymbol)
@@ -178,9 +180,11 @@ public static class Scanner
 
                 var fullMethodName = member.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted).WithMemberOptions(SymbolDisplayMemberOptions.IncludeContainingType | SymbolDisplayMemberOptions.IncludeType)).Split(' ')[1];
 
+                var allAttributes = methodSymbol.GetAttributes().Select(r=>r.AttributeClass.ToDisplayString()).ToArray();
+                
                 yield return new ActionRoute(name, fullMethodName, method, route, routeSetByAttr,
                     returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
-                    useCustomFormatter, parameters.ToList(), bodyParameter, xmlComments);
+                    useCustomFormatter, parameters.ToList(), bodyParameter, xmlComments, allAttributes);
             }
         }
     }

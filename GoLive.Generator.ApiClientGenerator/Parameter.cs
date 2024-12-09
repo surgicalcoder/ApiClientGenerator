@@ -23,7 +23,7 @@ public class Parameter
     public List<string> Attributes { get; set; }
     public SpecialType SpecialType { get; set; }
 
-    public void Deconstruct(out string FullTypeName, out string? GenericTypeName, out bool HasDefaultValue, out object? DefaultValue, out bool Nullable, out List<string> Attributes)
+    public void Deconstruct(out string FullTypeName, out string? GenericTypeName, out bool HasDefaultValue, out object? DefaultValue, out bool Nullable)
     {
         FullTypeName = this.FullTypeName;
         GenericTypeName = this.GenericTypeName;
