@@ -115,3 +115,4 @@ If you don't want XML comments enabled, set the config variable of "DisableXMLCo
 - 3.0.46 - Small issue where _Url's were getting erroneous querystring parameters that were part of URL.
 - 3.0.47 - Remove trailing / from URLs as it will break optional parameters, might need to think about a better way to do this.
 - 3.0.49 - Expose AllAttributes property on Classes / Methods for external processing
+- 3.0.50 - Added a bit of logic to AllAttributes and added missing class processing

@@ -53,11 +53,27 @@ public static class Scanner
     
         var xmlComments = classSymbol.GetDocumentationCommentXml();
 
-        var allAttributes = classSymbol.GetAttributes().Select(r => r.AttributeClass.ToDisplayString());
+        var allAttributes = GetAllAttributes(classSymbol);
     
         return new ControllerRoute(name, area, route, actionMethods.ToArray(), xmlComments, allAttributes.ToArray());
     }
 
+    private static IEnumerable<string> GetAllAttributes(INamedTypeSymbol classSymbol)
+    {
+        var attributes = new HashSet<string>();
+
+        while (classSymbol != null && !classSymbol.ToDisplayString().StartsWith(ASPNETCORE_NAMESPACE, StringComparison.InvariantCultureIgnoreCase))
+        {
+            foreach (var attribute in classSymbol.GetAttributes())
+            {
+                attributes.Add(attribute.AttributeClass.ToDisplayString());
+            }
+            classSymbol = classSymbol.BaseType;
+        }
+
+        return attributes;
+    }
+    
     private static IEnumerable<ActionRoute> ScanForActionMethods(SemanticModel model, INamedTypeSymbol classSymbol)
     {
         foreach (var member in classSymbol.GetMembers())
@@ -180,7 +196,7 @@ public static class Scanner
 
                 var fullMethodName = member.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted).WithMemberOptions(SymbolDisplayMemberOptions.IncludeContainingType | SymbolDisplayMemberOptions.IncludeType)).Split(' ')[1];
 
-                var allAttributes = methodSymbol.GetAttributes().Select(r=>r.AttributeClass.ToDisplayString()).ToArray();
+                var allAttributes = methodSymbol.GetAttributes().Select(r=>r.AttributeClass.ToDisplayString()).Distinct().ToArray();
                 
                 yield return new ActionRoute(name, fullMethodName, method, route, routeSetByAttr,
                     returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,

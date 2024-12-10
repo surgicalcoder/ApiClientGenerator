@@ -18,7 +18,8 @@ public class ActionRoute(string Name, string FullMethodName, HttpMethod Method, 
     public List<ParameterMapping> Body { get; init; } = Body;
     public string XmlComments { get; init; } = XmlComments;
     public string CalculatedURL { get; set; }
-    public string[] AllAttributes { get; set; }
+    public string[] AllAttributes { get; set; } = AllAttributes;
+
     public void Deconstruct(out string Name, out string FullMethodName, out HttpMethod Method, out string Route, out bool RouteSetByAttributes, out string? ReturnTypeName, out bool ReturnTypeStruct, out bool hasCustomFormatter, out List<ParameterMapping> Mapping, out List<ParameterMapping> Body, out string XmlComments, out string[] AllAttributes)
     {
         Name = this.Name;
