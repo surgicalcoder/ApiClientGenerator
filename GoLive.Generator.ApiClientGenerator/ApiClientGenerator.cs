@@ -510,6 +510,18 @@ public class ApiClientGenerator : IIncrementalGenerator
             else if (callStatement.Contains("await _client.OptionsAsync"))
             {
                 callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);"; // TODO This feels very dirty and hacky.
+            }            
+            else if (callStatement.Contains("await _client.HeadAsync"))
+            {
+                callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, {routeString}), _token);"; // TODO This feels very dirty and hacky.
+            }
+            else if (callStatement.Contains("await _client.PatchAsync"))
+            {
+                callStatement = $"await _client.SendAsync(new HttpRequestMessage(new HttpMethod(\"PATCH\"), {routeString}), _token);"; // TODO This feels very dirty and hacky.
+            }
+            else if (callStatement.Contains("await _client.OptionsAsync"))
+            {
+                callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);"; // TODO This feels very dirty and hacky.
             }
 
             if (action.ReturnTypeName is null or TASK_FQ)

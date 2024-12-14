@@ -24,7 +24,18 @@ public class YetAnotherController : Controller
     }
     
     
+    [HttpHead]
+    public string HttpHeadTest()
+    {
+        return "Ok";
+    }
+
     
+    [HttpPatch]
+    public string HttpPatchTest()
+    {
+        return "Ok";
+    }
 }
 
 public class JSONDynamicTest

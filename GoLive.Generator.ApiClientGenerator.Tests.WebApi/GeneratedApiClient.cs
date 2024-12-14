@@ -980,6 +980,48 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             return $"/api/YetAnother/HttpOptionsTest{queryString}";
         }
+
+        public async Task<Response<string>> HttpHeadTest(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            using var result = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, $"/api/YetAnother/HttpHeadTest{queryString}"), _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string HttpHeadTest_Url (QueryString queryString = default)
+        {
+            return $"/api/YetAnother/HttpHeadTest{queryString}";
+        }
+
+        public async Task<Response<string>> HttpPatchTest(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            using var result = await _client.SendAsync(new HttpRequestMessage(new HttpMethod("PATCH"), $"/api/YetAnother/HttpPatchTest{queryString}"), _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string HttpPatchTest_Url (QueryString queryString = default)
+        {
+            return $"/api/YetAnother/HttpPatchTest{queryString}";
+        }
     }
 }
 // JSON Source Generator

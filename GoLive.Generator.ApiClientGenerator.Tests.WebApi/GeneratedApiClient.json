@@ -1540,6 +1540,44 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpOptionsAttribute"
         ]
+      },
+      {
+        "Name": "HttpHeadTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpHeadTest",
+        "Method": {
+          "Method": "HEAD"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/HttpHeadTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpHeadAttribute"
+        ]
+      },
+      {
+        "Name": "HttpPatchTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpPatchTest",
+        "Method": {
+          "Method": "PATCH"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/HttpPatchTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPatchAttribute"
+        ]
       }
     ],
     "XmlComments": "",
