@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 
-namespace GoLive.Generator.ApiClientGenerator;
+namespace GoLive.Generator.ApiClientGenerator.Model;
 
 public class ActionRoute(string Name, string FullMethodName, HttpMethod Method, string Route, bool RouteSetByAttributes, string? ReturnTypeName, bool ReturnTypeStruct, 
     bool hasCustomFormatter, List<ParameterMapping> Mapping, List<ParameterMapping> Body, string XmlComments, string[] AllAttributes)

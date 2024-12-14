@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.CodeAnalysis;
 
-namespace GoLive.Generator.ApiClientGenerator;
+namespace GoLive.Generator.ApiClientGenerator.Model;
 
 public class Parameter
 {

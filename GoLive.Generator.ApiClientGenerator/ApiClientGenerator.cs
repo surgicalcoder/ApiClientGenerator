@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using GoLive.Generator.ApiClientGenerator.Model;
 using GoLive.Generator.ApiClientGenerator.Routing;
 using GoLive.Generator.ApiClientGenerator.Settings;
 using Microsoft.CodeAnalysis;
