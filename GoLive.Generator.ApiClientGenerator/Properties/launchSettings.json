@@ -4,10 +4,6 @@
     "GoLive.Generator.ApiClientGenerator": {
       "commandName": "DebugRoslynComponent",
       "targetProject": "..\\GoLive.Generator.ApiClientGenerator.Tests.WebApi\\GoLive.Generator.ApiClientGenerator.Tests.WebApi.csproj"
-    },
-    "APIClient-Server":{
-      "commandName": "DebugRoslynComponent",
-        "targetProject": "../../solutionfactory.core.mongotemplate/SolutionFactoryMVC.Web.Server/SolutionFactoryMVC.Web.Server.csproj"
     }
   }
 }
