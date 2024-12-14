@@ -483,16 +483,11 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent, cancellationToken: _token);";
             }
-            else if (action.Body is { Count: > 0 } && action.Body.FirstOrDefault() is { Key: var key } && !string.Equals(key, "id", StringComparison.InvariantCultureIgnoreCase)) // TODO need to do something about ID here
+            else if (action.Body is { Count: > 0 } && action.Body.FirstOrDefault() is { Key: var key } && !string.Equals(key, "id", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (string.IsNullOrWhiteSpace(useCustomFormatter))
-                {
-                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, cancellationToken: _token);";
-                }
-                else
-                {
-                    callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token);";
-                }
+                callStatement = string.IsNullOrWhiteSpace(useCustomFormatter)
+                    ? $"await _client.{methodString}AsJsonAsync({routeString}, {key}, cancellationToken: _token);"
+                    : $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token);";
             }
             else if (methodString == "Post")
             {
@@ -503,26 +498,14 @@ public class ApiClientGenerator : IIncrementalGenerator
                 callStatement = $"await _client.{methodString}Async({routeString}, cancellationToken: _token);";
             }
 
-            if (callStatement.Contains("await _client.GetAsJsonAsync"))
+            callStatement = methodString switch
             {
-                callStatement = callStatement.Replace("await _client.GetAsJsonAsync", "await _client.GetFromJsonAsync"); // Issue with GET JSON method being named differently.
-            }
-            else if (callStatement.Contains("await _client.OptionsAsync"))
-            {
-                callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);"; // TODO This feels very dirty and hacky.
-            }            
-            else if (callStatement.Contains("await _client.HeadAsync"))
-            {
-                callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, {routeString}), _token);"; // TODO This feels very dirty and hacky.
-            }
-            else if (callStatement.Contains("await _client.PatchAsync"))
-            {
-                callStatement = $"await _client.SendAsync(new HttpRequestMessage(new HttpMethod(\"PATCH\"), {routeString}), _token);"; // TODO This feels very dirty and hacky.
-            }
-            else if (callStatement.Contains("await _client.OptionsAsync"))
-            {
-                callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);"; // TODO This feels very dirty and hacky.
-            }
+                "Get" => callStatement.Replace("await _client.GetAsJsonAsync", "await _client.GetFromJsonAsync"),
+                "Options" => $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);",
+                "Head" => $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, {routeString}), _token);",
+                "Patch" => $"await _client.SendAsync(new HttpRequestMessage(new HttpMethod(\"PATCH\"), {routeString}), _token);",
+                _ => callStatement
+            };
 
             if (action.ReturnTypeName is null or TASK_FQ)
             {
