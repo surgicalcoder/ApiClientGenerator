@@ -453,7 +453,6 @@ public class ApiClientGenerator : IIncrementalGenerator
                     source.AppendLine($"_typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof({action.ReturnTypeName})) as JsonTypeInfo<{action.ReturnTypeName}>;");
                 }
             }
-                
 
             foreach (var parameterMapping in action.Mapping.Where(f => action.Body?.FirstOrDefault()?.Key != f.Key 
                                                                        && !actionValues.ContainsKey(f.Key) && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) 
@@ -476,38 +475,48 @@ public class ApiClientGenerator : IIncrementalGenerator
 
 
             action.CalculatedURL = routeValue;
-
-            var methodString = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(action.Method.Method.ToLower());
-
-            string callStatement;
+            
+            var HttpRequestHttpMethod = action.Method.Method switch
+            {
+                "GET" => "HttpMethod.Get",
+                "POST" => "HttpMethod.Post",
+                "PUT" => "HttpMethod.Put",
+                "DELETE" => "HttpMethod.Delete",
+                "PATCH" => "new HttpMethod(\"PATCH\")",
+                "HEAD" => "HttpMethod.Head",
+                "OPTIONS" => "HttpMethod.Options",
+                "TRACE" => "HttpMethod.Trace",
+                _ => $"new HttpMethod(\"{action.Method.Method}\")"
+            };
+            
+            source.AppendLine($"using var request = new HttpRequestMessage({HttpRequestHttpMethod}, {routeString});");
 
             if (containsFileUpload)
             {
-                callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent, cancellationToken: _token);";
+                source.AppendLine("request.Content = multiPartContent;");
             }
-            else if (action.Body is { Count: > 0 } && action.Body.FirstOrDefault() is { Key: var key } && !string.Equals(key, "id", StringComparison.InvariantCultureIgnoreCase))
+            else if (action.Body is { Count: > 0 })
             {
-                callStatement = string.IsNullOrWhiteSpace(useCustomFormatter)
-                    ? $"await _client.{methodString}AsJsonAsync({routeString}, {key}, cancellationToken: _token);"
-                    : $"await _client.{methodString}AsJsonAsync({routeString}, {key}, {useCustomFormatter}, cancellationToken: _token);";
+                source.AppendLine($"request.Content = JsonContent.Create({action.Body.FirstOrDefault().Key});");
             }
-            else if (methodString == "Post")
+            
+            
+            if (config.Properties.IdempotencyRequired is {Count: > 0})
             {
-                callStatement = $"await _client.{methodString}AsJsonAsync({routeString}, new {{}}, cancellationToken: _token);";
-            }
-            else
-            {
-                callStatement = $"await _client.{methodString}Async({routeString}, cancellationToken: _token);";
-            }
+                string? idempotencyValue = string.Empty;
 
-            callStatement = methodString switch
-            {
-                "Get" => callStatement.Replace("await _client.GetAsJsonAsync", "await _client.GetFromJsonAsync"),
-                "Options" => $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);",
-                "Head" => $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Head, {routeString}), _token);",
-                "Patch" => $"await _client.SendAsync(new HttpRequestMessage(new HttpMethod(\"PATCH\"), {routeString}), _token);",
-                _ => callStatement
-            };
+                bool actionHasIdempotency = action.AllAttributes.Any(attr => config.Properties.IdempotencyRequired.TryGetValue(attr, out idempotencyValue));
+
+                bool controllerHasIdempotency = !actionHasIdempotency && controllerRoute.AllAttributes.Any(attr => config.Properties.IdempotencyRequired.TryGetValue(attr, out idempotencyValue));
+
+                if (actionHasIdempotency || controllerHasIdempotency && !string.IsNullOrWhiteSpace(idempotencyValue))
+                {
+                    source.AppendLine(!string.IsNullOrWhiteSpace(config.Properties.IdempotencyGenerator) ? $"var idempotencyKey = {config.Properties.IdempotencyGenerator};" : "var idempotencyKey = Guid.NewGuid().ToString();");
+                    source.AppendLine($"request.Headers.Add(\"{idempotencyValue}\", idempotencyKey);");
+                }
+            }
+            
+            string callStatement = "await _client.SendAsync(request, _token);";
 
             if (action.ReturnTypeName is null or TASK_FQ)
             {
