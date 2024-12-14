@@ -483,7 +483,7 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 callStatement = $"await _client.{methodString}Async({routeString}, multiPartContent, cancellationToken: _token);";
             }
-            else if (action.Body is { Count: > 0 } && action.Body.FirstOrDefault() is { Key: var key } && !string.Equals(key, "id", StringComparison.InvariantCultureIgnoreCase))
+            else if (action.Body is { Count: > 0 } && action.Body.FirstOrDefault() is { Key: var key } && !string.Equals(key, "id", StringComparison.InvariantCultureIgnoreCase)) // TODO need to do something about ID here
             {
                 if (string.IsNullOrWhiteSpace(useCustomFormatter))
                 {
@@ -506,6 +506,10 @@ public class ApiClientGenerator : IIncrementalGenerator
             if (callStatement.Contains("await _client.GetAsJsonAsync"))
             {
                 callStatement = callStatement.Replace("await _client.GetAsJsonAsync", "await _client.GetFromJsonAsync"); // Issue with GET JSON method being named differently.
+            }
+            else if (callStatement.Contains("await _client.OptionsAsync"))
+            {
+                callStatement = $"await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, {routeString}), _token);"; // TODO This feels very dirty and hacky.
             }
 
             if (action.ReturnTypeName is null or TASK_FQ)

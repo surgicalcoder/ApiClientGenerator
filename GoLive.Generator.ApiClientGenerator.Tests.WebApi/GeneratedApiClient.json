@@ -14,12 +14,14 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "GetUser",
@@ -31,7 +33,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -49,7 +51,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "GetUser",
@@ -61,7 +65,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "int",
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "user",
@@ -96,7 +100,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "GetUser2",
@@ -108,7 +114,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -163,7 +169,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "OverrideTest",
@@ -175,7 +183,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -193,7 +201,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": null
+        "AllAttributes": []
       },
       {
         "Name": "GetUser4",
@@ -205,7 +213,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id3",
@@ -223,7 +231,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": null
+        "AllAttributes": []
       }
     ],
     "XmlComments": "",
@@ -247,7 +255,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Page",
@@ -289,7 +297,10 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
       },
       {
         "Name": "GetApiTest2",
@@ -301,7 +312,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Page",
@@ -319,7 +330,10 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/ThisIsTestTwo/{Page}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
       },
       {
         "Name": "Get",
@@ -331,12 +345,14 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "GetUser",
@@ -348,7 +364,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -366,7 +382,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "GetUser",
@@ -378,7 +396,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "int",
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "user",
@@ -413,7 +431,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "GetUser2",
@@ -425,7 +445,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -480,7 +500,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "OverrideTest",
@@ -492,7 +514,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -510,7 +532,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": null
+        "AllAttributes": []
       },
       {
         "Name": "GetUser4",
@@ -522,7 +544,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id3",
@@ -540,11 +562,14 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": null
+        "AllAttributes": []
       }
     ],
     "XmlComments": "",
-    "AllAttributes": []
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
   },
   {
     "Name": "NonApi",
@@ -561,7 +586,7 @@
         "RouteSetByAttributes": false,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -596,7 +621,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "TestModelBinderDifferentNameUnderId3",
@@ -608,7 +635,7 @@
         "RouteSetByAttributes": false,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -643,7 +670,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       }
     ],
     "XmlComments": "",
@@ -664,12 +693,14 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/User",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "GetUser",
@@ -681,7 +712,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -699,7 +730,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/User",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "GetUser",
@@ -711,7 +744,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "int",
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "user",
@@ -746,7 +779,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/User",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "GetUser2",
@@ -758,7 +793,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -813,7 +848,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/User",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "OverrideTest",
@@ -825,7 +862,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -843,7 +880,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/User",
-        "AllAttributes": null
+        "AllAttributes": []
       },
       {
         "Name": "GetUser4",
@@ -855,7 +892,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id3",
@@ -873,7 +910,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/User",
-        "AllAttributes": null
+        "AllAttributes": []
       }
     ],
     "XmlComments": "",
@@ -897,7 +934,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "optionNotRemoved",
@@ -915,7 +952,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "TestIgnoreNormalParameter",
@@ -927,7 +966,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "optionNotRemoved",
@@ -945,7 +984,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "TestIgnoreWithCustomAttribute",
@@ -957,7 +998,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "optionNotRemoved",
@@ -975,7 +1016,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "TestModelBinderDifferentName",
@@ -987,7 +1030,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "OtherName",
@@ -1007,7 +1050,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "TestRemapTypeWithAnotherType",
@@ -1019,7 +1064,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "option",
@@ -1050,7 +1095,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "TestRemapTypeWithAnotherType2",
@@ -1062,7 +1109,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "option",
@@ -1097,7 +1144,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "Get",
@@ -1109,12 +1158,14 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cglobal::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast\u003E",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "SecretUrl",
@@ -1126,12 +1177,14 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a secret URL! This shouldn\u0027t be outputted\r\n    \u003C/summary\u003E\r\n    \u003Creturns\u003EA 400 error\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
         "CalculatedURL": null,
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       },
       {
         "Name": "UrlWithParametersFromRoute",
@@ -1143,7 +1196,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Input1",
@@ -1173,7 +1226,10 @@
         "Body": [],
         "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
         "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
       },
       {
         "Name": "UrlWithParametersFromRoute2",
@@ -1185,7 +1241,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Input1",
@@ -1227,7 +1283,10 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
       },
       {
         "Name": "GetBytes",
@@ -1239,12 +1298,12 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "byte[]",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": []
       },
       {
         "Name": "GetSingle",
@@ -1256,7 +1315,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -1274,7 +1333,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": []
       },
       {
         "Name": "GetSingleFromServiceExample",
@@ -1286,12 +1345,12 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": []
       },
       {
         "Name": "FormUploadTest1",
@@ -1303,7 +1362,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "formFile",
@@ -1334,7 +1393,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "FormUploadTest2",
@@ -1346,7 +1407,7 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "formFile",
@@ -1377,7 +1438,9 @@
         ],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "TaskIssue",
@@ -1389,12 +1452,12 @@
         "RouteSetByAttributes": true,
         "ReturnTypeName": "global::System.Threading.Tasks.Task",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": null
+        "AllAttributes": []
       }
     ],
     "XmlComments": "\u003Cmember name=\u0022T:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for Weather Forecast Controller\r\n    \u003C/summary\u003E\r\n\u003C/member\u003E\r\n",
@@ -1418,7 +1481,7 @@
         "RouteSetByAttributes": false,
         "ReturnTypeName": "string",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -1436,7 +1499,9 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/api/YetAnother/YetAnotherTest/{Id}",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
       },
       {
         "Name": "JSONDynamicTestDynamic",
@@ -1448,12 +1513,33 @@
         "RouteSetByAttributes": false,
         "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest",
         "ReturnTypeStruct": false,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [],
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/api/YetAnother/JSONDynamicTestDynamic",
-        "AllAttributes": null
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "HttpOptionsTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpOptionsTest",
+        "Method": {
+          "Method": "OPTIONS"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/HttpOptionsTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpOptionsAttribute"
+        ]
       }
     ],
     "XmlComments": "",
@@ -1474,7 +1560,7 @@
         "RouteSetByAttributes": false,
         "ReturnTypeName": null,
         "ReturnTypeStruct": true,
-        "hasCustomFormatter": false,
+        "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
@@ -1492,7 +1578,7 @@
         "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/api/TestIssue/Get/{Id}",
-        "AllAttributes": null
+        "AllAttributes": []
       }
     ],
     "XmlComments": "",

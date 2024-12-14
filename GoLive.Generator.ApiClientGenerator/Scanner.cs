@@ -27,7 +27,7 @@ public static class Scanner
     {
         const string suffix = "Controller";
         var name = classSymbol.Name.EndsWith(suffix)
-            ? classSymbol.Name.Substring(0, classSymbol.Name.Length - suffix.Length)
+            ? classSymbol.Name[..^suffix.Length]
             : classSymbol.Name;
 
         var actionMethods = ScanForActionMethods(model, classSymbol).ToList();
@@ -126,6 +126,10 @@ public static class Scanner
                     "HttpPutAttribute" => HttpMethod.Put,
                     "HttpPostAttribute" => HttpMethod.Post,
                     "HttpDeleteAttribute" => HttpMethod.Delete,
+                    "HttpHeadAttribute" => HttpMethod.Head,
+                    "HttpOptionsAttribute" => HttpMethod.Options,
+                    "HttpPatchAttribute" => new HttpMethod("PATCH"), // WTF, Microsoft?
+                    "HttpTraceAttribute" => HttpMethod.Trace,
                     _ => HttpMethod.Get
                     //   _ => throw new InvalidOperationException($"Unknown attribute {attribute?.AttributeClass?.Name}")
                 };
@@ -143,7 +147,7 @@ public static class Scanner
                 {
                     if (parentRoutes.EndsWith("/"))
                     {
-                        parentRoutes = parentRoutes.Substring(0, parentRoutes.Length - 1);
+                        parentRoutes = parentRoutes[..^1];
                     }
                         
                     route = $"{parentRoutes}/{route}";

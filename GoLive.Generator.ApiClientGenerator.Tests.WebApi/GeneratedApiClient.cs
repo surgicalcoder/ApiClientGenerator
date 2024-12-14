@@ -959,6 +959,27 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         {
             return $"/api/YetAnother/JSONDynamicTestDynamic{queryString}";
         }
+
+        public async Task<Response<string>> HttpOptionsTest(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            using var result = await _client.SendAsync(new HttpRequestMessage(HttpMethod.Options, $"/api/YetAnother/HttpOptionsTest{queryString}"), _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string HttpOptionsTest_Url (QueryString queryString = default)
+        {
+            return $"/api/YetAnother/HttpOptionsTest{queryString}";
+        }
     }
 }
 // JSON Source Generator

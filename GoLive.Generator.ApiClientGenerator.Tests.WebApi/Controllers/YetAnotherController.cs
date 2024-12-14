@@ -16,6 +16,15 @@ public class YetAnotherController : Controller
     {
         return new JSONDynamicTest();
     }
+
+    [HttpOptions]
+    public string HttpOptionsTest()
+    {
+        return "Ok";
+    }
+    
+    
+    
 }
 
 public class JSONDynamicTest
