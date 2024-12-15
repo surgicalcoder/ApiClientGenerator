@@ -44,7 +44,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -78,7 +79,8 @@
               "Attributes": [
                 "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -94,7 +96,8 @@
               "Attributes": [
                 "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -125,7 +128,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -137,7 +141,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -149,7 +154,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -163,7 +169,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -194,7 +201,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -224,7 +232,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -266,7 +275,8 @@
               "DefaultValue": 1,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           },
           {
@@ -278,7 +288,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -290,7 +301,8 @@
               "DefaultValue": 20,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -323,7 +335,8 @@
               "DefaultValue": 1,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -375,7 +388,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -409,7 +423,8 @@
               "Attributes": [
                 "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -425,7 +440,8 @@
               "Attributes": [
                 "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -456,7 +472,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -468,7 +485,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -480,7 +498,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -494,7 +513,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -525,7 +545,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -555,7 +576,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -599,7 +621,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
               ],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -615,7 +638,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
               ],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -648,7 +672,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
               ],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -664,7 +689,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
               ],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -723,7 +749,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -757,7 +784,8 @@
               "Attributes": [
                 "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -773,7 +801,8 @@
               "Attributes": [
                 "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -804,7 +833,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -816,7 +846,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -828,7 +859,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -842,7 +874,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -873,7 +906,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -903,7 +937,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -945,7 +980,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -977,7 +1013,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1009,7 +1046,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1043,7 +1081,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
               ],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1075,7 +1114,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1089,7 +1129,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1122,7 +1163,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
               ],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1138,7 +1180,8 @@
               "Attributes": [
                 "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
               ],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1207,7 +1250,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -1219,7 +1263,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1252,7 +1297,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -1264,7 +1310,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           },
           {
@@ -1276,7 +1323,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1326,7 +1374,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 13
+              "SpecialType": 13,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1373,7 +1422,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1387,7 +1437,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1418,7 +1469,8 @@
               "DefaultValue": null,
               "Nullable": true,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1432,7 +1484,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 0
+              "SpecialType": 0,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1492,7 +1545,8 @@
               "DefaultValue": null,
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],
@@ -1609,7 +1663,8 @@
               "DefaultValue": "",
               "Nullable": false,
               "Attributes": [],
-              "SpecialType": 20
+              "SpecialType": 20,
+              "AllowedStringValues": null
             }
           }
         ],

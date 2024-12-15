@@ -179,7 +179,10 @@ public static class Scanner
                             t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
                             t.NullableAnnotation == NullableAnnotation.Annotated, 
                             t.GetAttributes().Select(r=>r?.AttributeClass?.ToDisplayString()).ToList(),
-                            t.Type.SpecialType
+                            t.Type.SpecialType,
+                            t.GetAttributes()
+                                .FirstOrDefault(a => a.AttributeClass.ToDisplayString() == "System.ComponentModel.DataAnnotations.AllowedValuesAttribute")
+                                ?.ConstructorArguments.FirstOrDefault().Values.Select(v => v.Value?.ToString()).ToArray()
                             )); })
                     .ToArray();
                 

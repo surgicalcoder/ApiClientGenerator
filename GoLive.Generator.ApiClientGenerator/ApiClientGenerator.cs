@@ -329,7 +329,15 @@ public class ApiClientGenerator : IIncrementalGenerator
                 
             }
 
-            var parameterList = string.Join(", ", action.Mapping.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+            var parameterList = string.Join(", ", action.Mapping.Select(m =>
+            {
+                if (m.Parameter.AllowedStringValues is { Length: > 0 })
+                {
+                    return $"{action.Name}_{m.Key}{(m.Parameter.HasDefaultValue ? "?":"")} {m.Key} {GetDefaultValue(m.Parameter)}";
+                }
+                
+                return $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}";
+            }));
             
             bool containsFileUpload = action.Mapping.Any(f => f.Parameter.FullTypeName == IFormFile_Q);
 
@@ -436,7 +444,26 @@ public class ApiClientGenerator : IIncrementalGenerator
                     }
                 }
             }
-            
+
+            if (action.Mapping.Any(r => r.Parameter.AllowedStringValues is { Length: > 0 }))
+            {
+                foreach (var mapping in action.Mapping.Where(r => r.Parameter.AllowedStringValues is { Length: > 0 }).Select(r=> new {r, r.Parameter}))
+                {
+                    var allowedValuesClassName = $"{action.Name}_{mapping.r.Key}";
+                    source.AppendLine($"public readonly struct {allowedValuesClassName}");
+                    source.AppendOpenCurlyBracketLine();
+                    source.AppendLine($"private {allowedValuesClassName} (string value) {{Value = value;}}");
+                    source.AppendLine("public string Value {get;}");
+                    source.AppendLine("public override string ToString() => $\"{Value}\";");
+                    
+                    foreach (var stringValue in mapping.Parameter.AllowedStringValues)
+                    {
+                        source.AppendLine($"public static {allowedValuesClassName} {stringValue} = new {allowedValuesClassName}(\"{stringValue}\"); ");
+                    }
+                    
+                    source.AppendCloseCurlyBracketLine();
+                }
+            }
             
             source.AppendLine(string.IsNullOrWhiteSpace(parameterList)
                 ? $"public async {returnType} {action.Name}(QueryString queryString = default, CancellationToken _token = default {jsonTypeInfoMethodParameter})"
@@ -458,9 +485,13 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                                        && !actionValues.ContainsKey(f.Key) && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) 
                                                                                                         && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
             {
-                if (parameterMapping.Parameter.SpecialType == SpecialType.System_String)
+                if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: 0 })
                 {
                     source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
+                }
+                else if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: > 0 })
+                {
+                    source.AppendLine($"if ({parameterMapping.Key}.HasValue)");
                 }
                 else
                 {
@@ -469,7 +500,14 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                 using (source.CreateBracket())
                 {
-                    source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
+                    if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: > 0 })
+                    {
+                        source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.Value.ToString());"); 
+                    }
+                    else
+                    {
+                        source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());"); 
+                    }
                 }
             }
 
@@ -654,6 +692,10 @@ public class ApiClientGenerator : IIncrementalGenerator
 
     private static string GetDefaultValue(Parameter argParameter)
     {
+        if (argParameter.AllowedStringValues is { Length: > 0 })
+        {
+            return $" = default";
+        }
         if (argParameter.HasDefaultValue)
         {
             return argParameter.DefaultValue switch

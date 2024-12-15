@@ -5,12 +5,13 @@ namespace GoLive.Generator.ApiClientGenerator.Model;
 
 public class Parameter
 {
-    public Parameter(string FullTypeName, string? GenericTypeName, bool HasDefaultValue, object? DefaultValue, bool Nullable = false, List<string> Attributes=default, SpecialType SpecialType = SpecialType.None)
+    public Parameter(string FullTypeName, string? GenericTypeName, bool HasDefaultValue, object? DefaultValue, bool Nullable = false, List<string> Attributes=default, SpecialType SpecialType = SpecialType.None, string[] allowedStringValues = null)
     {
         this.FullTypeName = FullTypeName;
         this.GenericTypeName = GenericTypeName;
         this.HasDefaultValue = HasDefaultValue;
         this.DefaultValue = DefaultValue;
+        this.AllowedStringValues = allowedStringValues;
         this.Nullable = Nullable;
         this.Attributes = Attributes;
         this.SpecialType = SpecialType;
@@ -22,14 +23,5 @@ public class Parameter
     public bool Nullable { get; set; }
     public List<string> Attributes { get; set; }
     public SpecialType SpecialType { get; set; }
-
-    public void Deconstruct(out string FullTypeName, out string? GenericTypeName, out bool HasDefaultValue, out object? DefaultValue, out bool Nullable)
-    {
-        FullTypeName = this.FullTypeName;
-        GenericTypeName = this.GenericTypeName;
-        HasDefaultValue = this.HasDefaultValue;
-        DefaultValue = this.DefaultValue;
-        Nullable = this.Nullable;
-        Attributes = this.Attributes;
-    }
+    public string[] AllowedStringValues { get; set; }
 }
