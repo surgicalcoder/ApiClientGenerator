@@ -25,4 +25,4 @@ jobs:
       - name: Build
         run: dotnet pack $SOLUTION --configuration Release -p:Version=$env:BUILD_VERSION -p:PackageVersion=$env:BUILD_VERSION -p:GeneratePackageOnBuild=false
       - name: Publish
-        run: nuget push **/*.nupkg
+        run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' 
