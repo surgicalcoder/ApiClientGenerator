@@ -17,10 +17,12 @@ jobs:
           dotnet-version: 9.0.x
       - name: Setup NuGet
         uses: nuget/setup-nuget@v2
+        with:
+          nuget-api-key: ${{secrets.NUGET_KEY}}
       - name: Get Build Version
         run: |
           echo "BUILD_VERSION=${{ format('{0}.{1}', env.BUILD_VER, github.run_number ) }}" >> $GITHUB_ENV
       - name: Build
-        run: dotnet pack $SOLUTION --configuration Release -p:Version=$BUILD_VERSION -p:PackageVersion=$BUILD_VERSION -p:GeneratePackageOnBuild=false
+        run: dotnet pack $SOLUTION --configuration Release -p:Version=$BUILD_VERSION -p:PackageVersion=$BUILD_VERSION -p:GeneratePackageOnBuild=false -p:NuGetVersion=$BUILD_VERSION
       - name: Publish
-        run: nuget push **/*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_KEY}}
+        run: nuget push **/*.nupkg
