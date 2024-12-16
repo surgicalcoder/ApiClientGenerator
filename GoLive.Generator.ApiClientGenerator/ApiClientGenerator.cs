@@ -241,7 +241,14 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         return config;
     }
-        
+    private static bool IsPrimitiveType(string typeName)
+    {
+        return typeName switch
+        {
+            "bool" or "Boolean" or "System.Boolean" or "byte" or "Byte" or "System.Byte" or "sbyte" or "SByte" or "System.SByte" or "char" or "Char" or "System.Char" or "decimal" or "Decimal" or "System.Decimal" or "double" or "Double" or "System.Double" or "float" or "Single" or "System.Single" or "int" or "Int32" or "System.Int32" or "uint" or "UInt32" or "System.UInt32" or "long" or "Int64" or "System.Int64" or "ulong" or "UInt64" or "System.UInt64" or "short" or "Int16" or "System.Int16" or "ushort" or "UInt16" or "System.UInt16" or "string" or "String" or "System.String" => true,
+            _ => false,
+        };
+    }
     private static void SetUpSingleApi(RouteGeneratorSettings config, ControllerRoute controllerRoute, SourceStringBuilder source)
     {
         source.AppendLine();
@@ -310,23 +317,33 @@ public class ApiClientGenerator : IIncrementalGenerator
                         if (config.Properties.TransformType.FirstOrDefault(tt =>
                                 (string.Equals(tt.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || tt.SourceType == "*") &&
                                 (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute)))) is {} tt)
-
                         {
                             parameter.FullTypeName = tt.DestinationType;
                         }
                     }
 
+                    List<string> actionBodyItemsToRemove = [];
+                    
                     foreach (var (key, parameter) in action.Body)
                     {
+                        var originalType = parameter.FullTypeName;
                         if (config.Properties.TransformType.FirstOrDefault(tt =>
                                 (string.Equals(tt.SourceType, parameter.FullTypeName, StringComparison.InvariantCultureIgnoreCase) || tt.SourceType == "*") &&
                                 (string.IsNullOrEmpty(tt.ContainsAttribute) || (parameter.Attributes?.Count > 0 && parameter.Attributes.Contains(tt.ContainsAttribute)))) is {} tt)
                         {
                             parameter.FullTypeName = tt.DestinationType;
+                            if (!IsPrimitiveType(originalType) && IsPrimitiveType(parameter.FullTypeName))
+                            {
+                                actionBodyItemsToRemove.Add(key);
+                            }
                         }
                     }
+                    
+                    if (actionBodyItemsToRemove.Count > 0)
+                    {
+                        action.Body.RemoveAll(e => actionBodyItemsToRemove.Contains(e.Key));
+                    }
                 }
-                
             }
 
             var parameterList = string.Join(", ", action.Mapping.Select(m =>
