@@ -22,7 +22,9 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public ApiClient(HttpClient client)
         {
             InheritingTwo = new InheritingTwoClient(client);
+            InheritingTwo = new InheritingTwoClient(client);
             InheritingUser2 = new InheritingUser2Client(client);
+            NonApi = new NonApiClient(client);
             NonApi = new NonApiClient(client);
             TestIssue = new TestIssueClient(client);
             User = new UserClient(client);
@@ -32,7 +34,11 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public InheritingTwoClient InheritingTwo { get; }
 
+        public InheritingTwoClient InheritingTwo { get; }
+
         public InheritingUser2Client InheritingUser2 { get; }
+
+        public NonApiClient NonApi { get; }
 
         public NonApiClient NonApi { get; }
 
@@ -125,6 +131,256 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public InheritingTwoClient (HttpClient client)
         {
             _client = client;
+        }
+
+        public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default, CancellationToken _token = default )
+        {
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                queryString = queryString.Add("Filter", Filter.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string GetPagedApiTest_Url (int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default)
+        {
+            queryString = queryString.Add("Filter", Filter.ToString());
+            return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
+        }
+
+        public async Task<Response> GetApiTest2(int Page  = 1, QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/ThisIsTestTwo/{Page}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string GetApiTest2_Url (int Page  = 1, QueryString queryString = default)
+        {
+            return $"/ThisIsTestTwo/{Page}{queryString}";
+        }
+
+        public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default, CancellationToken _token = default )
+        {
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                queryString = queryString.Add("Filter", Filter.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string GetPagedApiTest_Url (int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default)
+        {
+            queryString = queryString.Add("Filter", Filter.ToString());
+            return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
+        }
+
+        public async Task<Response> GetApiTest2(int Page  = 1, QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/ThisIsTestTwo/{Page}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string GetApiTest2_Url (int Page  = 1, QueryString queryString = default)
+        {
+            return $"/ThisIsTestTwo/{Page}{queryString}";
+        }
+
+        public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<string>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>;
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            if (_typeInfo != default)
+            {
+                return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
+            }
+            else
+            {
+                return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)));
+            }
+        }
+        public string Get_Url (QueryString queryString = default)
+        {
+            return $"/InheritingTwo{queryString}";
+        }
+
+        public async Task<Response<string>> GetUser(int Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (Id != default)
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string GetUser_Url (int Id , QueryString queryString = default)
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+            return $"/InheritingTwo{queryString}";
+        }
+
+        public async Task<Response<int>> GetUser(string user , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<int> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingTwo{queryString}");
+            request.Content = JsonContent.Create(user);
+            using var result = await _client.SendAsync(request, _token);
+            if (_typeInfo != default)
+            {
+                return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)));
+            }
+            else
+            {
+                return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)));
+            }
+        }
+        public string GetUser_Url (QueryString queryString = default)
+        {
+            return $"/InheritingTwo{queryString}";
+        }
+
+        public async Task<Response<string>> GetUser2(string Id , string Id2 , GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            if (!string.IsNullOrWhiteSpace(Id2))
+            {
+                queryString = queryString.Add("Id2", Id2.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingTwo{queryString}");
+            request.Content = JsonContent.Create(example);
+            using var result = await _client.SendAsync(request, _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string GetUser2_Url (string Id , string Id2 , QueryString queryString = default)
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+            queryString = queryString.Add("Id2", Id2.ToString());
+            return $"/InheritingTwo{queryString}";
+        }
+
+        public async Task<Response<string>> OverrideTest(string Id , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (!string.IsNullOrWhiteSpace(Id))
+            {
+                queryString = queryString.Add("Id", Id.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string OverrideTest_Url (string Id , QueryString queryString = default)
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+            return $"/InheritingTwo{queryString}";
+        }
+
+        public async Task<Response<string>> GetUser4(int Id3 , QueryString queryString = default, CancellationToken _token = default , JsonTypeInfo<string> _typeInfo = default)
+        {
+            if (_typeInfo == default)
+            {
+                _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+            }
+            if (Id3 != default)
+            {
+                queryString = queryString.Add("Id3", Id3.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            if (_typeInfo != default)
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token , jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)));
+            }
+            else
+            {
+                return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)));
+            }
+        }
+        public string GetUser4_Url (int Id3 , QueryString queryString = default)
+        {
+            queryString = queryString.Add("Id3", Id3.ToString());
+            return $"/InheritingTwo{queryString}";
+        }
+    }
+
+    public class InheritingTwoClient
+    {
+        private readonly HttpClient _client;
+
+        public InheritingTwoClient (HttpClient client)
+        {
+            _client = client;
+        }
+
+        public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default, CancellationToken _token = default )
+        {
+            if (!string.IsNullOrWhiteSpace(Filter))
+            {
+                queryString = queryString.Add("Filter", Filter.ToString());
+            }
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string GetPagedApiTest_Url (int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default)
+        {
+            queryString = queryString.Add("Filter", Filter.ToString());
+            return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
+        }
+
+        public async Task<Response> GetApiTest2(int Page  = 1, QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/ThisIsTestTwo/{Page}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string GetApiTest2_Url (int Page  = 1, QueryString queryString = default)
+        {
+            return $"/ThisIsTestTwo/{Page}{queryString}";
         }
 
         public async Task<Response> GetPagedApiTest(int Page  = 1, string Filter  = null, int PageSize  = 20, QueryString queryString = default, CancellationToken _token = default )
@@ -490,6 +746,82 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public NonApiClient (HttpClient client)
         {
             _client = client;
+        }
+
+        public async Task<Response> TestModelBinderDifferentNameUnderId(System.String Id , QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string TestModelBinderDifferentNameUnderId_Url (System.String Id , QueryString queryString = default)
+        {
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}";
+        }
+
+        public async Task<Response> TestModelBinderDifferentNameUnderId3(System.String Id , QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string TestModelBinderDifferentNameUnderId3_Url (System.String Id , QueryString queryString = default)
+        {
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
+        }
+
+        public async Task<Response> TestModelBinderDifferentNameUnderId(System.String Id , QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string TestModelBinderDifferentNameUnderId_Url (System.String Id , QueryString queryString = default)
+        {
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}";
+        }
+
+        public async Task<Response> TestModelBinderDifferentNameUnderId3(System.String Id , QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string TestModelBinderDifferentNameUnderId3_Url (System.String Id , QueryString queryString = default)
+        {
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
+        }
+    }
+
+    public class NonApiClient
+    {
+        private readonly HttpClient _client;
+
+        public NonApiClient (HttpClient client)
+        {
+            _client = client;
+        }
+
+        public async Task<Response> TestModelBinderDifferentNameUnderId(System.String Id , QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string TestModelBinderDifferentNameUnderId_Url (System.String Id , QueryString queryString = default)
+        {
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}";
+        }
+
+        public async Task<Response> TestModelBinderDifferentNameUnderId3(System.String Id , QueryString queryString = default, CancellationToken _token = default )
+        {
+            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}");
+            using var result = await _client.SendAsync(request, _token);
+            return new Response(result.StatusCode, result.Headers);
+        }
+        public string TestModelBinderDifferentNameUnderId3_Url (System.String Id , QueryString queryString = default)
+        {
+            return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
         }
 
         public async Task<Response> TestModelBinderDifferentNameUnderId(System.String Id , QueryString queryString = default, CancellationToken _token = default )

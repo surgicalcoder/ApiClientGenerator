@@ -1,678 +1,5 @@
 [
   {
-    "Name": "InheritingUser2",
-    "Area": null,
-    "BaseRoute": "[controller]",
-    "Actions": [
-      {
-        "Name": "Get",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "int",
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "user",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
-              ],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [
-          {
-            "Key": "user",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
-              ],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser2",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Id2",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "example",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [
-          {
-            "Key": "example",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
-      {
-        "Name": "OverrideTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": []
-      },
-      {
-        "Name": "GetUser4",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id3",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": []
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": [
-      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
-      "Microsoft.AspNetCore.Mvc.RouteAttribute"
-    ]
-  },
-  {
-    "Name": "InheritingTwo",
-    "Area": null,
-    "BaseRoute": "",
-    "Actions": [
-      {
-        "Name": "GetPagedApiTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/{controller}/{Page:int}/{PageSize:int}",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Page",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": true,
-              "DefaultValue": 1,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Filter",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": true,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "PageSize",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": true,
-              "DefaultValue": 20,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
-          "Microsoft.AspNetCore.Mvc.RouteAttribute"
-        ]
-      },
-      {
-        "Name": "GetApiTest2",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetApiTest2",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/ThisIsTestTwo/{Page:int}",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Page",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": true,
-              "DefaultValue": 1,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/ThisIsTestTwo/{Page}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
-          "Microsoft.AspNetCore.Mvc.RouteAttribute"
-        ]
-      },
-      {
-        "Name": "Get",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "int",
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "user",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
-              ],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [
-          {
-            "Key": "user",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
-              ],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser2",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Id2",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "example",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [
-          {
-            "Key": "example",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
-      {
-        "Name": "OverrideTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": []
-      },
-      {
-        "Name": "GetUser4",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id3",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": []
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": [
-      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
-      "Microsoft.AspNetCore.Mvc.RouteAttribute"
-    ]
-  },
-  {
-    "Name": "NonApi",
-    "Area": null,
-    "BaseRoute": "",
-    "Actions": [
-      {
-        "Name": "TestModelBinderDifferentNameUnderId",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "System.String",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
-              ],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "TestModelBinderDifferentNameUnderId3",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId3",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "System.String",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
-              ],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": []
-  },
-  {
     "Name": "TestIssue",
     "Area": null,
     "BaseRoute": "",
@@ -1623,6 +950,1430 @@
         "CalculatedURL": "/api/YetAnother/HttpPatchTest",
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPatchAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": []
+  },
+  {
+    "Name": "InheritingUser2",
+    "Area": null,
+    "BaseRoute": "[controller]",
+    "Actions": [
+      {
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingUser2",
+        "AllAttributes": []
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
+  },
+  {
+    "Name": "InheritingTwo",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "GetPagedApiTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/{controller}/{Page:int}/{PageSize:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Filter",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "PageSize",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 20,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "GetApiTest2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetApiTest2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/ThisIsTestTwo/{Page:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/ThisIsTestTwo/{Page}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "GetPagedApiTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/{controller}/{Page:int}/{PageSize:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Filter",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "PageSize",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 20,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "GetApiTest2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetApiTest2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/ThisIsTestTwo/{Page:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/ThisIsTestTwo/{Page}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": []
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
+  },
+  {
+    "Name": "NonApi",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "TestModelBinderDifferentNameUnderId",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId3",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId3",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId3",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId3",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": []
+  },
+  {
+    "Name": "InheritingTwo",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "GetPagedApiTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/{controller}/{Page:int}/{PageSize:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Filter",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "PageSize",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 20,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "GetApiTest2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetApiTest2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/ThisIsTestTwo/{Page:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/ThisIsTestTwo/{Page}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "GetPagedApiTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/{controller}/{Page:int}/{PageSize:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Filter",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "PageSize",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 20,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo/InheritingTwo/{Page}/{PageSize}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "GetApiTest2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetApiTest2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/ThisIsTestTwo/{Page:int}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Page",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": 1,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/ThisIsTestTwo/{Page}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": []
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
+  },
+  {
+    "Name": "NonApi",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "TestModelBinderDifferentNameUnderId",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId3",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId3",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "TestModelBinderDifferentNameUnderId3",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestModelBinderDifferentNameUnderId3",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "System.String",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
         ]
       }
     ],
