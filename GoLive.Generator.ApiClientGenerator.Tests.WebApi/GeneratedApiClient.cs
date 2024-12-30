@@ -495,7 +495,6 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public async Task<Response> TestModelBinderDifferentNameUnderId(System.String Id , QueryString queryString = default, CancellationToken _token = default )
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}");
-            request.Content = JsonContent.Create(Id);
             using var result = await _client.SendAsync(request, _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -507,7 +506,6 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
         public async Task<Response> TestModelBinderDifferentNameUnderId3(System.String Id , QueryString queryString = default, CancellationToken _token = default )
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}");
-            request.Content = JsonContent.Create(Id);
             using var result = await _client.SendAsync(request, _token);
             return new Response(result.StatusCode, result.Headers);
         }
@@ -797,13 +795,17 @@ namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated
 
         public async Task<Response> TestRemapTypeWithAnotherType2(System.String option , QueryString queryString = default, CancellationToken _token = default )
         {
+            if (option != default)
+            {
+                queryString = queryString.Add("option", option.ToString());
+            }
             using var request = new HttpRequestMessage(HttpMethod.Post, $"/WeatherForecast{queryString}");
-            request.Content = JsonContent.Create(option);
             using var result = await _client.SendAsync(request, _token);
             return new Response(result.StatusCode, result.Headers);
         }
-        public string TestRemapTypeWithAnotherType2_Url (QueryString queryString = default)
+        public string TestRemapTypeWithAnotherType2_Url (System.String option , QueryString queryString = default)
         {
+            queryString = queryString.Add("option", option.ToString());
             return $"/WeatherForecast{queryString}";
         }
 

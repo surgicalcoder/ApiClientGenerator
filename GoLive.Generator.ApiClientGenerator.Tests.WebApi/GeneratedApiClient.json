@@ -626,23 +626,7 @@
             }
           }
         ],
-        "Body": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "System.String",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
-              ],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
+        "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}",
         "AllAttributes": [
@@ -677,28 +661,52 @@
             }
           }
         ],
-        "Body": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "System.String",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
-              ],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
+        "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}",
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
         ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": []
+  },
+  {
+    "Name": "TestIssue",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestIssueController.Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": "",
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/TestIssue/Get/{Id}",
+        "AllAttributes": []
       }
     ],
     "XmlComments": "",
@@ -1168,23 +1176,7 @@
             }
           }
         ],
-        "Body": [
-          {
-            "Key": "option",
-            "Parameter": {
-              "FullTypeName": "System.String",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
-              ],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
+        "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/WeatherForecast",
         "AllAttributes": [
@@ -1632,46 +1624,6 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPatchAttribute"
         ]
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": []
-  },
-  {
-    "Name": "TestIssue",
-    "Area": null,
-    "BaseRoute": "",
-    "Actions": [
-      {
-        "Name": "Get",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestIssueController.Get",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": true,
-              "DefaultValue": "",
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/TestIssue/Get/{Id}",
-        "AllAttributes": []
       }
     ],
     "XmlComments": "",

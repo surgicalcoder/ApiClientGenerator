@@ -17,7 +17,7 @@ public class URLTemplate
         sb.Append("/");
         CaseInsensitiveList usedValues = new();
 
-        if (Segments.Any(e => e.BuiltInReplaceable != null))
+        if (Segments.Any(e => !e.NotReplaceable))
         {
             foreach (URLTemplateSegment segment in Segments)
             {
@@ -162,6 +162,10 @@ public class URLTemplate
                         segment.Parameter = part[1..^1];
                     }
                 }
+            }
+            else
+            {
+                segment.NotReplaceable = true;
             }
             
             result.Segments.Add(segment);

@@ -6,6 +6,7 @@ namespace GoLive.Generator.ApiClientGenerator.Routing;
 public class URLTemplateSegment
 {
     public string Raw { get; set; }
+    public bool NotReplaceable { get; set; }
     public URLTemplateReplaceableElement? BuiltInReplaceable { get; set; }
     public string Parameter { get; set; }
     public string DefaultValue { get; set; }

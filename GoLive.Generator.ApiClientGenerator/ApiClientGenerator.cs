@@ -502,7 +502,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                                        && !actionValues.ContainsKey(f.Key) && !urlTemplate.Segments.Any(r=> string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase) 
                                                                                                         && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
             {
-                if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: 0 })
+                if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is null or { Length: 0 })
                 {
                     source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
                 }
