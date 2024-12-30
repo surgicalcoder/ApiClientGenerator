@@ -17,66 +17,73 @@ public class URLTemplate
         sb.Append("/");
         CaseInsensitiveList usedValues = new();
 
-        foreach (URLTemplateSegment segment in Segments)
+        if (Segments.Any(e => e.BuiltInReplaceable != null))
         {
-            if (segment.BuiltInReplaceable.HasValue)
+            foreach (URLTemplateSegment segment in Segments)
             {
-                if (values.ContainsKey(segment.BuiltInReplaceable.ToString().ToLower()))
+                if (segment.BuiltInReplaceable.HasValue)
                 {
-                    sb.Append(values[segment.BuiltInReplaceable.ToString().ToLower()]);
-                    usedValues.Add(segment.BuiltInReplaceable.ToString());
-                }
-                else
-                {
-                    if (!string.IsNullOrWhiteSpace(segment.DefaultValue))
+                    if (values.ContainsKey(segment.BuiltInReplaceable.ToString().ToLower()))
                     {
-                        sb.Append(segment.DefaultValue);
+                        sb.Append(values[segment.BuiltInReplaceable.ToString().ToLower()]);
+                        usedValues.Add(segment.BuiltInReplaceable.ToString());
                     }
                     else
                     {
-                        if (segment.BuiltInReplaceable != null)
+                        if (!string.IsNullOrWhiteSpace(segment.DefaultValue))
                         {
-                            if (!string.Equals(segment.Restriction, URLTemplateSegmentKnownRestrictions.Exists, StringComparison.InvariantCultureIgnoreCase))
-                            {
-                                sb.Append(segment.BuiltInReplaceable.ToString());
-                            }
+                            sb.Append(segment.DefaultValue);
                         }
                         else
                         {
-                            sb.Append(segment.Raw);
+                            if (segment.BuiltInReplaceable != null)
+                            {
+                                if (!string.Equals(segment.Restriction, URLTemplateSegmentKnownRestrictions.Exists, StringComparison.InvariantCultureIgnoreCase))
+                                {
+                                    sb.Append(segment.BuiltInReplaceable.ToString());
+                                }
+                            }
+                            else
+                            {
+                                sb.Append(segment.Raw);
+                            }
                         }
+
                     }
-                    
                 }
-            }
-            else if (!string.IsNullOrWhiteSpace(segment.Parameter))
-            {
-                if (values.TryGetValue(segment.Parameter.ToLower(), out var value))
+                else if (!string.IsNullOrWhiteSpace(segment.Parameter))
                 {
-                    sb.Append(value);
-                    usedValues.Add(segment.Parameter);
-                }
-            }
-            else
-            {
-                if (segment.BuiltInReplaceable != null)
-                {
-                    sb.Append(segment.BuiltInReplaceable.ToString());
+                    if (values.TryGetValue(segment.Parameter.ToLower(), out var value))
+                    {
+                        sb.Append(value);
+                        usedValues.Add(segment.Parameter);
+                    }
                 }
                 else
                 {
-                    sb.Append(segment.Raw);
+                    if (segment.BuiltInReplaceable != null)
+                    {
+                        sb.Append(segment.BuiltInReplaceable.ToString());
+                    }
+                    else
+                    {
+                        sb.Append(segment.Raw);
+                    }
                 }
+
+                sb.Append("/");
             }
-            
-            sb.Append("/");
+
+            if (values.ContainsKey("area") && !string.IsNullOrWhiteSpace(values["area"]) && !usedValues.Contains("area"))
+            {
+                return default;
+            }
         }
-        
-        if (values.ContainsKey("area") && !string.IsNullOrWhiteSpace(values["area"]) && !usedValues.Contains("area"))
+        else
         {
-            return default;
+            sb.Append($"{Raw}");
         }
-        
+
         var unusedValues = values.Where(kvp => !usedValues.Contains(kvp.Key)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         
         unusedValues = unusedValues.Where(kvp => !Enum.GetNames(typeof(URLTemplateReplaceableElement)).Any(e => string.Equals(e.ToLower(), kvp.Key, StringComparison.InvariantCultureIgnoreCase))).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
