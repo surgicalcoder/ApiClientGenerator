@@ -19,16 +19,37 @@ public class SourceStringBuilderBracket : IDisposable
     }
 }
 
+public class SourceStringBuilderParentheses : IDisposable
+{
+    private SourceStringBuilder builder;
+    public SourceStringBuilderParentheses(SourceStringBuilder source)
+    {
+        builder = source;
+        builder.Append("(");
+        builder.IncreaseIndent();
+    }
+    public void Dispose()
+    {
+        builder.Append(")");
+        builder.DecreaseIndent();
+    }
+}
+
+
 public class SourceStringBuilder
 {
     private readonly string SingleIndent = new string(' ', 4);
 
     public int IndentLevel = 0;
-    private readonly StringBuilder _stringBuilder;
+    private readonly StringBuilder _stringBuilder = new();
 
-    public SourceStringBuilder()
+    public SourceStringBuilderParentheses CreateParentheses(string input = null)
     {
-        _stringBuilder = new StringBuilder();
+        if (!string.IsNullOrEmpty(input))
+        {
+            Append(input);
+        }
+        return new SourceStringBuilderParentheses(this);
     }
 
     public SourceStringBuilderBracket CreateBracket()
@@ -36,23 +57,23 @@ public class SourceStringBuilder
         return new SourceStringBuilderBracket(this);
     }
 
-    public void IncreaseIndent()
+    internal void IncreaseIndent()
     {
         IndentLevel++;
     }
 
-    public void DecreaseIndent()
+    internal void DecreaseIndent()
     {
         IndentLevel--;
     }
 
-    public void AppendOpenCurlyBracketLine()
+    internal void AppendOpenCurlyBracketLine()
     {
         AppendLine("{");
         IncreaseIndent();
     }
 
-    public void AppendCloseCurlyBracketLine()
+    internal void AppendCloseCurlyBracketLine()
     {
         DecreaseIndent();
         AppendLine("}");
@@ -60,8 +81,9 @@ public class SourceStringBuilder
 
     public void AppendMultipleLines(string text)
     {
-        var lines = text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-        foreach (string line in lines) {
+        var lines = text.Split([Environment.NewLine], StringSplitOptions.None);
+        foreach (var line in lines)
+        {
             AppendLine(line);
         }
     }
@@ -84,9 +106,12 @@ public class SourceStringBuilder
         }
     }
 
-    public void AppendLine()
+    public void AppendLine(int count = 1)
     {
-        _stringBuilder.Append(Environment.NewLine);
+        for (var i = 0; i < count; i++)
+        {
+            _stringBuilder.Append("\n");
+        }
     }
 
     public void AppendLine(string text)
@@ -100,6 +125,6 @@ public class SourceStringBuilder
         var text = _stringBuilder.ToString();
         return string.IsNullOrWhiteSpace(text)
             ? string.Empty
-            : text;
+            : CSharpSyntaxTree.ParseText(text).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
     }
 }
