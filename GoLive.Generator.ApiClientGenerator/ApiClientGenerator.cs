@@ -60,12 +60,12 @@ public class ApiClientGenerator : IIncrementalGenerator
         var config = LoadConfig(configurationFiles);
 
         StringBuilder namespaceBuilder = new();
-        
+
         var urlSourceBuilder = new SourceStringBuilder();
 
         if (config.PreAppendLines is { Count: > 0 })
         {
-            config.PreAppendLines.ForEach(e=> namespaceBuilder.AppendLine(e));
+            config.PreAppendLines.ForEach(e => namespaceBuilder.AppendLine(e));
         }
 
         namespaceBuilder.AppendLine("using System.Net.Http;");
@@ -99,8 +99,8 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
 
         namespaceBuilder.AppendLine();
-        
-        
+
+
         var source = new SourceStringBuilder();
         source.Append(namespaceBuilder.ToString());
         source.AppendLine(!string.IsNullOrWhiteSpace(config.Namespace)
@@ -255,7 +255,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         {
             config.OutputFiles = config.OutputFiles.Select(e => Path.GetFullPath(Path.Combine(configFileDirectory, e))).ToList();
         }
-        
+
         if (config.URLGeneration is { Count: > 0 })
         {
             foreach (var urlGenerationSetting in config.URLGeneration)
@@ -695,52 +695,51 @@ public class ApiClientGenerator : IIncrementalGenerator
                     }
                 }
 
-
-
                 if (config.OutputUrls)
-            {
-                List<string> secondParamList = new();
+                {
+                    List<string> secondParamList = new();
 
-                var methodParameterMappings = action.Mapping
-                    .Where(f => f.Parameter.FullTypeName != IFormFile_Q)
-                    .Where(e => action.Method == HttpMethod.Get || 
-                                (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
-                    .ToList();
+                    var methodParameterMappings = action.Mapping
+                        .Where(f => f.Parameter.FullTypeName != IFormFile_Q)
+                        .Where(e => action.Method == HttpMethod.Get ||
+                                    (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
+                        .ToList();
 
-                if (methodParameterMappings.Any())
-                {
-                    secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
-                }
-                
-                /*foreach (var (key, parameter) in methodParameterMappings)
-                {
-                    source.AppendLine($"// {key} {parameter.FullTypeName}");
-                }*/
-                
-                if (methodParameterMappings.Any())
-                {
-                    string parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
-                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
-                }
-                else
-                {
-                    source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (QueryString queryString = default)");
-                }
-                source.AppendOpenCurlyBracketLine();
-   
-                if (methodParameterMappings != null && methodParameterMappings.Any())
-                { 
-                    foreach (var parameterMapping in methodParameterMappings.Where(r=> !actionValues.ContainsKey(r.Key)))
+                    if (methodParameterMappings.Any())
                     {
-                        source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                        secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                     }
+
+                    /*foreach (var (key, parameter) in methodParameterMappings)
+                    {
+                        source.AppendLine($"// {key} {parameter.FullTypeName}");
+                    }*/
+
+                    if (methodParameterMappings.Any())
+                    {
+                        var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+                        source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
+                    }
+                    else
+                    {
+                        source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (QueryString queryString = default)");
+                    }
+
+                    source.AppendOpenCurlyBracketLine();
+
+                    if (methodParameterMappings != null && methodParameterMappings.Any())
+                    {
+                        foreach (var parameterMapping in methodParameterMappings.Where(r => !actionValues.ContainsKey(r.Key)))
+                        {
+                            source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                        }
+                    }
+
+                    source.AppendLine($"return {routeString};");
+
+                    source.AppendCloseCurlyBracketLine();
                 }
-                    
-                source.AppendLine($"return {routeString};");
-                    
-                source.AppendCloseCurlyBracketLine();
-            }
-                
+
                 CreateURLOutput(urlSourceBuilder, controllerRoute, action, actionValues, routeString);
             }
         }
@@ -761,7 +760,8 @@ public class ApiClientGenerator : IIncrementalGenerator
             secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
         }
 
-        string methodName = string.Empty;
+        var methodName = string.Empty;
+
         if (controllerRoute.Area != null && !string.IsNullOrWhiteSpace(controllerRoute.Area))
         {
             methodName = $"{controllerRoute.Area}_{controllerRoute.Name}";
@@ -793,7 +793,6 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             urlSourceBuilder.AppendLine($"return {routeString};");
         }
-        
     }
 
     private static string GetDefaultValue(Parameter argParameter)
