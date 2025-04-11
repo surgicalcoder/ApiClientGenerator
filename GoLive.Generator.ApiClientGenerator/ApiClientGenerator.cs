@@ -741,12 +741,12 @@ public class ApiClientGenerator : IIncrementalGenerator
                 source.AppendCloseCurlyBracketLine();
             }
                 
-                CreateURLOutput(config, urlSourceBuilder, controllerRoute, action, actionValues, routeString);
+                CreateURLOutput(urlSourceBuilder, controllerRoute, action, actionValues, routeString);
             }
         }
     }
 
-    private static void CreateURLOutput(RouteGeneratorSettings config, SourceStringBuilder urlSourceBuilder, ControllerRoute controllerRoute, ActionRoute action, CaseInSensitiveDictionary actionValues, string routeString)
+    private static void CreateURLOutput(SourceStringBuilder urlSourceBuilder, ControllerRoute controllerRoute, ActionRoute action, CaseInSensitiveDictionary actionValues, string routeString)
     {
         List<string> secondParamList = new();
 
@@ -774,11 +774,11 @@ public class ApiClientGenerator : IIncrementalGenerator
         if (methodParameterMappings.Any())
         {
             var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
-            urlSourceBuilder.AppendLine($"public static string {methodName}_{config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
+            urlSourceBuilder.AppendLine($"public static string {methodName}_{action.Name} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
         }
         else
         {
-            urlSourceBuilder.AppendLine($"public static string {methodName}_{config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} (QueryString queryString = default)");
+            urlSourceBuilder.AppendLine($"public static string {methodName}_{action.Name} (QueryString queryString = default)");
         }
 
         using (urlSourceBuilder.CreateBracket())
