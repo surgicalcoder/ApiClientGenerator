@@ -1,18 +1,5 @@
-// ReSharper disable All
-using System.Net.Http;
-using System;
-using System.Threading.Tasks;
-using System.Net.Http.Json;
-using System.Collections.Generic;
-using System.Threading;
-using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization.Metadata;
-using Microsoft.Extensions.Primitives;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json.Serialization;
-using System.Net;
-using System.Net.Http.Headers;
-using GoLive.Generator.ApiClientGenerator;
+using System;
 
 namespace GoLive.Generator.ApiClientGenerator.URLs;
 public class GeneratedURLs

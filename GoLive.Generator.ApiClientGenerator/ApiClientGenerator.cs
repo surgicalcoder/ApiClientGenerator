@@ -198,7 +198,8 @@ public class ApiClientGenerator : IIncrementalGenerator
             foreach (var urlGenerationSetting in config.URLGeneration)
             {
                 StringBuilder tempBuilder = new();
-                tempBuilder.Append(namespaceBuilder);
+                tempBuilder.AppendLine("using Microsoft.AspNetCore.Http;");
+                tempBuilder.AppendLine("using System;");
                 tempBuilder.AppendLine($"namespace {urlGenerationSetting.Namespace};");
                 tempBuilder.AppendLine($"public class {urlGenerationSetting.ClassName} {{");
                 tempBuilder.Append(urlSourceBuilder);
