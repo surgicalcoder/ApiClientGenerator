@@ -125,6 +125,11 @@ public class SourceStringBuilder
         var text = _stringBuilder.ToString();
         return string.IsNullOrWhiteSpace(text)
             ? string.Empty
-            : CSharpSyntaxTree.ParseText(text).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
+            : PrettyFormatCode(text);
+    }
+
+    public static string PrettyFormatCode(string text)
+    {
+        return CSharpSyntaxTree.ParseText(text).GetRoot().NormalizeWhitespace().SyntaxTree.GetText().ToString();
     }
 }

@@ -35,4 +35,6 @@ public class RouteGeneratorSettings
     public List<string> JSONAPIRepresentationFile { get; set; }
 
     public Properties Properties { get; set; } = new();
+
+    public List<URLGenerationSettings> URLGeneration { get; set; } = new();
 }

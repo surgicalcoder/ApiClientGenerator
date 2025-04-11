@@ -58,5 +58,12 @@
         "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
       }
     ]
-  }
+  },
+  "URLGeneration":[
+    {
+      "Filename": "GeneratedURLs.cs",
+      "ClassName": "GeneratedURLs",
+      "Namespace": "GoLive.Generator.ApiClientGenerator.URLs"
+    }
+  ]
 }
