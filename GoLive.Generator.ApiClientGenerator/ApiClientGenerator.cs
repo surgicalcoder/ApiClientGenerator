@@ -383,7 +383,22 @@ public class ApiClientGenerator : IIncrementalGenerator
                 {
                     if (m.Parameter.AllowedStringValues is { Length: > 0 })
                     {
-                        return $"{action.Name}_{m.Key}{(m.Parameter.HasDefaultValue ? "?" : "")} {m.Key} {GetDefaultValue(m.Parameter)}";
+                        StringBuilder retr = new StringBuilder();
+                        retr.Append($"{action.Name}_{m.Key}");
+
+                        if (m.Parameter.Nullable)
+                        {
+                            retr.Append("?");
+                        }
+                        else
+                        {
+                            retr.Append($"{(!m.Parameter.HasDefaultValue ? "?" : "")} ");
+                        }
+                        
+                        retr.Append($"{m.Key} ");
+                        retr.Append($"{GetDefaultValue(m.Parameter)}");
+
+                        return retr.ToString();
                     }
 
                     return $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}";
@@ -535,29 +550,51 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                                                && !actionValues.ContainsKey(f.Key) && !urlTemplate.Segments.Any(r => string.Equals(r.Parameter, f.Key, StringComparison.InvariantCultureIgnoreCase)
                                                                                                                                                      && r.Restriction == URLTemplateSegmentKnownRestrictions.Optional)))
                     {
+                        bool skipCreatingBracket = false;
                         if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is null or { Length: 0 })
                         {
                             source.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
                         }
-                        else if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: > 0 })
+                        else if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: > 0 } )
                         {
-                            source.AppendLine($"if ({parameterMapping.Key}.HasValue)");
+                            if (parameterMapping.Parameter.Nullable)
+                            {
+                                source.AppendLine($"if ({parameterMapping.Key}.HasValue)");
+                            }
+                            else
+                            {
+                                skipCreatingBracket = true;
+                            }
+                            
                         }
                         else
                         {
                             source.AppendLine($"if ({parameterMapping.Key} != default)");
                         }
 
-                        using (source.CreateBracket())
+                        if (!skipCreatingBracket)
                         {
-                            if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: > 0 })
+                            using (source.CreateBracket())
                             {
-                                source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.Value.ToString());");
+                                outputPropertyMappingToQuerystring(parameterMapping);
                             }
-                            else
-                            {
-                                source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
-                            }
+                        }
+                        else
+                        {
+                            outputPropertyMappingToQuerystring(parameterMapping);
+                        }
+
+                    }
+
+                    void outputPropertyMappingToQuerystring(ParameterMapping parameterMapping1)
+                    {
+                        if (parameterMapping1.Parameter.SpecialType == SpecialType.System_String && parameterMapping1.Parameter.AllowedStringValues is { Length: > 0 })
+                        {
+                            source.AppendLine($"queryString = queryString.Add(\"{parameterMapping1.Key}\", {parameterMapping1.Key}.Value.ToString());");
+                        }
+                        else
+                        {
+                            source.AppendLine($"queryString = queryString.Add(\"{parameterMapping1.Key}\", {parameterMapping1.Key}.ToString());");
                         }
                     }
 

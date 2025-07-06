@@ -95,6 +95,18 @@ public class GeneratedURLs
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
     }
 
+    public static string NonApi_TestWithAllowedValues(string Id, string DesiredState = default, QueryString queryString = default)
+    {
+        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        return $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}";
+    }
+
+    public static string NonApi_TestWithAllowedValuesButNullable(string Id, string DesiredState = default, QueryString queryString = default)
+    {
+        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";
+    }
+
     public static string TestIssue_Get(string Id = "", QueryString queryString = default)
     {
         return $"/api/TestIssue/Get/{Id}{queryString}";

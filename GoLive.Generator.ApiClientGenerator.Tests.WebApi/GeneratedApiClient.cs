@@ -554,6 +554,70 @@ public class NonApiClient
     {
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
     }
+
+    public readonly struct TestWithAllowedValues_DesiredState
+    {
+        private TestWithAllowedValues_DesiredState(string value)
+        {
+            Value = value;
+        }
+
+        public string Value { get; }
+
+        public override string ToString() => $"{Value}";
+        public static TestWithAllowedValues_DesiredState start = new TestWithAllowedValues_DesiredState("start");
+        public static TestWithAllowedValues_DesiredState stop = new TestWithAllowedValues_DesiredState("stop");
+        public static TestWithAllowedValues_DesiredState kill = new TestWithAllowedValues_DesiredState("kill");
+        public static TestWithAllowedValues_DesiredState restart = new TestWithAllowedValues_DesiredState("restart");
+    }
+
+    public async Task<Response> TestWithAllowedValues(string Id, TestWithAllowedValues_DesiredState? DesiredState = default, QueryString queryString = default, CancellationToken _token = default)
+    {
+        queryString = queryString.Add("DesiredState", DesiredState.Value.ToString());
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}");
+        using var result = await _client.SendAsync(request, _token);
+        return new Response(result.StatusCode, result.Headers);
+    }
+
+    public string TestWithAllowedValues_Url(string Id, string DesiredState = default, QueryString queryString = default)
+    {
+        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        return $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}";
+    }
+
+    public readonly struct TestWithAllowedValuesButNullable_DesiredState
+    {
+        private TestWithAllowedValuesButNullable_DesiredState(string value)
+        {
+            Value = value;
+        }
+
+        public string Value { get; }
+
+        public override string ToString() => $"{Value}";
+        public static TestWithAllowedValuesButNullable_DesiredState start = new TestWithAllowedValuesButNullable_DesiredState("start");
+        public static TestWithAllowedValuesButNullable_DesiredState stop = new TestWithAllowedValuesButNullable_DesiredState("stop");
+        public static TestWithAllowedValuesButNullable_DesiredState kill = new TestWithAllowedValuesButNullable_DesiredState("kill");
+        public static TestWithAllowedValuesButNullable_DesiredState restart = new TestWithAllowedValuesButNullable_DesiredState("restart");
+    }
+
+    public async Task<Response> TestWithAllowedValuesButNullable(string Id, TestWithAllowedValuesButNullable_DesiredState? DesiredState = default, QueryString queryString = default, CancellationToken _token = default)
+    {
+        if (DesiredState.HasValue)
+        {
+            queryString = queryString.Add("DesiredState", DesiredState.Value.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}");
+        using var result = await _client.SendAsync(request, _token);
+        return new Response(result.StatusCode, result.Headers);
+    }
+
+    public string TestWithAllowedValuesButNullable_Url(string Id, string DesiredState = default, QueryString queryString = default)
+    {
+        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";
+    }
 }
 
 public class TestIssueClient
