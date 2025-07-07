@@ -773,6 +773,59 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
         ]
+      },
+      {
+        "Name": "TestWithAllowedValuesButNullableAndDefaultValue",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.NonApiController.TestWithAllowedValuesButNullableAndDefaultValue",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "DesiredState",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": true,
+              "DefaultValue": "",
+              "Nullable": false,
+              "Attributes": [
+                "System.ComponentModel.DataAnnotations.AllowedValuesAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": [
+                "start",
+                "stop",
+                "kill",
+                "restart"
+              ]
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/NonApi/TestWithAllowedValuesButNullableAndDefaultValue/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
       }
     ],
     "XmlComments": "",

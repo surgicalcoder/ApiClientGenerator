@@ -30,4 +30,10 @@ public class NonApiController : ControllerBase
     {
         return Ok();
     }
+    
+    [HttpGet]
+    public async Task<ActionResult> TestWithAllowedValuesButNullableAndDefaultValue(string Id, [AllowedValues("start", "stop", "kill", "restart")]string DesiredState = "")
+    {
+        return Ok();
+    }
 }

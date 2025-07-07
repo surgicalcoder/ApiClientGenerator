@@ -386,13 +386,13 @@ public class ApiClientGenerator : IIncrementalGenerator
                         StringBuilder retr = new StringBuilder();
                         retr.Append($"{action.Name}_{m.Key}");
 
-                        if (m.Parameter.Nullable)
+                        if (m.Parameter.Nullable || m.Parameter.HasDefaultValue)
                         {
-                            retr.Append("?");
+                            retr.Append("? ");
                         }
                         else
                         {
-                            retr.Append($"{(!m.Parameter.HasDefaultValue ? "?" : "")} ");
+                            retr.Append(" ");
                         }
                         
                         retr.Append($"{m.Key} ");
@@ -557,7 +557,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                         }
                         else if (parameterMapping.Parameter.SpecialType == SpecialType.System_String && parameterMapping.Parameter.AllowedStringValues is { Length: > 0 } )
                         {
-                            if (parameterMapping.Parameter.Nullable)
+                            if (parameterMapping.Parameter.Nullable || parameterMapping.Parameter.HasDefaultValue)
                             {
                                 source.AppendLine($"if ({parameterMapping.Key}.HasValue)");
                             }
