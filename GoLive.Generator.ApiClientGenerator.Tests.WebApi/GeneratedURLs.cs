@@ -4,6 +4,41 @@ using System;
 namespace GoLive.Generator.ApiClientGenerator.URLs;
 public class GeneratedURLs
 {
+    public static string InheritingButDifferentType_OverrideTest(string Id, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", Id.ToString());
+        return $"/InheritingButDifferentType/InheritingButDifferentType{queryString}";
+    }
+
+    public static string InheritingButDifferentType_Get(QueryString queryString = default)
+    {
+        return $"/InheritingButDifferentType{queryString}";
+    }
+
+    public static string InheritingButDifferentType_GetUser(int Id, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", Id.ToString());
+        return $"/InheritingButDifferentType{queryString}";
+    }
+
+    public static string InheritingButDifferentType_GetUser(QueryString queryString = default)
+    {
+        return $"/InheritingButDifferentType{queryString}";
+    }
+
+    public static string InheritingButDifferentType_GetUser2(string Id, string Id2, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id2", Id2.ToString());
+        return $"/InheritingButDifferentType{queryString}";
+    }
+
+    public static string InheritingButDifferentType_GetUser4(int Id3, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id3", Id3.ToString());
+        return $"/InheritingButDifferentType{queryString}";
+    }
+
     public static string InheritingTwo_GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
     {
         queryString = queryString.Add("Filter", Filter.ToString());

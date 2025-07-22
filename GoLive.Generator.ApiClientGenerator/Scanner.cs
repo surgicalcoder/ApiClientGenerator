@@ -30,18 +30,35 @@ public static class Scanner
         var name = classSymbol.Name.EndsWith(suffix)
             ? classSymbol.Name[..^suffix.Length]
             : classSymbol.Name;
-
+            
         var actionMethods = ScanForActionMethods(model, classSymbol).ToList();
 
         var parentClass = classSymbol.BaseType;
 
         if (parentClass != null && !parentClass.ToDisplayString(symbolDisplayFormat).StartsWith(ASPNETCORE_NAMESPACE, StringComparison.InvariantCultureIgnoreCase))
         {
-            var addRoutes = ConvertToRoute(model, parentClass);
+            var parentRoutes = ConvertToRoute(model, parentClass);
 
-            if (addRoutes != null && addRoutes.Actions.Any())
+            if (parentRoutes != null && parentRoutes.Actions.Any())
             {
-                actionMethods.AddRange(addRoutes.Actions);
+                // Filter out parent methods that are hidden by child methods
+                    var childMethodSignatures = new HashSet<string>(
+                        actionMethods.Select(m => GetMethodSignature(m.Name, m.Mapping))
+                    );
+
+                    foreach (var parentMethod in parentRoutes.Actions)
+                    {
+                        var parentSignature = GetMethodSignature(parentMethod.Name, parentMethod.Mapping);
+                        if (!childMethodSignatures.Contains(parentSignature))
+                        {
+                            actionMethods.Add(parentMethod);
+                        }
+                        else
+                        {
+                            Console.WriteLine("");
+                            // Duplicate method found, check if it has a different return type
+                        }
+                    }
             }
         }
             
@@ -312,6 +329,11 @@ public static class Scanner
         }
 
         return false;
+    }
+    private static string GetMethodSignature(string name, List<ParameterMapping> parameters)
+    {
+        var paramTypes = parameters.Select(p => p.Parameter.FullTypeName).ToArray();
+        return $"{name}({string.Join(",", paramTypes)})";
     }
 
     private static bool IsPrimitive(ITypeSymbol typeSymbol)

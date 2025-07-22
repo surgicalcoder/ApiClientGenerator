@@ -11,3 +11,14 @@ public class InheritingUser2Controller : UserController
             return "new";
       }
 }
+
+
+[ApiController]
+[Route("[controller]")]
+public class InheritingButDifferentTypeController : UserController
+{
+    public int OverrideTest(string Id)
+    {
+        return 3;
+    }
+}
