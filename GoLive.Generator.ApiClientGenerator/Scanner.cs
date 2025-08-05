@@ -203,7 +203,11 @@ public static class Scanner
                             )); })
                     .ToArray();
                 
-                var bodyParameter = methodSymbol.Parameters.Where(t => !IsPrimitive(t.Type) || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute"))
+                var bodyParameter = methodSymbol.Parameters
+                    .Where(t => !IsPrimitive(t.Type)
+                                && t.GetAttributes().All(e => e.AttributeClass?.ToDisplayString() != "Microsoft.AspNetCore.Mvc.FromServicesAttribute")
+                                || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute")
+                                )
                     .Select(t => new ParameterMapping(getParameterName(t), new Parameter(
                         t.Type.ToString(), 
                         t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null, 

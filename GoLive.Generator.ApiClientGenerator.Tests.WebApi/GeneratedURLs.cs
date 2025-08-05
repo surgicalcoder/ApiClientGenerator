@@ -294,4 +294,9 @@ public class GeneratedURLs
     {
         return $"/api/YetAnother/HttpPatchTest{queryString}";
     }
+
+    public static string YetAnother_FromServiceTest(string Id, QueryString queryString = default)
+    {
+        return $"/api/YetAnother/FromServiceTest/{Id}{queryString}";
+    }
 }

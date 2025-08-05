@@ -1450,6 +1450,18 @@ public class YetAnotherClient
     {
         return $"/api/YetAnother/HttpPatchTest{queryString}";
     }
+
+    public async Task<Response> FromServiceTest(string Id, QueryString queryString = default, CancellationToken _token = default)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/YetAnother/FromServiceTest/{Id}{queryString}");
+        using var result = await _client.SendAsync(request, _token);
+        return new Response(result.StatusCode, result.Headers);
+    }
+
+    public string FromServiceTest_Url(string Id, QueryString queryString = default)
+    {
+        return $"/api/YetAnother/FromServiceTest/{Id}{queryString}";
+    }
 }
 
 // JSON Source Generator
