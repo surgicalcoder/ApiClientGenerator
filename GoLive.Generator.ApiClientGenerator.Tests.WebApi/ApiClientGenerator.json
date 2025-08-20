@@ -24,6 +24,7 @@
   "RouteTemplate":"/api/{area:exists}/{controller=Home}/{action=Index}/{id?}",
   "ResponseWrapper" :{
     "Enabled": true,
+    "ShowTimings": true,
     "ExtractHeaders":{
       "CorrelationId": "X-Correlation-Id"
     }

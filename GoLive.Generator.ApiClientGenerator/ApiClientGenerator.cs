@@ -641,14 +641,32 @@ public class ApiClientGenerator : IIncrementalGenerator
                         }
                     }
 
+                    if (config.ResponseWrapper.Enabled && config.ResponseWrapper.ShowTimings)
+                    {
+                        source.AppendLine("var requestStarted = DateTime.UtcNow;");
+                    }
+
                     var callStatement = "await _client.SendAsync(request, _token);";
+
+                    var additionalTimingValues = string.Empty;
+                    
+                    if (config.ResponseWrapper.Enabled && config.ResponseWrapper.ShowTimings)
+                    {
+                        additionalTimingValues = $"{{ RequestStart = requestStarted, RequestEnd = requestEnd }}";
+                    }
 
                     if (action.ReturnTypeName is null or TASK_FQ)
                     {
                         if (config.ResponseWrapper.Enabled)
                         {
                             source.AppendLine($"using var result = {callStatement}");
-                            source.AppendLine("return new Response(result.StatusCode, result.Headers);");
+                            
+                            if (config.ResponseWrapper.ShowTimings)
+                            {
+                                source.AppendLine("var requestEnd = DateTime.UtcNow;");
+                            }
+                            
+                            source.AppendLine($"return new Response(result.StatusCode, result.Headers){additionalTimingValues};");
                         }
                         else
                         {
@@ -659,6 +677,11 @@ public class ApiClientGenerator : IIncrementalGenerator
                     {
                         source.AppendLine($"using var result = {callStatement}");
 
+                        if (config.ResponseWrapper.ShowTimings)
+                        {
+                            source.AppendLine("var requestEnd = DateTime.UtcNow;");
+                        }
+                        
                         string readValueWithoutJsonTypeInformation;
                         string readValue;
 
@@ -686,14 +709,14 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                                 using (source.CreateBracket())
                                 {
-                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default)));"); // TODO store value for repeated use
+                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};"); // TODO store value for repeated use
                                 }
 
                                 source.AppendLine("else");
 
                                 using (source.CreateBracket())
                                 {
-                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default)));"); // TODO store value for repeated use
+                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};"); // TODO store value for repeated use
                                 }
                             }
                             else
@@ -722,7 +745,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                                 result.StatusCode,
                                                                 result.Headers,
                                                                 ({readValue}
-                                                                        ?? Task.FromResult<{nullableReturnType}>(default)));
+                                                                        ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};
                                                             """);
                             }
                             else
@@ -920,6 +943,15 @@ public class ApiClientGenerator : IIncrementalGenerator
                 if (config.ResponseWrapper.ExtractHeaders.Count > 0)
                 {
                     source.AppendLine("public HttpResponseHeaders Headers {get; set;}");
+                    
+                    if (config.ResponseWrapper.ShowTimings)
+                    {
+                        source.AppendLine("public DateTimeOffset? RequestStart { get; set; }");
+                        source.AppendLine("public DateTimeOffset? RequestEnd { get; set; }");
+                        source.AppendLine("public TimeSpan? RequestDuration => RequestStart.HasValue && RequestEnd.HasValue ? RequestEnd.Value - RequestStart.Value : null;");
+                    }
+                    
+                    
                     source.AppendLine("public Response(HttpResponseHeaders headers)");
 
                     using (source.CreateBracket())
