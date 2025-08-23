@@ -4,6 +4,12 @@ using System;
 namespace GoLive.Generator.ApiClientGenerator.URLs;
 public class GeneratedURLs
 {
+    public static string FormValueInGet_FormValueInQuerystringTest(GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem item, QueryString queryString = default)
+    {
+        queryString = queryString.Add("item", item.ToString());
+        return $"/api/FormValueInGet/FormValueInQuerystringTest{queryString}";
+    }
+
     public static string InheritingButDifferentType_OverrideTest(string Id, QueryString queryString = default)
     {
         queryString = queryString.Add("Id", Id.ToString());

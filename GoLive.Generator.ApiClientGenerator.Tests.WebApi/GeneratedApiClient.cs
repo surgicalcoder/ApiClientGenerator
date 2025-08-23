@@ -19,6 +19,7 @@ public class ApiClient
 {
     public ApiClient(HttpClient client)
     {
+        FormValueInGet = new FormValueInGetClient(client);
         InheritingButDifferentType = new InheritingButDifferentTypeClient(client);
         InheritingTwo = new InheritingTwoClient(client);
         InheritingUser2 = new InheritingUser2Client(client);
@@ -29,6 +30,7 @@ public class ApiClient
         YetAnother = new YetAnotherClient(client);
     }
 
+    public FormValueInGetClient FormValueInGet { get; }
     public InheritingButDifferentTypeClient InheritingButDifferentType { get; }
     public InheritingTwoClient InheritingTwo { get; }
     public InheritingUser2Client InheritingUser2 { get; }
@@ -128,6 +130,39 @@ public class Response<T> : Response
     }
 }
 
+public class FormValueInGetClient
+{
+    private readonly HttpClient _client;
+    public FormValueInGetClient(HttpClient client)
+    {
+        _client = client;
+    }
+
+    public async Task<Response> FormValueInQuerystringTest(GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem item, QueryString queryString = default, CancellationToken _token = default)
+    {
+        if (item != default)
+        {
+            queryString = queryString.Add("item", System.Text.Json.JsonSerializer.Serialize(item, ApiJsonSerializerContext.Default.Options));
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/FormValueInGet/FormValueInQuerystringTest{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response(result.StatusCode, result.Headers)
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string FormValueInQuerystringTest_Url(GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem item, QueryString queryString = default)
+    {
+        queryString = queryString.Add("item", System.Text.Json.JsonSerializer.Serialize(item, ApiJsonSerializerContext.Default.Options));
+        return $"/api/FormValueInGet/FormValueInQuerystringTest{queryString}";
+    }
+}
+
 public class InheritingButDifferentTypeClient
 {
     private readonly HttpClient _client;
@@ -172,7 +207,7 @@ public class InheritingButDifferentTypeClient
 
     public string OverrideTest_Url(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingButDifferentType/InheritingButDifferentType{queryString}";
     }
 
@@ -246,7 +281,7 @@ public class InheritingButDifferentTypeClient
 
     public string GetUser_Url(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingButDifferentType{queryString}";
     }
 
@@ -327,8 +362,8 @@ public class InheritingButDifferentTypeClient
 
     public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingButDifferentType{queryString}";
     }
 
@@ -368,7 +403,7 @@ public class InheritingButDifferentTypeClient
 
     public string GetUser4_Url(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingButDifferentType{queryString}";
     }
 }
@@ -401,7 +436,7 @@ public class InheritingTwoClient
 
     public string GetPagedApiTest_Url(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
     {
-        queryString = queryString.Add("Filter", Filter.ToString());
+        queryString = queryString.Add("Filter", System.Text.Json.JsonSerializer.Serialize(Filter, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
     }
 
@@ -493,7 +528,7 @@ public class InheritingTwoClient
 
     public string GetUser_Url(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo{queryString}";
     }
 
@@ -574,8 +609,8 @@ public class InheritingTwoClient
 
     public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo{queryString}";
     }
 
@@ -615,7 +650,7 @@ public class InheritingTwoClient
 
     public string OverrideTest_Url(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo{queryString}";
     }
 
@@ -655,7 +690,7 @@ public class InheritingTwoClient
 
     public string GetUser4_Url(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo{queryString}";
     }
 }
@@ -738,7 +773,7 @@ public class InheritingUser2Client
 
     public string GetUser_Url(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingUser2{queryString}";
     }
 
@@ -819,8 +854,8 @@ public class InheritingUser2Client
 
     public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingUser2{queryString}";
     }
 
@@ -860,7 +895,7 @@ public class InheritingUser2Client
 
     public string OverrideTest_Url(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingUser2{queryString}";
     }
 
@@ -900,7 +935,7 @@ public class InheritingUser2Client
 
     public string GetUser4_Url(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingUser2{queryString}";
     }
 }
@@ -981,7 +1016,7 @@ public class NonApiClient
 
     public string TestWithAllowedValues_Url(string Id, string DesiredState = default, QueryString queryString = default)
     {
-        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        queryString = queryString.Add("DesiredState", System.Text.Json.JsonSerializer.Serialize(DesiredState, ApiJsonSerializerContext.Default.Options));
         return $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}";
     }
 
@@ -1021,7 +1056,7 @@ public class NonApiClient
 
     public string TestWithAllowedValuesButNullable_Url(string Id, string DesiredState = default, QueryString queryString = default)
     {
-        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        queryString = queryString.Add("DesiredState", System.Text.Json.JsonSerializer.Serialize(DesiredState, ApiJsonSerializerContext.Default.Options));
         return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";
     }
 
@@ -1061,7 +1096,7 @@ public class NonApiClient
 
     public string TestWithAllowedValuesButNullableAndDefaultValue_Url(string Id, string DesiredState = default, QueryString queryString = default)
     {
-        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        queryString = queryString.Add("DesiredState", System.Text.Json.JsonSerializer.Serialize(DesiredState, ApiJsonSerializerContext.Default.Options));
         return $"/api/NonApi/TestWithAllowedValuesButNullableAndDefaultValue/{Id}{queryString}";
     }
 }
@@ -1171,7 +1206,7 @@ public class UserClient
 
     public string GetUser_Url(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/User{queryString}";
     }
 
@@ -1252,8 +1287,8 @@ public class UserClient
 
     public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/User{queryString}";
     }
 
@@ -1293,7 +1328,7 @@ public class UserClient
 
     public string OverrideTest_Url(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/User{queryString}";
     }
 
@@ -1333,7 +1368,7 @@ public class UserClient
 
     public string GetUser4_Url(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
         return $"/User{queryString}";
     }
 }
@@ -1369,7 +1404,7 @@ public class WeatherForecastClient
 
     public string TestIgnoreGenericParmaeter_Url(string optionNotRemoved, QueryString queryString = default)
     {
-        queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+        queryString = queryString.Add("optionNotRemoved", System.Text.Json.JsonSerializer.Serialize(optionNotRemoved, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
     }
 
@@ -1393,7 +1428,7 @@ public class WeatherForecastClient
 
     public string TestIgnoreNormalParameter_Url(string optionNotRemoved, QueryString queryString = default)
     {
-        queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+        queryString = queryString.Add("optionNotRemoved", System.Text.Json.JsonSerializer.Serialize(optionNotRemoved, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
     }
 
@@ -1417,7 +1452,7 @@ public class WeatherForecastClient
 
     public string TestIgnoreWithCustomAttribute_Url(string optionNotRemoved, QueryString queryString = default)
     {
-        queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+        queryString = queryString.Add("optionNotRemoved", System.Text.Json.JsonSerializer.Serialize(optionNotRemoved, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
     }
 
@@ -1441,7 +1476,7 @@ public class WeatherForecastClient
 
     public string TestModelBinderDifferentName_Url(System.String OtherName, QueryString queryString = default)
     {
-        queryString = queryString.Add("OtherName", OtherName.ToString());
+        queryString = queryString.Add("OtherName", System.Text.Json.JsonSerializer.Serialize(OtherName, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
     }
 
@@ -1484,7 +1519,7 @@ public class WeatherForecastClient
 
     public string TestRemapTypeWithAnotherType2_Url(System.String option, QueryString queryString = default)
     {
-        queryString = queryString.Add("option", option.ToString());
+        queryString = queryString.Add("option", System.Text.Json.JsonSerializer.Serialize(option, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
     }
 
@@ -1563,7 +1598,7 @@ public class WeatherForecastClient
 
     public string UrlWithParametersFromRoute2_Url(string Input1, string Input2, string Input3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Input3", Input3.ToString());
+        queryString = queryString.Add("Input3", System.Text.Json.JsonSerializer.Serialize(Input3, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}";
     }
 
@@ -1621,7 +1656,7 @@ public class WeatherForecastClient
 
     public string GetSingle_Url(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
     }
 

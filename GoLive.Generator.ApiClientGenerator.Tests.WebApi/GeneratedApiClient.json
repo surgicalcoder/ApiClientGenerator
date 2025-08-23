@@ -2070,5 +2070,65 @@
     ],
     "XmlComments": "",
     "AllAttributes": []
+  },
+  {
+    "Name": "FormValueInGet",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "FormValueInQuerystringTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.FormValueInGetController.FormValueInQuerystringTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "item",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromFormAttribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "item",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromFormAttribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/api/FormValueInGet/FormValueInQuerystringTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": []
   }
 ]

@@ -597,6 +597,26 @@ public class ApiClientGenerator : IIncrementalGenerator
                             source.AppendLine($"queryString = queryString.Add(\"{parameterMapping1.Key}\", {parameterMapping1.Key}.ToString());");
                         }
                     }
+                    
+                    var jsonSerializerOptions = "";
+
+                    if (config.OutputJSONSourceGenerator)
+                    {
+                        jsonSerializerOptions = ", ApiJsonSerializerContext.Default.Options";
+                    }
+
+                    if (action.Body is { Count: > 0 } && action.Method.Method == "GET")
+                    {
+                        foreach (var parameterMapping in action.Body)
+                        {
+                            source.AppendLine($"if ({parameterMapping.Key} != default)");
+                            using (source.CreateBracket())
+                            {
+                                source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", System.Text.Json.JsonSerializer.Serialize({parameterMapping.Key}{jsonSerializerOptions}));");
+                            }
+                        }
+
+                    }
 
 
                     action.CalculatedURL = routeValue;
@@ -620,7 +640,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                     {
                         source.AppendLine("request.Content = multiPartContent;");
                     }
-                    else if (action.Body is { Count: > 0 })
+                    else if (action.Body is { Count: > 0 } && action.Method.Method != "GET")
                     {
                         source.AppendLine($"request.Content = JsonContent.Create({action.Body.FirstOrDefault().Key});");
                     }
@@ -771,11 +791,6 @@ public class ApiClientGenerator : IIncrementalGenerator
                         secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                     }
 
-                    /*foreach (var (key, parameter) in methodParameterMappings)
-                    {
-                        source.AppendLine($"// {key} {parameter.FullTypeName}");
-                    }*/
-
                     if (methodParameterMappings.Any())
                     {
                         var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
@@ -787,12 +802,19 @@ public class ApiClientGenerator : IIncrementalGenerator
                     }
 
                     source.AppendOpenCurlyBracketLine();
+                    
+                    var jsonSerializerOptions = "";
 
+                    if (config.OutputJSONSourceGenerator)
+                    {
+                        jsonSerializerOptions = ", ApiJsonSerializerContext.Default.Options";
+                    }
+                    
                     if (methodParameterMappings != null && methodParameterMappings.Any())
                     {
                         foreach (var parameterMapping in methodParameterMappings.Where(r => !actionValues.ContainsKey(r.Key)))
                         {
-                            source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                            source.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", System.Text.Json.JsonSerializer.Serialize({parameterMapping.Key}{jsonSerializerOptions}));");
                         }
                     }
 
