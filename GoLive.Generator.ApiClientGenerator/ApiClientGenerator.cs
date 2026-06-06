@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -112,9 +112,19 @@ public class ApiClientGenerator : IIncrementalGenerator
             .OrderBy(r => r.Name)
             .ToArray();
 
-        SetUpApiClient(config, orderedControllerRoutes, source);
+        var visibleControllers = orderedControllerRoutes
+            .Select(c => c with
+            {
+                Actions = c.Actions
+                    .Where(a => !IsActionHiddenByUrl(a, c, config, config.RouteTemplate))
+                    .ToArray()
+            })
+            .Where(c => c.Actions.Length > 0)
+            .ToArray();
 
-        foreach (var route in orderedControllerRoutes)
+        SetUpApiClient(config, visibleControllers, source);
+
+        foreach (var route in visibleControllers)
         {
             SetUpSingleApi(config, route, source, urlSourceBuilder);
         }
@@ -161,7 +171,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
             source.Append(")]\n");
 
-            var returnTypes = orderedControllerRoutes.SelectMany(e => e.Actions.Select(f => f.ReturnTypeName)).Distinct()
+            var returnTypes = visibleControllers.SelectMany(e => e.Actions.Select(f => f.ReturnTypeName)).Distinct()
                 .Where(r => !string.IsNullOrWhiteSpace(r) && r.StartsWith("global::")).Except(ignoreTypesList);
 
             foreach (var returnType in returnTypes)
@@ -275,6 +285,35 @@ public class ApiClientGenerator : IIncrementalGenerator
             "bool" or "Boolean" or "System.Boolean" or "byte" or "Byte" or "System.Byte" or "sbyte" or "SByte" or "System.SByte" or "char" or "Char" or "System.Char" or "decimal" or "Decimal" or "System.Decimal" or "double" or "Double" or "System.Double" or "float" or "Single" or "System.Single" or "int" or "Int32" or "System.Int32" or "uint" or "UInt32" or "System.UInt32" or "long" or "Int64" or "System.Int64" or "ulong" or "UInt64" or "System.UInt64" or "short" or "Int16" or "System.Int16" or "ushort" or "UInt16" or "System.UInt16" or "string" or "String" or "System.String" => true,
             _ => false
         };
+    }
+
+    private static bool IsActionHiddenByUrl(ActionRoute action, ControllerRoute controllerRoute, RouteGeneratorSettings config, string routeTemplate)
+    {
+        if (config.HideUrlsRegex is not { Count: > 0 })
+            return false;
+
+        var urlTemplate = action.RouteSetByAttributes
+            ? URLTemplate.Parse(action.Route)
+            : URLTemplate.Parse(routeTemplate);
+
+        var actionValues = new CaseInSensitiveDictionary
+        {
+            { "Controller", controllerRoute.Name },
+            { "Action", action.Name }
+        };
+
+        if (controllerRoute.Area != null && !string.IsNullOrWhiteSpace(controllerRoute.Area))
+            actionValues.Add("Area", controllerRoute.Area);
+
+        foreach (var (key, _) in action.Mapping
+                     .Where(m => !string.Equals(m.Parameter.FullTypeName, IFormFile_Q, StringComparison.InvariantCultureIgnoreCase))
+                     .Where(m => urlTemplate.Segments.Any(s => string.Equals(s.Parameter, m.Key, StringComparison.InvariantCultureIgnoreCase))))
+        {
+            actionValues.Add(key, $"{{{key}}}");
+        }
+
+        var routeValue = urlTemplate.Render(actionValues);
+        return config.HideUrlsRegex.Any(e => Regex.IsMatch(routeValue, e));
     }
 
     private static void SetUpSingleApi(RouteGeneratorSettings config, ControllerRoute controllerRoute, SourceStringBuilder source, SourceStringBuilder urlSourceBuilder)
@@ -465,14 +504,6 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
 
                 var routeValue = urlTemplate.Render(actionValues);
-
-                if (config.HideUrlsRegex is { Count: > 0 })
-                {
-                    if (config.HideUrlsRegex.Any(e => Regex.IsMatch(routeValue, e)))
-                    {
-                        continue;
-                    }
-                }
 
                 var routeString = $"$\"{routeValue}{{queryString}}\"";
 
