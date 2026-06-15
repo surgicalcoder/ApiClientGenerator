@@ -1,9 +1,433 @@
 [
   {
+    "Name": "FormValueInGet",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "FormValueInQuerystringTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.FormValueInGetController.FormValueInQuerystringTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "item",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromFormAttribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "item",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromFormAttribute"
+              ],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/api/FormValueInGet/FormValueInQuerystringTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": []
+  },
+  {
+    "Name": "InheritingButDifferentType",
+    "Area": null,
+    "BaseRoute": "[controller]",
+    "Actions": [
+      {
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingButDifferentType",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingButDifferentType",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingButDifferentType",
+        "AllAttributes": []
+      },
+      {
+        "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingButDifferentTypeController.OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingButDifferentType/InheritingButDifferentType",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "int",
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "user",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [
+                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
+              ],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingButDifferentType",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Id2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "example",
+            "Parameter": {
+              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingButDifferentType",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
+  },
+  {
     "Name": "InheritingTwo",
     "Area": null,
     "BaseRoute": "",
     "Actions": [
+      {
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetUser",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritingTwo",
+        "AllAttributes": []
+      },
       {
         "Name": "GetPagedApiTest",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingTwo.GetPagedApiTest",
@@ -99,58 +523,6 @@
         ]
       },
       {
-        "Name": "Get",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
         "Name": "GetUser",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
@@ -273,68 +645,6 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
         ]
-      },
-      {
-        "Name": "OverrideTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": []
-      },
-      {
-        "Name": "GetUser4",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id3",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingTwo",
-        "AllAttributes": []
       }
     ],
     "XmlComments": "",
@@ -401,130 +711,6 @@
         ]
       },
       {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "int",
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "user",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
-              ],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [
-          {
-            "Key": "user",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromBodyAttribute"
-              ],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser2",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser2",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Id2",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "example",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [
-          {
-            "Key": "example",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingUser2",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
-      {
         "Name": "OverrideTest",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
         "Method": {
@@ -585,101 +771,6 @@
         "XmlComments": "",
         "CalculatedURL": "/InheritingUser2",
         "AllAttributes": []
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": [
-      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
-      "Microsoft.AspNetCore.Mvc.RouteAttribute"
-    ]
-  },
-  {
-    "Name": "InheritingButDifferentType",
-    "Area": null,
-    "BaseRoute": "[controller]",
-    "Actions": [
-      {
-        "Name": "OverrideTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritingButDifferentTypeController.OverrideTest",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "int",
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingButDifferentType/InheritingButDifferentType",
-        "AllAttributes": []
-      },
-      {
-        "Name": "Get",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.Get",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingButDifferentType",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "GetUser",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingButDifferentType",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
       },
       {
         "Name": "GetUser",
@@ -727,7 +818,7 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingButDifferentType",
+        "CalculatedURL": "/InheritingUser2",
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
         ]
@@ -800,41 +891,10 @@
           }
         ],
         "XmlComments": "",
-        "CalculatedURL": "/InheritingButDifferentType",
+        "CalculatedURL": "/InheritingUser2",
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
         ]
-      },
-      {
-        "Name": "GetUser4",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id3",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/InheritingButDifferentType",
-        "AllAttributes": []
       }
     ],
     "XmlComments": "",
@@ -1179,6 +1239,68 @@
         ]
       },
       {
+        "Name": "OverrideTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/User",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetUser4",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id3",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/User",
+        "AllAttributes": []
+      },
+      {
         "Name": "GetUser",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser",
         "Method": {
@@ -1301,52 +1423,69 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
         ]
-      },
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
+  },
+  {
+    "Name": "WeatherForecast",
+    "Area": null,
+    "BaseRoute": "[controller]",
+    "Actions": [
       {
-        "Name": "OverrideTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.OverrideTest",
+        "Name": "Get",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.Get",
         "Method": {
           "Method": "GET"
         },
         "Route": "/{controller}/",
         "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cglobal::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      },
+      {
+        "Name": "GetBytes",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetBytes",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "byte[]",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast",
+        "AllAttributes": []
+      },
+      {
+        "Name": "GetSingle",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetSingle",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
         "ReturnTypeStruct": false,
         "HasCustomFormatter": false,
         "Mapping": [
           {
             "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/User",
-        "AllAttributes": []
-      },
-      {
-        "Name": "GetUser4",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.GetUser4",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id3",
             "Parameter": {
               "FullTypeName": "int",
               "GenericTypeName": null,
@@ -1361,21 +1500,150 @@
         ],
         "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/User",
+        "CalculatedURL": "/WeatherForecast",
         "AllAttributes": []
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": [
-      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
-      "Microsoft.AspNetCore.Mvc.RouteAttribute"
-    ]
-  },
-  {
-    "Name": "WeatherForecast",
-    "Area": null,
-    "BaseRoute": "[controller]",
-    "Actions": [
+      },
+      {
+        "Name": "GetSingleFromServiceExample",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetSingleFromServiceExample",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast",
+        "AllAttributes": []
+      },
+      {
+        "Name": "TaskIssue",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TaskIssue",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Threading.Tasks.Task",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast",
+        "AllAttributes": []
+      },
+      {
+        "Name": "UrlWithParametersFromRoute",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/UrlWithParametersFromRoute/{Input1}/{Input2}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Input1",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Input2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
+        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
+      {
+        "Name": "UrlWithParametersFromRoute2",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute2",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/UrlWithParametersFromRoute2/{Input1}/{Input2}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": null,
+        "ReturnTypeStruct": true,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Input1",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Input2",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "Input3",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
+          "Microsoft.AspNetCore.Mvc.RouteAttribute"
+        ]
+      },
       {
         "Name": "TestIgnoreGenericParmaeter",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TestIgnoreGenericParmaeter",
@@ -1593,216 +1861,6 @@
         ]
       },
       {
-        "Name": "Get",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.Get",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cglobal::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast\u003E",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "SecretUrl",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/_secretUrl",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.SecretUrl\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a secret URL! This shouldn\u0027t be outputted\r\n    \u003C/summary\u003E\r\n    \u003Creturns\u003EA 400 error\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
-        "CalculatedURL": null,
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "UrlWithParametersFromRoute",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/UrlWithParametersFromRoute/{Input1}/{Input2}",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Input1",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Input2",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "\u003Cmember name=\u0022M:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute(System.String,System.String)\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for UrlWithParametersFromRoute\r\n    \u003C/summary\u003E\r\n    \u003Cparam name=\u0022Input1\u0022\u003EThis is the string of the input param1\u003C/param\u003E\r\n    \u003Cparam name=\u0022Input2\u0022\u003EThis is the string of the input param2\u003C/param\u003E\r\n    \u003Creturns\u003E\u003C/returns\u003E\r\n\u003C/member\u003E\r\n",
-        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
-          "Microsoft.AspNetCore.Mvc.RouteAttribute"
-        ]
-      },
-      {
-        "Name": "UrlWithParametersFromRoute2",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.UrlWithParametersFromRoute2",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/UrlWithParametersFromRoute2/{Input1}/{Input2}",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Input1",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Input2",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          },
-          {
-            "Key": "Input3",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute",
-          "Microsoft.AspNetCore.Mvc.RouteAttribute"
-        ]
-      },
-      {
-        "Name": "GetBytes",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetBytes",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "byte[]",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": []
-      },
-      {
-        "Name": "GetSingle",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetSingle",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": []
-      },
-      {
-        "Name": "GetSingleFromServiceExample",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.GetSingleFromServiceExample",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": []
-      },
-      {
         "Name": "FormUploadTest1",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.FormUploadTest1",
         "Method": {
@@ -1895,23 +1953,6 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
         ]
-      },
-      {
-        "Name": "TaskIssue",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController.TaskIssue",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "/{controller}/",
-        "RouteSetByAttributes": true,
-        "ReturnTypeName": "global::System.Threading.Tasks.Task",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/WeatherForecast",
-        "AllAttributes": []
       }
     ],
     "XmlComments": "\u003Cmember name=\u0022T:GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.WeatherForecastController\u0022\u003E\r\n    \u003Csummary\u003E\r\n    This is a test of the XML Documentation feature for Weather Forecast Controller\r\n    \u003C/summary\u003E\r\n\u003C/member\u003E\r\n",
@@ -1925,39 +1966,6 @@
     "Area": null,
     "BaseRoute": "",
     "Actions": [
-      {
-        "Name": "YetAnotherTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.YetAnotherTest",
-        "Method": {
-          "Method": "POST"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "string",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 20,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/YetAnother/YetAnotherTest/{Id}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
-        ]
-      },
       {
         "Name": "JSONDynamicTestDynamic",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.JSONDynamicTestDynamic",
@@ -1975,63 +1983,6 @@
         "CalculatedURL": "/api/YetAnother/JSONDynamicTestDynamic",
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      },
-      {
-        "Name": "HttpOptionsTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpOptionsTest",
-        "Method": {
-          "Method": "OPTIONS"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/YetAnother/HttpOptionsTest",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpOptionsAttribute"
-        ]
-      },
-      {
-        "Name": "HttpHeadTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpHeadTest",
-        "Method": {
-          "Method": "HEAD"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/YetAnother/HttpHeadTest",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpHeadAttribute"
-        ]
-      },
-      {
-        "Name": "HttpPatchTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpPatchTest",
-        "Method": {
-          "Method": "PATCH"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "ReturnTypeName": "string",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/YetAnother/HttpPatchTest",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpPatchAttribute"
         ]
       },
       {
@@ -2066,65 +2017,95 @@
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
         ]
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": []
-  },
-  {
-    "Name": "FormValueInGet",
-    "Area": null,
-    "BaseRoute": "",
-    "Actions": [
+      },
       {
-        "Name": "FormValueInQuerystringTest",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.FormValueInGetController.FormValueInQuerystringTest",
+        "Name": "HttpHeadTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpHeadTest",
         "Method": {
-          "Method": "GET"
+          "Method": "HEAD"
         },
         "Route": "",
         "RouteSetByAttributes": false,
-        "ReturnTypeName": null,
-        "ReturnTypeStruct": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/HttpHeadTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpHeadAttribute"
+        ]
+      },
+      {
+        "Name": "HttpOptionsTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpOptionsTest",
+        "Method": {
+          "Method": "OPTIONS"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/HttpOptionsTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpOptionsAttribute"
+        ]
+      },
+      {
+        "Name": "HttpPatchTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.HttpPatchTest",
+        "Method": {
+          "Method": "PATCH"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/YetAnother/HttpPatchTest",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpPatchAttribute"
+        ]
+      },
+      {
+        "Name": "YetAnotherTest",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.YetAnotherController.YetAnotherTest",
+        "Method": {
+          "Method": "POST"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
         "HasCustomFormatter": false,
         "Mapping": [
           {
-            "Key": "item",
+            "Key": "Id",
             "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem",
+              "FullTypeName": "string",
               "GenericTypeName": null,
               "HasDefaultValue": false,
               "DefaultValue": null,
               "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromFormAttribute"
-              ],
-              "SpecialType": 0,
+              "Attributes": [],
+              "SpecialType": 20,
               "AllowedStringValues": null
             }
           }
         ],
-        "Body": [
-          {
-            "Key": "item",
-            "Parameter": {
-              "FullTypeName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [
-                "Microsoft.AspNetCore.Mvc.FromFormAttribute"
-              ],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
+        "Body": [],
         "XmlComments": "",
-        "CalculatedURL": "/api/FormValueInGet/FormValueInQuerystringTest",
+        "CalculatedURL": "/api/YetAnother/YetAnotherTest/{Id}",
         "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+          "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
         ]
       }
     ],

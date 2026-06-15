@@ -117,6 +117,8 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 Actions = c.Actions
                     .Where(a => !IsActionHiddenByUrl(a, c, config, config.RouteTemplate))
+                    .OrderBy(a => a.Method.Method)
+                    .ThenBy(a => a.Route)
                     .ToArray()
             })
             .Where(c => c.Actions.Length > 0)
@@ -191,7 +193,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         if (config.JSONAPIRepresentationFile?.Count > 0)
         {
-            GenerateJSONRepresentation(controllerRoutes, config);
+            GenerateJSONRepresentation(visibleControllers, config);
         }
 
         if (config.OutputFiles == null || config.OutputFiles.Count == 0)
@@ -219,9 +221,20 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
     }
 
-    private static void GenerateJSONRepresentation(ImmutableArray<ControllerRoute> controllerRoutes, RouteGeneratorSettings config)
+    private static void GenerateJSONRepresentation(ControllerRoute[] controllerRoutes, RouteGeneratorSettings config)
     {
-        var jsonOutput = JsonSerializer.Serialize(controllerRoutes, new JsonSerializerOptions { WriteIndented = true });
+        var sorted = controllerRoutes
+            .OrderBy(r => r.Name)
+            .Select(r => r with
+            {
+                Actions = r.Actions
+                    .OrderBy(a => a.Method.Method)
+                    .ThenBy(a => a.Route)
+                    .ToArray()
+            })
+            .ToArray();
+
+        var jsonOutput = JsonSerializer.Serialize(sorted, new JsonSerializerOptions { WriteIndented = true });
 
         foreach (var file in config.JSONAPIRepresentationFile)
         {

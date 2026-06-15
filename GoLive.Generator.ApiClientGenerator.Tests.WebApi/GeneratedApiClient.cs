@@ -171,46 +171,6 @@ public class InheritingButDifferentTypeClient
         _client = client;
     }
 
-    public async Task<Response<int>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id))
-        {
-            queryString = queryString.Add("Id", Id.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingButDifferentType/InheritingButDifferentType{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string OverrideTest_Url(string Id, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritingButDifferentType/InheritingButDifferentType{queryString}";
-    }
-
     public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
     {
         if (_typeInfo == default)
@@ -282,88 +242,6 @@ public class InheritingButDifferentTypeClient
     public string GetUser_Url(int Id, QueryString queryString = default)
     {
         queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritingButDifferentType{queryString}";
-    }
-
-    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingButDifferentType{queryString}");
-        request.Content = JsonContent.Create(user);
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetUser_Url(QueryString queryString = default)
-    {
-        return $"/InheritingButDifferentType{queryString}";
-    }
-
-    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id))
-        {
-            queryString = queryString.Add("Id", Id.ToString());
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id2))
-        {
-            queryString = queryString.Add("Id2", Id2.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingButDifferentType{queryString}");
-        request.Content = JsonContent.Create(example);
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingButDifferentType{queryString}";
     }
 
@@ -406,6 +284,128 @@ public class InheritingButDifferentTypeClient
         queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingButDifferentType{queryString}";
     }
+
+    public async Task<Response<int>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingButDifferentType/InheritingButDifferentType{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string OverrideTest_Url(string Id, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritingButDifferentType/InheritingButDifferentType{queryString}";
+    }
+
+    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingButDifferentType{queryString}");
+        request.Content = JsonContent.Create(user);
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetUser_Url(QueryString queryString = default)
+    {
+        return $"/InheritingButDifferentType{queryString}";
+    }
+
+    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id2))
+        {
+            queryString = queryString.Add("Id2", Id2.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingButDifferentType{queryString}");
+        request.Content = JsonContent.Create(example);
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritingButDifferentType{queryString}";
+    }
 }
 
 public class InheritingTwoClient
@@ -414,48 +414,6 @@ public class InheritingTwoClient
     public InheritingTwoClient(HttpClient client)
     {
         _client = client;
-    }
-
-    public async Task<Response> GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default, CancellationToken _token = default)
-    {
-        if (!string.IsNullOrWhiteSpace(Filter))
-        {
-            queryString = queryString.Add("Filter", Filter.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        return new Response(result.StatusCode, result.Headers)
-        {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
-    }
-
-    public string GetPagedApiTest_Url(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Filter", System.Text.Json.JsonSerializer.Serialize(Filter, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
-    }
-
-    public async Task<Response> GetApiTest2(int Page = 1, QueryString queryString = default, CancellationToken _token = default)
-    {
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/ThisIsTestTwo/{Page}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        return new Response(result.StatusCode, result.Headers)
-        {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
-    }
-
-    public string GetApiTest2_Url(int Page = 1, QueryString queryString = default)
-    {
-        return $"/ThisIsTestTwo/{Page}{queryString}";
     }
 
     public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
@@ -529,88 +487,6 @@ public class InheritingTwoClient
     public string GetUser_Url(int Id, QueryString queryString = default)
     {
         queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritingTwo{queryString}";
-    }
-
-    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingTwo{queryString}");
-        request.Content = JsonContent.Create(user);
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetUser_Url(QueryString queryString = default)
-    {
-        return $"/InheritingTwo{queryString}";
-    }
-
-    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id))
-        {
-            queryString = queryString.Add("Id", Id.ToString());
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id2))
-        {
-            queryString = queryString.Add("Id2", Id2.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingTwo{queryString}");
-        request.Content = JsonContent.Create(example);
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo{queryString}";
     }
 
@@ -691,6 +567,130 @@ public class InheritingTwoClient
     public string GetUser4_Url(int Id3, QueryString queryString = default)
     {
         queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritingTwo{queryString}";
+    }
+
+    public async Task<Response> GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default, CancellationToken _token = default)
+    {
+        if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            queryString = queryString.Add("Filter", Filter.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response(result.StatusCode, result.Headers)
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string GetPagedApiTest_Url(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Filter", System.Text.Json.JsonSerializer.Serialize(Filter, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
+    }
+
+    public async Task<Response> GetApiTest2(int Page = 1, QueryString queryString = default, CancellationToken _token = default)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/ThisIsTestTwo/{Page}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response(result.StatusCode, result.Headers)
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string GetApiTest2_Url(int Page = 1, QueryString queryString = default)
+    {
+        return $"/ThisIsTestTwo/{Page}{queryString}";
+    }
+
+    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(int)) as JsonTypeInfo<int>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingTwo{queryString}");
+        request.Content = JsonContent.Create(user);
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<int>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<int>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<int>(cancellationToken: _token) ?? Task.FromResult<int>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetUser_Url(QueryString queryString = default)
+    {
+        return $"/InheritingTwo{queryString}";
+    }
+
+    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id2))
+        {
+            queryString = queryString.Add("Id2", Id2.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/InheritingTwo{queryString}");
+        request.Content = JsonContent.Create(example);
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetUser2_Url(string Id, string Id2, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo{queryString}";
     }
 }
@@ -777,6 +777,86 @@ public class InheritingUser2Client
         return $"/InheritingUser2{queryString}";
     }
 
+    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingUser2{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string OverrideTest_Url(string Id, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritingUser2{queryString}";
+    }
+
+    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (Id3 != default)
+        {
+            queryString = queryString.Add("Id3", Id3.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingUser2{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetUser4_Url(int Id3, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritingUser2{queryString}";
+    }
+
     public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
     {
         if (_typeInfo == default)
@@ -856,86 +936,6 @@ public class InheritingUser2Client
     {
         queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritingUser2{queryString}";
-    }
-
-    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id))
-        {
-            queryString = queryString.Add("Id", Id.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingUser2{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string OverrideTest_Url(string Id, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritingUser2{queryString}";
-    }
-
-    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        if (Id3 != default)
-        {
-            queryString = queryString.Add("Id3", Id3.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritingUser2{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetUser4_Url(int Id3, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingUser2{queryString}";
     }
 }
@@ -1210,6 +1210,86 @@ public class UserClient
         return $"/User{queryString}";
     }
 
+    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/User{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string OverrideTest_Url(string Id, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        return $"/User{queryString}";
+    }
+
+    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (Id3 != default)
+        {
+            queryString = queryString.Add("Id3", Id3.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/User{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetUser4_Url(int Id3, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
+        return $"/User{queryString}";
+    }
+
     public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
     {
         if (_typeInfo == default)
@@ -1291,86 +1371,6 @@ public class UserClient
         queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/User{queryString}";
     }
-
-    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        if (!string.IsNullOrWhiteSpace(Id))
-        {
-            queryString = queryString.Add("Id", Id.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/User{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string OverrideTest_Url(string Id, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        return $"/User{queryString}";
-    }
-
-    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        if (Id3 != default)
-        {
-            queryString = queryString.Add("Id3", Id3.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/User{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetUser4_Url(int Id3, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id3", System.Text.Json.JsonSerializer.Serialize(Id3, ApiJsonSerializerContext.Default.Options));
-        return $"/User{queryString}";
-    }
 }
 
 /// <summary>
@@ -1382,6 +1382,195 @@ public class WeatherForecastClient
     public WeatherForecastClient(HttpClient client)
     {
         _client = client;
+    }
+
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string Get_Url(QueryString queryString = default)
+    {
+        return $"/WeatherForecast{queryString}";
+    }
+
+    public async Task<Response<byte[]>> GetBytes(QueryString queryString = default, CancellationToken _token = default)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response<byte[]>(result.StatusCode, result.Headers, (result.Content?.ReadAsByteArrayAsync() ?? Task.FromResult<byte[]?>(default)))
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string GetBytes_Url(QueryString queryString = default)
+    {
+        return $"/WeatherForecast{queryString}";
+    }
+
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>;
+        }
+
+        if (Id != default)
+        {
+            queryString = queryString.Add("Id", Id.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetSingle_Url(int Id, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
+        return $"/WeatherForecast{queryString}";
+    }
+
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetSingleFromServiceExample_Url(QueryString queryString = default)
+    {
+        return $"/WeatherForecast{queryString}";
+    }
+
+    public async Task<Response> TaskIssue(QueryString queryString = default, CancellationToken _token = default)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response(result.StatusCode, result.Headers)
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string TaskIssue_Url(QueryString queryString = default)
+    {
+        return $"/WeatherForecast{queryString}";
+    }
+
+    /// <summary>
+    ///     This is a test of the XML Documentation feature for UrlWithParametersFromRoute
+    ///     </summary><param name = "Input1">This is the string of the input param1</param><param name = "Input2">This is the string of the input param2</param><returns></returns>
+    public async Task<Response> UrlWithParametersFromRoute(string Input1, string Input2, QueryString queryString = default, CancellationToken _token = default)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response(result.StatusCode, result.Headers)
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string UrlWithParametersFromRoute_Url(string Input1, string Input2, QueryString queryString = default)
+    {
+        return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}";
+    }
+
+    public async Task<Response> UrlWithParametersFromRoute2(string Input1, string Input2, string Input3, QueryString queryString = default, CancellationToken _token = default)
+    {
+        if (!string.IsNullOrWhiteSpace(Input3))
+        {
+            queryString = queryString.Add("Input3", Input3.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        return new Response(result.StatusCode, result.Headers)
+        {
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
+    }
+
+    public string UrlWithParametersFromRoute2_Url(string Input1, string Input2, string Input3, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Input3", System.Text.Json.JsonSerializer.Serialize(Input3, ApiJsonSerializerContext.Default.Options));
+        return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}";
     }
 
     public async Task<Response> TestIgnoreGenericParmaeter(string optionNotRemoved, QueryString queryString = default, CancellationToken _token = default)
@@ -1523,177 +1712,6 @@ public class WeatherForecastClient
         return $"/WeatherForecast{queryString}";
     }
 
-    public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>(cancellationToken: _token) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string Get_Url(QueryString queryString = default)
-    {
-        return $"/WeatherForecast{queryString}";
-    }
-
-    /// <summary>
-    ///     This is a test of the XML Documentation feature for UrlWithParametersFromRoute
-    ///     </summary><param name = "Input1">This is the string of the input param1</param><param name = "Input2">This is the string of the input param2</param><returns></returns>
-    public async Task<Response> UrlWithParametersFromRoute(string Input1, string Input2, QueryString queryString = default, CancellationToken _token = default)
-    {
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        return new Response(result.StatusCode, result.Headers)
-        {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
-    }
-
-    public string UrlWithParametersFromRoute_Url(string Input1, string Input2, QueryString queryString = default)
-    {
-        return $"/WeatherForecast/UrlWithParametersFromRoute/{Input1}/{Input2}{queryString}";
-    }
-
-    public async Task<Response> UrlWithParametersFromRoute2(string Input1, string Input2, string Input3, QueryString queryString = default, CancellationToken _token = default)
-    {
-        if (!string.IsNullOrWhiteSpace(Input3))
-        {
-            queryString = queryString.Add("Input3", Input3.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        return new Response(result.StatusCode, result.Headers)
-        {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
-    }
-
-    public string UrlWithParametersFromRoute2_Url(string Input1, string Input2, string Input3, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Input3", System.Text.Json.JsonSerializer.Serialize(Input3, ApiJsonSerializerContext.Default.Options));
-        return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}";
-    }
-
-    public async Task<Response<byte[]>> GetBytes(QueryString queryString = default, CancellationToken _token = default)
-    {
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        return new Response<byte[]>(result.StatusCode, result.Headers, (result.Content?.ReadAsByteArrayAsync() ?? Task.FromResult<byte[]?>(default)))
-        {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
-    }
-
-    public string GetBytes_Url(QueryString queryString = default)
-    {
-        return $"/WeatherForecast{queryString}";
-    }
-
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>;
-        }
-
-        if (Id != default)
-        {
-            queryString = queryString.Add("Id", Id.ToString());
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetSingle_Url(int Id, QueryString queryString = default)
-    {
-        queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
-        return $"/WeatherForecast{queryString}";
-    }
-
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetSingleFromServiceExample_Url(QueryString queryString = default)
-    {
-        return $"/WeatherForecast{queryString}";
-    }
-
     public async Task<Response> FormUploadTest1(System.Net.Http.MultipartFormDataContent multiPartContent, QueryString queryString = default, CancellationToken _token = default)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, $"/WeatherForecast{queryString}");
@@ -1731,24 +1749,6 @@ public class WeatherForecastClient
     {
         return $"/WeatherForecast{queryString}";
     }
-
-    public async Task<Response> TaskIssue(QueryString queryString = default, CancellationToken _token = default)
-    {
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/WeatherForecast{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        return new Response(result.StatusCode, result.Headers)
-        {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
-    }
-
-    public string TaskIssue_Url(QueryString queryString = default)
-    {
-        return $"/WeatherForecast{queryString}";
-    }
 }
 
 public class YetAnotherClient
@@ -1757,40 +1757,6 @@ public class YetAnotherClient
     public YetAnotherClient(HttpClient client)
     {
         _client = client;
-    }
-
-    public async Task<Response<string>> YetAnotherTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/YetAnother/YetAnotherTest/{Id}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string YetAnotherTest_Url(string Id, QueryString queryString = default)
-    {
-        return $"/api/YetAnother/YetAnotherTest/{Id}{queryString}";
     }
 
     public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>> JSONDynamicTestDynamic(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest> _typeInfo = default)
@@ -1827,38 +1793,22 @@ public class YetAnotherClient
         return $"/api/YetAnother/JSONDynamicTestDynamic{queryString}";
     }
 
-    public async Task<Response<string>> HttpOptionsTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response> FromServiceTest(string Id, QueryString queryString = default, CancellationToken _token = default)
     {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Options, $"/api/YetAnother/HttpOptionsTest{queryString}");
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/YetAnother/FromServiceTest/{Id}{queryString}");
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
+        return new Response(result.StatusCode, result.Headers)
         {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
+            RequestStart = requestStarted,
+            RequestEnd = requestEnd
+        };
     }
 
-    public string HttpOptionsTest_Url(QueryString queryString = default)
+    public string FromServiceTest_Url(string Id, QueryString queryString = default)
     {
-        return $"/api/YetAnother/HttpOptionsTest{queryString}";
+        return $"/api/YetAnother/FromServiceTest/{Id}{queryString}";
     }
 
     public async Task<Response<string>> HttpHeadTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
@@ -1895,6 +1845,40 @@ public class YetAnotherClient
         return $"/api/YetAnother/HttpHeadTest{queryString}";
     }
 
+    public async Task<Response<string>> HttpOptionsTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Options, $"/api/YetAnother/HttpOptionsTest{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string HttpOptionsTest_Url(QueryString queryString = default)
+    {
+        return $"/api/YetAnother/HttpOptionsTest{queryString}";
+    }
+
     public async Task<Response<string>> HttpPatchTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
     {
         if (_typeInfo == default)
@@ -1929,22 +1913,38 @@ public class YetAnotherClient
         return $"/api/YetAnother/HttpPatchTest{queryString}";
     }
 
-    public async Task<Response> FromServiceTest(string Id, QueryString queryString = default, CancellationToken _token = default)
+    public async Task<Response<string>> YetAnotherTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
     {
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/YetAnother/FromServiceTest/{Id}{queryString}");
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/YetAnother/YetAnotherTest/{Id}{queryString}");
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
-        return new Response(result.StatusCode, result.Headers)
+        if (_typeInfo != default)
         {
-            RequestStart = requestStarted,
-            RequestEnd = requestEnd
-        };
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
     }
 
-    public string FromServiceTest_Url(string Id, QueryString queryString = default)
+    public string YetAnotherTest_Url(string Id, QueryString queryString = default)
     {
-        return $"/api/YetAnother/FromServiceTest/{Id}{queryString}";
+        return $"/api/YetAnother/YetAnotherTest/{Id}{queryString}";
     }
 }
 
