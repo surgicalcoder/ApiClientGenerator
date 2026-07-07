@@ -1122,13 +1122,15 @@ public class ApiClientGenerator : IIncrementalGenerator
                                            public Task<T> SuccessData => Success ? Data ?? throw new  EmptyBodyException((int)StatusCode, Headers)
                                                                            : throw new UnsuccessfulException((int)StatusCode, Headers);
                                            """);
-                source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out Task<T?> data)");
 
-                using (source.CreateBracket())
-                {
-                    source.AppendLine("data = Data;");
-                    source.AppendLine("return Success && data is not null;");
-                }
+                source.AppendLine($"public static implicit operator Response<T>(T data) => new(ResponseStatusExtensions.IsSuccessStatusCode(null), Task.FromResult<T?>(data)) {{ StatusCode = HttpStatusCode.OK }};");
+            }
+
+            source.AppendLine("public static partial class ResponseStatusExtensions");
+
+            using (source.CreateBracket())
+            {
+                source.AppendLine("public static bool IsSuccessStatusCode(this HttpStatusCode? statusCode) => statusCode is >= (HttpStatusCode)200 and <= (HttpStatusCode)299;");
             }
         }
     }

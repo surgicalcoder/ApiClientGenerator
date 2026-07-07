@@ -190,7 +190,7 @@ public static class Scanner
                     .Where(e=> FindAttribute(e, e=>e.OriginalDefinition.ToDisplayString() == "Microsoft.AspNetCore.Mvc.FromServicesAttribute") == null)
                     .Select(delegate(IParameterSymbol t) { return new ParameterMapping(
                         getParameterName(t), new Parameter(
-                            t.NullableAnnotation == NullableAnnotation.Annotated ? t.OriginalDefinition.Type.OriginalDefinition.ToDisplayString(): t.Type.ToString(), 
+                            t.Type.ToString(), 
                             t.Type.OriginalDefinition is INamedTypeSymbol nts ? (nts.IsGenericType ? nts.ToDisplayString() : null  ) : null,
                             t.HasExplicitDefaultValue, 
                             t.HasExplicitDefaultValue ? t.ExplicitDefaultValue : null,
