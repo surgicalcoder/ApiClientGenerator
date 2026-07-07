@@ -1054,7 +1054,7 @@ public class NonApiClient
         };
     }
 
-    public string TestWithAllowedValuesButNullable_Url(string Id, string DesiredState = default, QueryString queryString = default)
+    public string TestWithAllowedValuesButNullable_Url(string Id, string? DesiredState = default, QueryString queryString = default)
     {
         queryString = queryString.Add("DesiredState", System.Text.Json.JsonSerializer.Serialize(DesiredState, ApiJsonSerializerContext.Default.Options));
         return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";
@@ -1731,10 +1731,10 @@ public class WeatherForecastClient
         return $"/WeatherForecast{queryString}";
     }
 
-    public async Task<Response> FormUploadTest2(System.Net.Http.MultipartFormDataContent? multiPartContent, QueryString queryString = default, CancellationToken _token = default)
+    public async Task<Response> FormUploadTest2(Microsoft.AspNetCore.Http.IFormFile? formFile, QueryString queryString = default, CancellationToken _token = default)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, $"/WeatherForecast{queryString}");
-        request.Content = multiPartContent;
+        request.Content = JsonContent.Create(formFile);
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;

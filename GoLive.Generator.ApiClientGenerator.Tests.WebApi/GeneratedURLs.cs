@@ -142,7 +142,7 @@ public class GeneratedURLs
         return $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}";
     }
 
-    public static string NonApi_TestWithAllowedValuesButNullable(string Id, string DesiredState = default, QueryString queryString = default)
+    public static string NonApi_TestWithAllowedValuesButNullable(string Id, string? DesiredState = default, QueryString queryString = default)
     {
         queryString = queryString.Add("DesiredState", DesiredState.ToString());
         return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";

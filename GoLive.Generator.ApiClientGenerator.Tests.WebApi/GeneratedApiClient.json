@@ -1059,7 +1059,7 @@
           {
             "Key": "DesiredState",
             "Parameter": {
-              "FullTypeName": "string",
+              "FullTypeName": "string?",
               "GenericTypeName": null,
               "HasDefaultValue": false,
               "DefaultValue": null,
@@ -1922,7 +1922,7 @@
           {
             "Key": "formFile",
             "Parameter": {
-              "FullTypeName": "Microsoft.AspNetCore.Http.IFormFile",
+              "FullTypeName": "Microsoft.AspNetCore.Http.IFormFile?",
               "GenericTypeName": null,
               "HasDefaultValue": false,
               "DefaultValue": null,

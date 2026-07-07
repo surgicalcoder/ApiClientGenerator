@@ -74,10 +74,6 @@ public class URLTemplate
                 sb.Append("/");
             }
 
-            if (values.ContainsKey("area") && !string.IsNullOrWhiteSpace(values["area"]) && !usedValues.Contains("area"))
-            {
-                return default;
-            }
         }
         else
         {
