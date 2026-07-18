@@ -32,7 +32,9 @@ public class ApiClientGenerator : IIncrementalGenerator
             .Where(static c => c != default)
             .Select(static (c, _) => Scanner.ConvertToRoute(c.SemanticModel, c.symbol));
 
-        var configFiles = context.AdditionalTextsProvider.Where(IsConfigurationFile);
+        var configFiles = context.AdditionalTextsProvider
+            .Where(IsConfigurationFile)
+            .Select(static (text, _) => (Path: text.Path, Text: text.GetText()?.ToString() ?? string.Empty));
 
         var controllersAndConfig = controllerDeclarations.Collect().Combine(configFiles.Collect());
         context.RegisterSourceOutput(controllersAndConfig, static (spc, source) => Execute(source.Left, source.Right, spc));
@@ -55,7 +57,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
     public static void Execute(
         ImmutableArray<ControllerRoute> controllerRoutes,
-        IEnumerable<AdditionalText> configurationFiles, SourceProductionContext context)
+        IEnumerable<(string Path, string Text)> configurationFiles, SourceProductionContext context)
     {
         var config = LoadConfig(configurationFiles);
 
@@ -257,18 +259,18 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
     }
 
-    private static RouteGeneratorSettings LoadConfig(IEnumerable<AdditionalText> configFiles)
+    private static RouteGeneratorSettings LoadConfig(IEnumerable<(string Path, string Text)> configFiles)
     {
-        var configFilePath = configFiles.FirstOrDefault();
+        var configFile = configFiles.FirstOrDefault();
 
-        if (configFilePath == null)
+        if (configFile.Path == null)
         {
             return null;
         }
 
-        var jsonString = File.ReadAllText(configFilePath.Path);
+        var jsonString = configFile.Text;
         var config = JsonSerializer.Deserialize<RouteGeneratorSettings>(jsonString);
-        var configFileDirectory = Path.GetDirectoryName(configFilePath.Path);
+        var configFileDirectory = Path.GetDirectoryName(configFile.Path);
 
         if (config.JSONAPIRepresentationFile is { Count: > 0 })
         {
