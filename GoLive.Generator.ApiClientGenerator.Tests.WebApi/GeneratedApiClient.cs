@@ -120,12 +120,12 @@ public class Response<T> : Response
         }
     }
 
-    public Task<T?> Data { get; }
-    public Task<T> SuccessData => Success ? Data ?? throw new EmptyBodyException((int)StatusCode, Headers) : throw new UnsuccessfulException((int)StatusCode, Headers);
+    public Task<T?>? Data { get; }
+    public Task<T?> SuccessData => Success ? Data ?? throw new EmptyBodyException((int)StatusCode, Headers) : throw new UnsuccessfulException((int)StatusCode, Headers);
 
     public bool TryGetSuccessData([NotNullWhen(true)] out Task<T?> data)
     {
-        data = Data;
+        data = Data!;
         return Success && data is not null;
     }
 }
@@ -1424,7 +1424,7 @@ public class WeatherForecastClient
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
-        return new Response<byte[]>(result.StatusCode, result.Headers, (result.Content?.ReadAsByteArrayAsync() ?? Task.FromResult<byte[]?>(default)))
+        return new Response<byte[]>(result.StatusCode, result.Headers, (result.Content?.ReadAsByteArrayAsync() ?? Task.FromResult<byte[]>(default)))
         {
             RequestStart = requestStarted,
             RequestEnd = requestEnd

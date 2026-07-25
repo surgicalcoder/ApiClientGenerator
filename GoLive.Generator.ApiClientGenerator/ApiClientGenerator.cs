@@ -776,14 +776,14 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                                 using (source.CreateBracket())
                                 {
-                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};"); // TODO store value for repeated use
+                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{(byteReturnType ? action.ReturnTypeName : nullableReturnType)}>(default))){additionalTimingValues};"); // TODO store value for repeated use
                                 }
 
                                 source.AppendLine("else");
 
                                 using (source.CreateBracket())
                                 {
-                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};"); // TODO store value for repeated use
+                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{(byteReturnType ? action.ReturnTypeName : nullableReturnType)}>(default))){additionalTimingValues};"); // TODO store value for repeated use
                                 }
                             }
                             else
@@ -812,7 +812,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                                 result.StatusCode,
                                                                 result.Headers,
                                                                 ({readValue}
-                                                                        ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};
+                                                                        ?? Task.FromResult<{(byteReturnType ? action.ReturnTypeName : nullableReturnType)}>(default))){additionalTimingValues};
                                                             """);
                             }
                             else
@@ -931,9 +931,19 @@ public class ApiClientGenerator : IIncrementalGenerator
                             urlSourceBuilder.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key});");
                         }
                     }
+                     else if (parameterMapping.Parameter.SpecialType == SpecialType.None)
+                    {
+                        urlSourceBuilder.AppendLine($"if ({parameterMapping.Key} != null)");
+                        using (urlSourceBuilder.CreateBracket())
+                        {
+                        urlSourceBuilder.Append("queryString = queryString.Add(\"" + parameterMapping.Key + "\", " + parameterMapping.Key + ".ToString()" + "!);");
+                        urlSourceBuilder.AppendLine();
+                        }
+                    }
                     else
                     {
-                        urlSourceBuilder.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                        urlSourceBuilder.Append("queryString = queryString.Add(\"" + parameterMapping.Key + "\", " + parameterMapping.Key + ".ToString()" + "!);");
+                        urlSourceBuilder.AppendLine();
                     }
                 }
             }
@@ -1150,16 +1160,16 @@ public class ApiClientGenerator : IIncrementalGenerator
                 }
 
                 source.AppendMultipleLines("""
-                                           public Task<T?> Data { get; }
+                                           public Task<T?>? Data { get; }
 
-                                           public Task<T> SuccessData => Success ? Data ?? throw new  EmptyBodyException((int)StatusCode, Headers)
+                                           public Task<T?> SuccessData => Success ? Data ?? throw new EmptyBodyException((int)StatusCode, Headers)
                                                                            : throw new UnsuccessfulException((int)StatusCode, Headers);
                                            """);
                 source.AppendLine("public bool TryGetSuccessData([NotNullWhen(true)] out Task<T?> data)");
 
                 using (source.CreateBracket())
                 {
-                    source.AppendLine("data = Data;");
+                    source.AppendLine("data = Data!;");
                     source.AppendLine("return Success && data is not null;");
                 }
             }

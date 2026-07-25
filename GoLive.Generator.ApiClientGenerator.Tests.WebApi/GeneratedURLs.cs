@@ -6,7 +6,11 @@ public class GeneratedURLs
 {
     public static string FormValueInGet_FormValueInQuerystringTest(GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem item, QueryString queryString = default)
     {
-        queryString = queryString.Add("item", item.ToString());
+        if (item != null)
+        {
+            queryString = queryString.Add("item", item.ToString()!);
+        }
+
         return $"/api/FormValueInGet/FormValueInQuerystringTest{queryString}";
     }
 
@@ -17,13 +21,13 @@ public class GeneratedURLs
 
     public static string InheritingButDifferentType_GetUser(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", Id.ToString()!);
         return $"/InheritingButDifferentType{queryString}";
     }
 
     public static string InheritingButDifferentType_GetUser4(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", Id3.ToString()!);
         return $"/InheritingButDifferentType{queryString}";
     }
 
@@ -64,7 +68,7 @@ public class GeneratedURLs
 
     public static string InheritingTwo_GetUser(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", Id.ToString()!);
         return $"/InheritingTwo{queryString}";
     }
 
@@ -80,7 +84,7 @@ public class GeneratedURLs
 
     public static string InheritingTwo_GetUser4(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", Id3.ToString()!);
         return $"/InheritingTwo{queryString}";
     }
 
@@ -126,7 +130,7 @@ public class GeneratedURLs
 
     public static string InheritingUser2_GetUser(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", Id.ToString()!);
         return $"/InheritingUser2{queryString}";
     }
 
@@ -142,7 +146,7 @@ public class GeneratedURLs
 
     public static string InheritingUser2_GetUser4(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", Id3.ToString()!);
         return $"/InheritingUser2{queryString}";
     }
 
@@ -218,7 +222,7 @@ public class GeneratedURLs
 
     public static string User_GetUser(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", Id.ToString()!);
         return $"/User{queryString}";
     }
 
@@ -234,7 +238,7 @@ public class GeneratedURLs
 
     public static string User_GetUser4(int Id3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id3", Id3.ToString());
+        queryString = queryString.Add("Id3", Id3.ToString()!);
         return $"/User{queryString}";
     }
 
@@ -270,7 +274,7 @@ public class GeneratedURLs
 
     public static string WeatherForecast_GetSingle(int Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        queryString = queryString.Add("Id", Id.ToString()!);
         return $"/WeatherForecast{queryString}";
     }
 
@@ -346,7 +350,11 @@ public class GeneratedURLs
 
     public static string WeatherForecast_TestRemapTypeWithAnotherType2(string option, QueryString queryString = default)
     {
-        queryString = queryString.Add("option", option.ToString());
+        if (option != null)
+        {
+            queryString = queryString.Add("option", option.ToString()!);
+        }
+
         return $"/WeatherForecast{queryString}";
     }
 
