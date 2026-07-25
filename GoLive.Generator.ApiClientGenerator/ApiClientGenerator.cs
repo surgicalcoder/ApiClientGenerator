@@ -537,7 +537,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                     false => $"Task<{nullableReturnType}>"
                 };
 
-                var jsonTypeInfoMethodParameter = action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}> _typeInfo = default";
+                var jsonTypeInfoMethodParameter = action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType ? string.Empty : $", JsonTypeInfo<{action.ReturnTypeName}>? _typeInfo = default";
                 var jsonTypeInfoMethodAppend = action.ReturnTypeName == null || action.ReturnTypeName == TASK_FQ || byteReturnType ? string.Empty : ", jsonTypeInfo: _typeInfo";
 
 
@@ -835,12 +835,12 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                     if (methodParameterMappings.Any())
                     {
-                        secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                        secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{NormalizeType(parameterMapping.Parameter.FullTypeName)} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
                     }
 
                     if (methodParameterMappings.Any())
                     {
-                        var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+                        var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{NormalizeType(m.Parameter.FullTypeName)} {m.Key} {GetDefaultValue(m.Parameter)}"));
                         source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
                     }
                     else
@@ -875,6 +875,12 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
     }
 
+    private static string NormalizeType(string fullTypeName) => fullTypeName switch
+    {
+        "System.String" => "string",
+        _ => fullTypeName
+    };
+
     private static void CreateURLOutput(SourceStringBuilder urlSourceBuilder, ControllerRoute controllerRoute, ActionRoute action, CaseInSensitiveDictionary actionValues, string routeString)
     {
         List<string> secondParamList = new();
@@ -887,7 +893,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         if (methodParameterMappings.Any())
         {
-            secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{parameterMapping.Parameter.FullTypeName} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+            secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{NormalizeType(parameterMapping.Parameter.FullTypeName)} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
         }
 
         var methodName = string.Empty;
@@ -903,7 +909,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         if (methodParameterMappings.Any())
         {
-            var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{m.Parameter.FullTypeName} {m.Key} {GetDefaultValue(m.Parameter)}"));
+            var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{NormalizeType(m.Parameter.FullTypeName)} {m.Key} {GetDefaultValue(m.Parameter)}"));
             urlSourceBuilder.AppendLine($"public static string {methodName}_{action.Name} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
         }
         else
@@ -917,7 +923,18 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 foreach (var parameterMapping in methodParameterMappings.Where(r => !actionValues.ContainsKey(r.Key)))
                 {
-                    urlSourceBuilder.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                    if (parameterMapping.Parameter.SpecialType == SpecialType.System_String)
+                    {
+                        urlSourceBuilder.AppendLine($"if (!string.IsNullOrWhiteSpace({parameterMapping.Key}))");
+                        using (urlSourceBuilder.CreateBracket())
+                        {
+                            urlSourceBuilder.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key});");
+                        }
+                    }
+                    else
+                    {
+                        urlSourceBuilder.AppendLine($"queryString = queryString.Add(\"{parameterMapping.Key}\", {parameterMapping.Key}.ToString());");
+                    }
                 }
             }
 

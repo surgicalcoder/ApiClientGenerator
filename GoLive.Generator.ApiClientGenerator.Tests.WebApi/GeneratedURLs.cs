@@ -29,7 +29,11 @@ public class GeneratedURLs
 
     public static string InheritingButDifferentType_OverrideTest(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
         return $"/InheritingButDifferentType/InheritingButDifferentType{queryString}";
     }
 
@@ -40,8 +44,16 @@ public class GeneratedURLs
 
     public static string InheritingButDifferentType_GetUser2(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id2))
+        {
+            queryString = queryString.Add("Id2", Id2);
+        }
+
         return $"/InheritingButDifferentType{queryString}";
     }
 
@@ -58,7 +70,11 @@ public class GeneratedURLs
 
     public static string InheritingTwo_OverrideTest(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
         return $"/InheritingTwo{queryString}";
     }
 
@@ -70,7 +86,11 @@ public class GeneratedURLs
 
     public static string InheritingTwo_GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
     {
-        queryString = queryString.Add("Filter", Filter.ToString());
+        if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            queryString = queryString.Add("Filter", Filter);
+        }
+
         return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
     }
 
@@ -86,8 +106,16 @@ public class GeneratedURLs
 
     public static string InheritingTwo_GetUser2(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id2))
+        {
+            queryString = queryString.Add("Id2", Id2);
+        }
+
         return $"/InheritingTwo{queryString}";
     }
 
@@ -104,7 +132,11 @@ public class GeneratedURLs
 
     public static string InheritingUser2_OverrideTest(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
         return $"/InheritingUser2{queryString}";
     }
 
@@ -121,36 +153,56 @@ public class GeneratedURLs
 
     public static string InheritingUser2_GetUser2(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id2))
+        {
+            queryString = queryString.Add("Id2", Id2);
+        }
+
         return $"/InheritingUser2{queryString}";
     }
 
-    public static string NonApi_TestModelBinderDifferentNameUnderId(System.String Id, QueryString queryString = default)
+    public static string NonApi_TestModelBinderDifferentNameUnderId(string Id, QueryString queryString = default)
     {
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}";
     }
 
-    public static string NonApi_TestModelBinderDifferentNameUnderId3(System.String Id, QueryString queryString = default)
+    public static string NonApi_TestModelBinderDifferentNameUnderId3(string Id, QueryString queryString = default)
     {
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
     }
 
     public static string NonApi_TestWithAllowedValues(string Id, string DesiredState = default, QueryString queryString = default)
     {
-        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        if (!string.IsNullOrWhiteSpace(DesiredState))
+        {
+            queryString = queryString.Add("DesiredState", DesiredState);
+        }
+
         return $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}";
     }
 
     public static string NonApi_TestWithAllowedValuesButNullable(string Id, string? DesiredState = default, QueryString queryString = default)
     {
-        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        if (!string.IsNullOrWhiteSpace(DesiredState))
+        {
+            queryString = queryString.Add("DesiredState", DesiredState);
+        }
+
         return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";
     }
 
     public static string NonApi_TestWithAllowedValuesButNullableAndDefaultValue(string Id, string DesiredState = default, QueryString queryString = default)
     {
-        queryString = queryString.Add("DesiredState", DesiredState.ToString());
+        if (!string.IsNullOrWhiteSpace(DesiredState))
+        {
+            queryString = queryString.Add("DesiredState", DesiredState);
+        }
+
         return $"/api/NonApi/TestWithAllowedValuesButNullableAndDefaultValue/{Id}{queryString}";
     }
 
@@ -172,7 +224,11 @@ public class GeneratedURLs
 
     public static string User_OverrideTest(string Id, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
         return $"/User{queryString}";
     }
 
@@ -189,8 +245,16 @@ public class GeneratedURLs
 
     public static string User_GetUser2(string Id, string Id2, QueryString queryString = default)
     {
-        queryString = queryString.Add("Id", Id.ToString());
-        queryString = queryString.Add("Id2", Id2.ToString());
+        if (!string.IsNullOrWhiteSpace(Id))
+        {
+            queryString = queryString.Add("Id", Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(Id2))
+        {
+            queryString = queryString.Add("Id2", Id2);
+        }
+
         return $"/User{queryString}";
     }
 
@@ -227,31 +291,51 @@ public class GeneratedURLs
 
     public static string WeatherForecast_UrlWithParametersFromRoute2(string Input1, string Input2, string Input3, QueryString queryString = default)
     {
-        queryString = queryString.Add("Input3", Input3.ToString());
+        if (!string.IsNullOrWhiteSpace(Input3))
+        {
+            queryString = queryString.Add("Input3", Input3);
+        }
+
         return $"/WeatherForecast/UrlWithParametersFromRoute2/{Input1}/{Input2}{queryString}";
     }
 
     public static string WeatherForecast_TestIgnoreGenericParmaeter(string optionNotRemoved, QueryString queryString = default)
     {
-        queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+        if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+        {
+            queryString = queryString.Add("optionNotRemoved", optionNotRemoved);
+        }
+
         return $"/WeatherForecast{queryString}";
     }
 
     public static string WeatherForecast_TestIgnoreNormalParameter(string optionNotRemoved, QueryString queryString = default)
     {
-        queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+        if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+        {
+            queryString = queryString.Add("optionNotRemoved", optionNotRemoved);
+        }
+
         return $"/WeatherForecast{queryString}";
     }
 
     public static string WeatherForecast_TestIgnoreWithCustomAttribute(string optionNotRemoved, QueryString queryString = default)
     {
-        queryString = queryString.Add("optionNotRemoved", optionNotRemoved.ToString());
+        if (!string.IsNullOrWhiteSpace(optionNotRemoved))
+        {
+            queryString = queryString.Add("optionNotRemoved", optionNotRemoved);
+        }
+
         return $"/WeatherForecast{queryString}";
     }
 
-    public static string WeatherForecast_TestModelBinderDifferentName(System.String OtherName, QueryString queryString = default)
+    public static string WeatherForecast_TestModelBinderDifferentName(string OtherName, QueryString queryString = default)
     {
-        queryString = queryString.Add("OtherName", OtherName.ToString());
+        if (!string.IsNullOrWhiteSpace(OtherName))
+        {
+            queryString = queryString.Add("OtherName", OtherName);
+        }
+
         return $"/WeatherForecast{queryString}";
     }
 
@@ -260,7 +344,7 @@ public class GeneratedURLs
         return $"/WeatherForecast{queryString}";
     }
 
-    public static string WeatherForecast_TestRemapTypeWithAnotherType2(System.String option, QueryString queryString = default)
+    public static string WeatherForecast_TestRemapTypeWithAnotherType2(string option, QueryString queryString = default)
     {
         queryString = queryString.Add("option", option.ToString());
         return $"/WeatherForecast{queryString}";

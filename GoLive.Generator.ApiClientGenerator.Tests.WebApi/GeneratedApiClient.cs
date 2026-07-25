@@ -171,7 +171,7 @@ public class InheritingButDifferentTypeClient
         _client = client;
     }
 
-    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -205,7 +205,7 @@ public class InheritingButDifferentTypeClient
         return $"/InheritingButDifferentType{queryString}";
     }
 
-    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -245,7 +245,7 @@ public class InheritingButDifferentTypeClient
         return $"/InheritingButDifferentType{queryString}";
     }
 
-    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -285,7 +285,7 @@ public class InheritingButDifferentTypeClient
         return $"/InheritingButDifferentType{queryString}";
     }
 
-    public async Task<Response<int>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    public async Task<Response<int>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -325,7 +325,7 @@ public class InheritingButDifferentTypeClient
         return $"/InheritingButDifferentType/InheritingButDifferentType{queryString}";
     }
 
-    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -360,7 +360,7 @@ public class InheritingButDifferentTypeClient
         return $"/InheritingButDifferentType{queryString}";
     }
 
-    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -416,7 +416,7 @@ public class InheritingTwoClient
         _client = client;
     }
 
-    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -450,7 +450,7 @@ public class InheritingTwoClient
         return $"/InheritingTwo{queryString}";
     }
 
-    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -490,7 +490,7 @@ public class InheritingTwoClient
         return $"/InheritingTwo{queryString}";
     }
 
-    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -530,7 +530,7 @@ public class InheritingTwoClient
         return $"/InheritingTwo{queryString}";
     }
 
-    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -612,7 +612,7 @@ public class InheritingTwoClient
         return $"/ThisIsTestTwo/{Page}{queryString}";
     }
 
-    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -647,7 +647,7 @@ public class InheritingTwoClient
         return $"/InheritingTwo{queryString}";
     }
 
-    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -703,7 +703,7 @@ public class InheritingUser2Client
         _client = client;
     }
 
-    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -737,7 +737,7 @@ public class InheritingUser2Client
         return $"/InheritingUser2{queryString}";
     }
 
-    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -777,7 +777,7 @@ public class InheritingUser2Client
         return $"/InheritingUser2{queryString}";
     }
 
-    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -817,7 +817,7 @@ public class InheritingUser2Client
         return $"/InheritingUser2{queryString}";
     }
 
-    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -857,7 +857,7 @@ public class InheritingUser2Client
         return $"/InheritingUser2{queryString}";
     }
 
-    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -892,7 +892,7 @@ public class InheritingUser2Client
         return $"/InheritingUser2{queryString}";
     }
 
-    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -961,7 +961,7 @@ public class NonApiClient
         };
     }
 
-    public string TestModelBinderDifferentNameUnderId_Url(System.String Id, QueryString queryString = default)
+    public string TestModelBinderDifferentNameUnderId_Url(string Id, QueryString queryString = default)
     {
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId/{Id}{queryString}";
     }
@@ -979,7 +979,7 @@ public class NonApiClient
         };
     }
 
-    public string TestModelBinderDifferentNameUnderId3_Url(System.String Id, QueryString queryString = default)
+    public string TestModelBinderDifferentNameUnderId3_Url(string Id, QueryString queryString = default)
     {
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
     }
@@ -1136,7 +1136,7 @@ public class UserClient
         _client = client;
     }
 
-    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>> _typeInfo = default)
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1170,7 +1170,7 @@ public class UserClient
         return $"/User{queryString}";
     }
 
-    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1210,7 +1210,7 @@ public class UserClient
         return $"/User{queryString}";
     }
 
-    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> OverrideTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1250,7 +1250,7 @@ public class UserClient
         return $"/User{queryString}";
     }
 
-    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser4(int Id3, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1290,7 +1290,7 @@ public class UserClient
         return $"/User{queryString}";
     }
 
-    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int> _typeInfo = default)
+    public async Task<Response<int>> GetUser(string user, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<int>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1325,7 +1325,7 @@ public class UserClient
         return $"/User{queryString}";
     }
 
-    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> GetUser2(string Id, string Id2, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.UserController.ComplexObjectExample example, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1384,7 +1384,7 @@ public class WeatherForecastClient
         _client = client;
     }
 
-    public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> _typeInfo = default)
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>> Get(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1436,7 +1436,7 @@ public class WeatherForecastClient
         return $"/WeatherForecast{queryString}";
     }
 
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingle(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1476,7 +1476,7 @@ public class WeatherForecastClient
         return $"/WeatherForecast{queryString}";
     }
 
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast> _typeInfo = default)
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>> GetSingleFromServiceExample(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1663,7 +1663,7 @@ public class WeatherForecastClient
         };
     }
 
-    public string TestModelBinderDifferentName_Url(System.String OtherName, QueryString queryString = default)
+    public string TestModelBinderDifferentName_Url(string OtherName, QueryString queryString = default)
     {
         queryString = queryString.Add("OtherName", System.Text.Json.JsonSerializer.Serialize(OtherName, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
@@ -1706,7 +1706,7 @@ public class WeatherForecastClient
         };
     }
 
-    public string TestRemapTypeWithAnotherType2_Url(System.String option, QueryString queryString = default)
+    public string TestRemapTypeWithAnotherType2_Url(string option, QueryString queryString = default)
     {
         queryString = queryString.Add("option", System.Text.Json.JsonSerializer.Serialize(option, ApiJsonSerializerContext.Default.Options));
         return $"/WeatherForecast{queryString}";
@@ -1759,7 +1759,7 @@ public class YetAnotherClient
         _client = client;
     }
 
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>> JSONDynamicTestDynamic(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest> _typeInfo = default)
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>> JSONDynamicTestDynamic(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1811,7 +1811,7 @@ public class YetAnotherClient
         return $"/api/YetAnother/FromServiceTest/{Id}{queryString}";
     }
 
-    public async Task<Response<string>> HttpHeadTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> HttpHeadTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1845,7 +1845,7 @@ public class YetAnotherClient
         return $"/api/YetAnother/HttpHeadTest{queryString}";
     }
 
-    public async Task<Response<string>> HttpOptionsTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> HttpOptionsTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1879,7 +1879,7 @@ public class YetAnotherClient
         return $"/api/YetAnother/HttpOptionsTest{queryString}";
     }
 
-    public async Task<Response<string>> HttpPatchTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> HttpPatchTest(QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
@@ -1913,7 +1913,7 @@ public class YetAnotherClient
         return $"/api/YetAnother/HttpPatchTest{queryString}";
     }
 
-    public async Task<Response<string>> YetAnotherTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string> _typeInfo = default)
+    public async Task<Response<string>> YetAnotherTest(string Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {

@@ -8,24 +8,24 @@
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <NoWarn>1701;1702;1591</NoWarn>
+        <NoWarn>1701;1702;1591</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-        <PackageReference Include="System.Text.Json" Version="8.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3"/>
+        <PackageReference Include="System.Text.Json" Version="8.0.1"/>
     </ItemGroup>
-<ItemGroup>
-    <AdditionalFiles Include="ApiClientGenerator.json" />
-</ItemGroup>
-<ItemGroup>
-  <ProjectReference Include="..\GoLive.Generator.ApiClientGenerator\GoLive.Generator.ApiClientGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-</ItemGroup>
-<ItemGroup>
-  <Content Remove="GeneratedApiClient.json" />
-  <None Include="GeneratedApiClient.json">
-    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-  </None>
-</ItemGroup>
-    
+    <ItemGroup>
+        <AdditionalFiles Include="ApiClientGenerator.json"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\GoLive.Generator.ApiClientGenerator\GoLive.Generator.ApiClientGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Content Remove="GeneratedApiClient.json"/>
+        <None Include="GeneratedApiClient.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
 </Project>
