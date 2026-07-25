@@ -570,7 +570,7 @@ public class InheritingTwoClient
         return $"/InheritingTwo{queryString}";
     }
 
-    public async Task<Response> GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default, CancellationToken _token = default)
+    public async Task<Response> GetPagedApiTest(int Page = 1, string Filter = "", int PageSize = 20, QueryString queryString = default, CancellationToken _token = default)
     {
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -588,7 +588,7 @@ public class InheritingTwoClient
         };
     }
 
-    public string GetPagedApiTest_Url(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
+    public string GetPagedApiTest_Url(int Page = 1, string Filter = "", int PageSize = 20, QueryString queryString = default)
     {
         queryString = queryString.Add("Filter", System.Text.Json.JsonSerializer.Serialize(Filter, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingTwo/InheritingTwo/{Page}/{PageSize}{queryString}";
@@ -1014,7 +1014,7 @@ public class NonApiClient
         };
     }
 
-    public string TestWithAllowedValues_Url(string Id, string DesiredState = default, QueryString queryString = default)
+    public string TestWithAllowedValues_Url(string Id, string DesiredState = "", QueryString queryString = default)
     {
         queryString = queryString.Add("DesiredState", System.Text.Json.JsonSerializer.Serialize(DesiredState, ApiJsonSerializerContext.Default.Options));
         return $"/api/NonApi/TestWithAllowedValues/{Id}{queryString}";
@@ -1094,7 +1094,7 @@ public class NonApiClient
         };
     }
 
-    public string TestWithAllowedValuesButNullableAndDefaultValue_Url(string Id, string DesiredState = default, QueryString queryString = default)
+    public string TestWithAllowedValuesButNullableAndDefaultValue_Url(string Id, string DesiredState = "", QueryString queryString = default)
     {
         queryString = queryString.Add("DesiredState", System.Text.Json.JsonSerializer.Serialize(DesiredState, ApiJsonSerializerContext.Default.Options));
         return $"/api/NonApi/TestWithAllowedValuesButNullableAndDefaultValue/{Id}{queryString}";

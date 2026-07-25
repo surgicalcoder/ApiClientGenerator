@@ -84,7 +84,7 @@ public class GeneratedURLs
         return $"/InheritingTwo{queryString}";
     }
 
-    public static string InheritingTwo_GetPagedApiTest(int Page = 1, string Filter = null, int PageSize = 20, QueryString queryString = default)
+    public static string InheritingTwo_GetPagedApiTest(int Page = 1, string Filter = "", int PageSize = 20, QueryString queryString = default)
     {
         if (!string.IsNullOrWhiteSpace(Filter))
         {
@@ -176,7 +176,7 @@ public class GeneratedURLs
         return $"/api/NonApi/TestModelBinderDifferentNameUnderId3/{Id}{queryString}";
     }
 
-    public static string NonApi_TestWithAllowedValues(string Id, string DesiredState = default, QueryString queryString = default)
+    public static string NonApi_TestWithAllowedValues(string Id, string DesiredState = "", QueryString queryString = default)
     {
         if (!string.IsNullOrWhiteSpace(DesiredState))
         {
@@ -196,7 +196,7 @@ public class GeneratedURLs
         return $"/api/NonApi/TestWithAllowedValuesButNullable/{Id}{queryString}";
     }
 
-    public static string NonApi_TestWithAllowedValuesButNullableAndDefaultValue(string Id, string DesiredState = default, QueryString queryString = default)
+    public static string NonApi_TestWithAllowedValuesButNullableAndDefaultValue(string Id, string DesiredState = "", QueryString queryString = default)
     {
         if (!string.IsNullOrWhiteSpace(DesiredState))
         {

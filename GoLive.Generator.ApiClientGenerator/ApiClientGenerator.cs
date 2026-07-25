@@ -835,12 +835,12 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                     if (methodParameterMappings.Any())
                     {
-                        secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{NormalizeType(parameterMapping.Parameter.FullTypeName)} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+                        secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{NormalizeType(parameterMapping.Parameter.FullTypeName)} {parameterMapping.Key} {GetUrlDefaultValue(parameterMapping.Parameter)}"));
                     }
 
                     if (methodParameterMappings.Any())
                     {
-                        var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{NormalizeType(m.Parameter.FullTypeName)} {m.Key} {GetDefaultValue(m.Parameter)}"));
+                        var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{NormalizeType(m.Parameter.FullTypeName)} {m.Key} {GetUrlDefaultValue(m.Parameter)}"));
                         source.AppendLine($"public string {config.OutputUrlsPrefix}{action.Name}{config.OutputUrlsPostfix} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
                     }
                     else
@@ -893,7 +893,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         if (methodParameterMappings.Any())
         {
-            secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{NormalizeType(parameterMapping.Parameter.FullTypeName)} {parameterMapping.Key} {GetDefaultValue(parameterMapping.Parameter)}"));
+            secondParamList.AddRange(methodParameterMappings.Select(parameterMapping => $"{NormalizeType(parameterMapping.Parameter.FullTypeName)} {parameterMapping.Key} {GetUrlDefaultValue(parameterMapping.Parameter)}"));
         }
 
         var methodName = string.Empty;
@@ -909,7 +909,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         if (methodParameterMappings.Any())
         {
-            var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{NormalizeType(m.Parameter.FullTypeName)} {m.Key} {GetDefaultValue(m.Parameter)}"));
+            var parameterListWithoutFile = string.Join(", ", methodParameterMappings.Select(m => $"{NormalizeType(m.Parameter.FullTypeName)} {m.Key} {GetUrlDefaultValue(m.Parameter)}"));
             urlSourceBuilder.AppendLine($"public static string {methodName}_{action.Name} ({string.Join(",", parameterListWithoutFile)}, QueryString queryString = default)");
         }
         else
@@ -953,6 +953,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         {
             return argParameter.DefaultValue switch
             {
+                null when IsStringType(argParameter.FullTypeName) => " = \"\"",
                 null => " = null",
                 bool b => $" = {b.ToString().ToLower()}",
                 string e => " = \"\"",
@@ -961,6 +962,18 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
 
         return string.Empty;
+    }
+
+    private static bool IsStringType(string fullTypeName) => fullTypeName is "string" or "String" or "System.String";
+
+    private static string GetUrlDefaultValue(Parameter argParameter)
+    {
+        if (argParameter.AllowedStringValues is { Length: > 0 } && IsStringType(argParameter.FullTypeName))
+        {
+            return " = \"\"";
+        }
+
+        return GetDefaultValue(argParameter);
     }
 
     private static void SetUpApiClient(RouteGeneratorSettings config, IEnumerable<ControllerRoute> routes, SourceStringBuilder source)
