@@ -88,6 +88,160 @@
     "AllAttributes": []
   },
   {
+    "Name": "ExtendsController",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "DeleteById",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.ExtendsControllerController.DeleteById",
+        "Method": {
+          "Method": "DELETE"
+        },
+        "Route": "/{id}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/{id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpDeleteAttribute"
+        ]
+      },
+      {
+        "Name": "GetByName",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.ExtendsControllerController.GetByName",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "name",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/ExtendsController/GetByName",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute"
+    ]
+  },
+  {
+    "Name": "ExtendsControllerBase",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "DeleteById",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.ExtendsControllerBaseController.DeleteById",
+        "Method": {
+          "Method": "DELETE"
+        },
+        "Route": "/{id}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/{id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpDeleteAttribute"
+        ]
+      },
+      {
+        "Name": "GetByName",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.ExtendsControllerBaseController.GetByName",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "name",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/ExtendsControllerBase/GetByName",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute"
+    ]
+  },
+  {
     "Name": "FormValueInGet",
     "Area": null,
     "BaseRoute": "",
@@ -982,6 +1136,84 @@
         "CalculatedURL": "/InheritingUser2",
         "AllAttributes": [
           "Microsoft.AspNetCore.Mvc.HttpPostAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": [
+      "Microsoft.AspNetCore.Mvc.ApiControllerAttribute",
+      "Microsoft.AspNetCore.Mvc.RouteAttribute"
+    ]
+  },
+  {
+    "Name": "InheritsCustomBase",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "DeleteItem",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritsCustomBaseController.DeleteItem",
+        "Method": {
+          "Method": "DELETE"
+        },
+        "Route": "/{controller}/{id}",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "string",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritsCustomBase/{id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpDeleteAttribute"
+        ]
+      },
+      {
+        "Name": "GetItems",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.InheritsCustomBaseController.GetItems",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "/{controller}/",
+        "RouteSetByAttributes": true,
+        "ReturnTypeName": "global::System.Collections.Generic.IEnumerable\u003Cstring\u003E",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Filter",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/InheritsCustomBase",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
         ]
       }
     ],

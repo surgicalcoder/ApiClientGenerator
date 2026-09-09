@@ -19,6 +19,36 @@ public class GeneratedURLs
         return $"/api/CancellationTokenTest/GetInfo/{Id}{queryString}";
     }
 
+    public static string ExtendsController_DeleteById(string id, QueryString queryString = default)
+    {
+        return $"/{id}{queryString}";
+    }
+
+    public static string ExtendsController_GetByName(string name, QueryString queryString = default)
+    {
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            queryString = queryString.Add("name", name);
+        }
+
+        return $"/api/ExtendsController/GetByName{queryString}";
+    }
+
+    public static string ExtendsControllerBase_DeleteById(string id, QueryString queryString = default)
+    {
+        return $"/{id}{queryString}";
+    }
+
+    public static string ExtendsControllerBase_GetByName(string name, QueryString queryString = default)
+    {
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            queryString = queryString.Add("name", name);
+        }
+
+        return $"/api/ExtendsControllerBase/GetByName{queryString}";
+    }
+
     public static string FormValueInGet_FormValueInQuerystringTest(GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem item, QueryString queryString = default)
     {
         if (item != null)
@@ -183,6 +213,21 @@ public class GeneratedURLs
         }
 
         return $"/InheritingUser2{queryString}";
+    }
+
+    public static string InheritsCustomBase_DeleteItem(string id, QueryString queryString = default)
+    {
+        return $"/InheritsCustomBase/{id}{queryString}";
+    }
+
+    public static string InheritsCustomBase_GetItems(string Filter, QueryString queryString = default)
+    {
+        if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            queryString = queryString.Add("Filter", Filter);
+        }
+
+        return $"/InheritsCustomBase{queryString}";
     }
 
     public static string NonApi_TestModelBinderDifferentNameUnderId(string Id, QueryString queryString = default)

@@ -20,10 +20,13 @@ public class ApiClient
     public ApiClient(HttpClient client)
     {
         CancellationTokenTest = new CancellationTokenTestClient(client);
+        ExtendsController = new ExtendsControllerClient(client);
+        ExtendsControllerBase = new ExtendsControllerBaseClient(client);
         FormValueInGet = new FormValueInGetClient(client);
         InheritingButDifferentType = new InheritingButDifferentTypeClient(client);
         InheritingTwo = new InheritingTwoClient(client);
         InheritingUser2 = new InheritingUser2Client(client);
+        InheritsCustomBase = new InheritsCustomBaseClient(client);
         NonApi = new NonApiClient(client);
         TestIssue = new TestIssueClient(client);
         User = new UserClient(client);
@@ -32,10 +35,13 @@ public class ApiClient
     }
 
     public CancellationTokenTestClient CancellationTokenTest { get; }
+    public ExtendsControllerClient ExtendsController { get; }
+    public ExtendsControllerBaseClient ExtendsControllerBase { get; }
     public FormValueInGetClient FormValueInGet { get; }
     public InheritingButDifferentTypeClient InheritingButDifferentType { get; }
     public InheritingTwoClient InheritingTwo { get; }
     public InheritingUser2Client InheritingUser2 { get; }
+    public InheritsCustomBaseClient InheritsCustomBase { get; }
     public NonApiClient NonApi { get; }
     public TestIssueClient TestIssue { get; }
     public UserClient User { get; }
@@ -212,6 +218,172 @@ public class CancellationTokenTestClient
     public string GetInfo_Url(int Id, QueryString queryString = default)
     {
         return $"/api/CancellationTokenTest/GetInfo/{Id}{queryString}";
+    }
+}
+
+public class ExtendsControllerClient
+{
+    private readonly HttpClient _client;
+    public ExtendsControllerClient(HttpClient client)
+    {
+        _client = client;
+    }
+
+    public async Task<Response<string>> DeleteById(string id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/{id}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string DeleteById_Url(string id, QueryString queryString = default)
+    {
+        return $"/{id}{queryString}";
+    }
+
+    public async Task<Response<string>> GetByName(string name, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            queryString = queryString.Add("name", name.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/ExtendsController/GetByName{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetByName_Url(string name, QueryString queryString = default)
+    {
+        queryString = queryString.Add("name", System.Text.Json.JsonSerializer.Serialize(name, ApiJsonSerializerContext.Default.Options));
+        return $"/api/ExtendsController/GetByName{queryString}";
+    }
+}
+
+public class ExtendsControllerBaseClient
+{
+    private readonly HttpClient _client;
+    public ExtendsControllerBaseClient(HttpClient client)
+    {
+        _client = client;
+    }
+
+    public async Task<Response<string>> DeleteById(string id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/{id}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string DeleteById_Url(string id, QueryString queryString = default)
+    {
+        return $"/{id}{queryString}";
+    }
+
+    public async Task<Response<string>> GetByName(string name, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            queryString = queryString.Add("name", name.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/ExtendsControllerBase/GetByName{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetByName_Url(string name, QueryString queryString = default)
+    {
+        queryString = queryString.Add("name", System.Text.Json.JsonSerializer.Serialize(name, ApiJsonSerializerContext.Default.Options));
+        return $"/api/ExtendsControllerBase/GetByName{queryString}";
     }
 }
 
@@ -1022,6 +1194,89 @@ public class InheritingUser2Client
         queryString = queryString.Add("Id", System.Text.Json.JsonSerializer.Serialize(Id, ApiJsonSerializerContext.Default.Options));
         queryString = queryString.Add("Id2", System.Text.Json.JsonSerializer.Serialize(Id2, ApiJsonSerializerContext.Default.Options));
         return $"/InheritingUser2{queryString}";
+    }
+}
+
+public class InheritsCustomBaseClient
+{
+    private readonly HttpClient _client;
+    public InheritsCustomBaseClient(HttpClient client)
+    {
+        _client = client;
+    }
+
+    public async Task<Response<string>> DeleteItem(string id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/InheritsCustomBase/{id}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string DeleteItem_Url(string id, QueryString queryString = default)
+    {
+        return $"/InheritsCustomBase/{id}{queryString}";
+    }
+
+    public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> GetItems(string Filter, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::System.Collections.Generic.IEnumerable<string>)) as JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(Filter))
+        {
+            queryString = queryString.Add("Filter", Filter.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritsCustomBase{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::System.Collections.Generic.IEnumerable<string>>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::System.Collections.Generic.IEnumerable<string>>(cancellationToken: _token) ?? Task.FromResult<global::System.Collections.Generic.IEnumerable<string>?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetItems_Url(string Filter, QueryString queryString = default)
+    {
+        queryString = queryString.Add("Filter", System.Text.Json.JsonSerializer.Serialize(Filter, ApiJsonSerializerContext.Default.Options));
+        return $"/InheritsCustomBase{queryString}";
     }
 }
 
