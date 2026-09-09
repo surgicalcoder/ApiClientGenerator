@@ -161,7 +161,10 @@ public static class Scanner
                     route = routeAttr.ConstructorArguments.FirstOrDefault().Value.ToString() ?? string.Empty;
                 }
 
-                if (!string.IsNullOrWhiteSpace(parentRoutes) && !route.StartsWith("/"))
+                var routeWasRelativeToController = !route.StartsWith("/");
+                var hasParentRoute = !string.IsNullOrWhiteSpace(parentRoutes);
+
+                if (hasParentRoute && routeWasRelativeToController)
                 {
                     if (parentRoutes.EndsWith("/"))
                     {
@@ -172,12 +175,14 @@ public static class Scanner
                 }
 
                 bool routeSetByAttr = false;
+                bool routeNeedsControllerPrefix = false;
                 if (!string.IsNullOrWhiteSpace(route))
                 {
                     routeSetByAttr = true;
 
-                    if (!route.StartsWith("/"))
+                    if (routeWasRelativeToController)
                     {
+                        routeNeedsControllerPrefix = !hasParentRoute;
                         route = $"/{route}";
                     }
                 }
@@ -229,7 +234,7 @@ public static class Scanner
 
                 var allAttributes = methodSymbol.GetAttributes().Select(r=>r.AttributeClass.ToDisplayString()).Distinct().ToArray();
                 
-                yield return new ActionRoute(name, fullMethodName, method, route, routeSetByAttr,
+                yield return new ActionRoute(name, fullMethodName, method, route, routeSetByAttr, routeNeedsControllerPrefix,
                     returnType?.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), returnType?.IsReferenceType != true,
                     useCustomFormatter, parameters.ToList(), bodyParameter, xmlComments, allAttributes);
             }

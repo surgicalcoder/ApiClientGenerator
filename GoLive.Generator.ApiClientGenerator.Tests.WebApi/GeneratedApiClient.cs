@@ -236,7 +236,7 @@ public class ExtendsControllerClient
             _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
         }
 
-        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/{id}{queryString}");
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/ExtendsController/{id}{queryString}");
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
@@ -260,7 +260,7 @@ public class ExtendsControllerClient
 
     public string DeleteById_Url(string id, QueryString queryString = default)
     {
-        return $"/{id}{queryString}";
+        return $"/api/ExtendsController/{id}{queryString}";
     }
 
     public async Task<Response<string>> GetByName(string name, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
@@ -319,7 +319,7 @@ public class ExtendsControllerBaseClient
             _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
         }
 
-        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/{id}{queryString}");
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/ExtendsControllerBase/{id}{queryString}");
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
@@ -343,7 +343,7 @@ public class ExtendsControllerBaseClient
 
     public string DeleteById_Url(string id, QueryString queryString = default)
     {
-        return $"/{id}{queryString}";
+        return $"/api/ExtendsControllerBase/{id}{queryString}";
     }
 
     public async Task<Response<string>> GetByName(string name, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
@@ -1205,40 +1205,6 @@ public class InheritsCustomBaseClient
         _client = client;
     }
 
-    public async Task<Response<string>> DeleteItem(string id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<string>? _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(string)) as JsonTypeInfo<string>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/InheritsCustomBase/{id}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<string>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<string>(cancellationToken: _token) ?? Task.FromResult<string?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string DeleteItem_Url(string id, QueryString queryString = default)
-    {
-        return $"/InheritsCustomBase/{id}{queryString}";
-    }
-
     public async Task<Response<global::System.Collections.Generic.IEnumerable<string>>> GetItems(string Filter, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::System.Collections.Generic.IEnumerable<string>>? _typeInfo = default)
     {
         if (_typeInfo == default)
@@ -1251,7 +1217,7 @@ public class InheritsCustomBaseClient
             queryString = queryString.Add("Filter", Filter.ToString());
         }
 
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/InheritsCustomBase{queryString}");
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/InheritsCustomBase/GetItems{queryString}");
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
@@ -1276,7 +1242,48 @@ public class InheritsCustomBaseClient
     public string GetItems_Url(string Filter, QueryString queryString = default)
     {
         queryString = queryString.Add("Filter", System.Text.Json.JsonSerializer.Serialize(Filter, ApiJsonSerializerContext.Default.Options));
-        return $"/InheritsCustomBase{queryString}";
+        return $"/api/InheritsCustomBase/GetItems{queryString}";
+    }
+
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>> Update(string id, string zoneId, GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordInput body, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>;
+        }
+
+        if (!string.IsNullOrWhiteSpace(zoneId))
+        {
+            queryString = queryString.Add("zoneId", zoneId.ToString());
+        }
+
+        using var request = new HttpRequestMessage(new HttpMethod("PATCH"), $"/api/InheritsCustomBase/{id}{queryString}");
+        request.Content = JsonContent.Create(body);
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string Update_Url(string id, string zoneId, QueryString queryString = default)
+    {
+        queryString = queryString.Add("zoneId", System.Text.Json.JsonSerializer.Serialize(zoneId, ApiJsonSerializerContext.Default.Options));
+        return $"/api/InheritsCustomBase/{id}{queryString}";
     }
 }
 
@@ -2292,6 +2299,7 @@ public class YetAnotherClient
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase, AllowTrailingCommas = true)]
 [JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<string>))]
+[JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CloudflareDnsRecordSummary))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>))]
 [JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast))]
 [JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.JSONDynamicTest))]

@@ -479,7 +479,23 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                 if (action.RouteSetByAttributes)
                 {
-                    urlTemplate = URLTemplate.Parse(action.Route);
+                    if (action.RouteNeedsControllerPrefix)
+                    {
+                        var controllerPrefixTemplate = GetRouteTemplateControllerPrefix(config.RouteTemplate);
+
+                        if (controllerPrefixTemplate != null)
+                        {
+                            urlTemplate = URLTemplate.Parse($"{controllerPrefixTemplate}{action.Route}");
+                        }
+                        else
+                        {
+                            urlTemplate = URLTemplate.Parse(action.Route);
+                        }
+                    }
+                    else
+                    {
+                        urlTemplate = URLTemplate.Parse(action.Route);
+                    }
                 }
                 else
                 {
@@ -882,6 +898,25 @@ public class ApiClientGenerator : IIncrementalGenerator
         "System.String" => "string",
         _ => fullTypeName
     };
+
+    private static string GetRouteTemplateControllerPrefix(string routeTemplate)
+    {
+        var parsed = URLTemplate.Parse(routeTemplate);
+
+        List<string> prefixSegments = new();
+
+        foreach (var segment in parsed.Segments)
+        {
+            prefixSegments.Add(segment.Raw);
+
+            if (string.Equals(segment.Parameter, "controller", StringComparison.InvariantCultureIgnoreCase))
+            {
+                return $"/{string.Join("/", prefixSegments)}";
+            }
+        }
+
+        return null;
+    }
 
     private static void CreateURLOutput(SourceStringBuilder urlSourceBuilder, ControllerRoute controllerRoute, ActionRoute action, CaseInSensitiveDictionary actionValues, string routeString)
     {

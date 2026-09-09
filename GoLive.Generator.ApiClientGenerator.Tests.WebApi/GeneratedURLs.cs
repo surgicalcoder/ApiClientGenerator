@@ -21,7 +21,7 @@ public class GeneratedURLs
 
     public static string ExtendsController_DeleteById(string id, QueryString queryString = default)
     {
-        return $"/{id}{queryString}";
+        return $"/api/ExtendsController/{id}{queryString}";
     }
 
     public static string ExtendsController_GetByName(string name, QueryString queryString = default)
@@ -36,7 +36,7 @@ public class GeneratedURLs
 
     public static string ExtendsControllerBase_DeleteById(string id, QueryString queryString = default)
     {
-        return $"/{id}{queryString}";
+        return $"/api/ExtendsControllerBase/{id}{queryString}";
     }
 
     public static string ExtendsControllerBase_GetByName(string name, QueryString queryString = default)
@@ -215,11 +215,6 @@ public class GeneratedURLs
         return $"/InheritingUser2{queryString}";
     }
 
-    public static string InheritsCustomBase_DeleteItem(string id, QueryString queryString = default)
-    {
-        return $"/InheritsCustomBase/{id}{queryString}";
-    }
-
     public static string InheritsCustomBase_GetItems(string Filter, QueryString queryString = default)
     {
         if (!string.IsNullOrWhiteSpace(Filter))
@@ -227,7 +222,17 @@ public class GeneratedURLs
             queryString = queryString.Add("Filter", Filter);
         }
 
-        return $"/InheritsCustomBase{queryString}";
+        return $"/api/InheritsCustomBase/GetItems{queryString}";
+    }
+
+    public static string InheritsCustomBase_Update(string id, string zoneId, QueryString queryString = default)
+    {
+        if (!string.IsNullOrWhiteSpace(zoneId))
+        {
+            queryString = queryString.Add("zoneId", zoneId);
+        }
+
+        return $"/api/InheritsCustomBase/{id}{queryString}";
     }
 
     public static string NonApi_TestModelBinderDifferentNameUnderId(string Id, QueryString queryString = default)
