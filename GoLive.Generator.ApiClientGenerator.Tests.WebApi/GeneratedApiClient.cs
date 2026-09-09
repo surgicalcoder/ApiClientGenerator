@@ -140,16 +140,51 @@ public class CancellationTokenTestClient
         _client = client;
     }
 
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>> GetInfo(int Id, System.Threading.CancellationToken ct, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>? _typeInfo = default)
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>> Delete(string Id, string zoneId, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>? _typeInfo = default)
     {
         if (_typeInfo == default)
         {
             _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>;
         }
 
-        if (ct != default)
+        if (!string.IsNullOrWhiteSpace(zoneId))
         {
-            queryString = queryString.Add("ct", System.Text.Json.JsonSerializer.Serialize(ct, ApiJsonSerializerContext.Default.Options));
+            queryString = queryString.Add("zoneId", zoneId.ToString());
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/CancellationTokenTest/Delete/{Id}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string Delete_Url(string Id, string zoneId, QueryString queryString = default)
+    {
+        queryString = queryString.Add("zoneId", System.Text.Json.JsonSerializer.Serialize(zoneId, ApiJsonSerializerContext.Default.Options));
+        return $"/api/CancellationTokenTest/Delete/{Id}{queryString}";
+    }
+
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>> GetInfo(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>;
         }
 
         using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/CancellationTokenTest/GetInfo/{Id}{queryString}");

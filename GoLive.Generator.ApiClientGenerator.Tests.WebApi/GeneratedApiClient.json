@@ -5,6 +5,52 @@
     "BaseRoute": "",
     "Actions": [
       {
+        "Name": "Delete",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.Delete",
+        "Method": {
+          "Method": "DELETE"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "zoneId",
+            "Parameter": {
+              "FullTypeName": "string",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 20,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [],
+        "XmlComments": "",
+        "CalculatedURL": "/api/CancellationTokenTest/Delete/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpDeleteAttribute"
+        ]
+      },
+      {
         "Name": "GetInfo",
         "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.GetInfo",
         "Method": {
@@ -28,36 +74,9 @@
               "SpecialType": 13,
               "AllowedStringValues": null
             }
-          },
-          {
-            "Key": "ct",
-            "Parameter": {
-              "FullTypeName": "System.Threading.CancellationToken",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
           }
         ],
-        "Body": [
-          {
-            "Key": "ct",
-            "Parameter": {
-              "FullTypeName": "System.Threading.CancellationToken",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 0,
-              "AllowedStringValues": null
-            }
-          }
-        ],
+        "Body": [],
         "XmlComments": "",
         "CalculatedURL": "/api/CancellationTokenTest/GetInfo/{Id}",
         "AllAttributes": [

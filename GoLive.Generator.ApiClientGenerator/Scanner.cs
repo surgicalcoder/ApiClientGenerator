@@ -186,7 +186,8 @@ public static class Scanner
 
                 bool useCustomFormatter = customFormatterAttribute != null;
                     
-                var parameters = methodSymbol.Parameters.Where(t => true)
+                var parameters = methodSymbol.Parameters
+                    .Where(t => !IsCancellationToken(t))
                     .Where(e=> FindAttribute(e, e=>e.OriginalDefinition.ToDisplayString() == "Microsoft.AspNetCore.Mvc.FromServicesAttribute") == null)
                     .Select(delegate(IParameterSymbol t) { return new ParameterMapping(
                         getParameterName(t), new Parameter(
@@ -204,6 +205,7 @@ public static class Scanner
                     .ToArray();
                 
                 var bodyParameter = methodSymbol.Parameters
+                    .Where(t => !IsCancellationToken(t))
                     .Where(t => !IsPrimitive(t.Type)
                                 && t.GetAttributes().All(e => e.AttributeClass?.ToDisplayString() != "Microsoft.AspNetCore.Mvc.FromServicesAttribute")
                                 || t.GetAttributes().Any(e => e.AttributeClass?.Name == "FromBodyAttribute")
@@ -334,6 +336,9 @@ public static class Scanner
 
         return false;
     }
+    private static bool IsCancellationToken(IParameterSymbol t)
+        => t.Type.ToString().TrimEnd('?') == "System.Threading.CancellationToken";
+
     private static string GetMethodSignature(string name, List<ParameterMapping> parameters)
     {
         var paramTypes = parameters.Select(p => p.Parameter.FullTypeName).ToArray();

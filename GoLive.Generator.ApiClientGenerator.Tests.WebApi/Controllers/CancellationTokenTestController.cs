@@ -11,5 +11,11 @@ public class CancellationTokenTestController : ControllerBase
         return new InfoData(Id);
     }
 
+    [HttpDelete]
+    public InfoData Delete(string Id, string zoneId, CancellationToken ct)
+    {
+        return new InfoData(Id.Length + zoneId.Length);
+    }
+
     public record InfoData(int Id);
 }
