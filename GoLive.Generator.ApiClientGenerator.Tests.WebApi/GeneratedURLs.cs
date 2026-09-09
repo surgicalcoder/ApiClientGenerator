@@ -4,6 +4,11 @@ using System;
 namespace GoLive.Generator.ApiClientGenerator.URLs;
 public class GeneratedURLs
 {
+    public static string CancellationTokenTest_GetInfo(int Id, QueryString queryString = default)
+    {
+        return $"/api/CancellationTokenTest/GetInfo/{Id}{queryString}";
+    }
+
     public static string FormValueInGet_FormValueInQuerystringTest(GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.TestItem item, QueryString queryString = default)
     {
         if (item != null)

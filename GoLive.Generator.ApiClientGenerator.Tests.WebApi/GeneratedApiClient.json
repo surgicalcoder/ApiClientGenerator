@@ -1,5 +1,74 @@
 [
   {
+    "Name": "CancellationTokenTest",
+    "Area": null,
+    "BaseRoute": "",
+    "Actions": [
+      {
+        "Name": "GetInfo",
+        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.GetInfo",
+        "Method": {
+          "Method": "GET"
+        },
+        "Route": "",
+        "RouteSetByAttributes": false,
+        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData",
+        "ReturnTypeStruct": false,
+        "HasCustomFormatter": false,
+        "Mapping": [
+          {
+            "Key": "Id",
+            "Parameter": {
+              "FullTypeName": "int",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 13,
+              "AllowedStringValues": null
+            }
+          },
+          {
+            "Key": "ct",
+            "Parameter": {
+              "FullTypeName": "System.Threading.CancellationToken",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "Body": [
+          {
+            "Key": "ct",
+            "Parameter": {
+              "FullTypeName": "System.Threading.CancellationToken",
+              "GenericTypeName": null,
+              "HasDefaultValue": false,
+              "DefaultValue": null,
+              "Nullable": false,
+              "Attributes": [],
+              "SpecialType": 0,
+              "AllowedStringValues": null
+            }
+          }
+        ],
+        "XmlComments": "",
+        "CalculatedURL": "/api/CancellationTokenTest/GetInfo/{Id}",
+        "AllAttributes": [
+          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
+        ]
+      }
+    ],
+    "XmlComments": "",
+    "AllAttributes": []
+  },
+  {
     "Name": "FormValueInGet",
     "Area": null,
     "BaseRoute": "",

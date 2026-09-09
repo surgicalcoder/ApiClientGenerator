@@ -19,6 +19,7 @@ public class ApiClient
 {
     public ApiClient(HttpClient client)
     {
+        CancellationTokenTest = new CancellationTokenTestClient(client);
         FormValueInGet = new FormValueInGetClient(client);
         InheritingButDifferentType = new InheritingButDifferentTypeClient(client);
         InheritingTwo = new InheritingTwoClient(client);
@@ -30,6 +31,7 @@ public class ApiClient
         YetAnother = new YetAnotherClient(client);
     }
 
+    public CancellationTokenTestClient CancellationTokenTest { get; }
     public FormValueInGetClient FormValueInGet { get; }
     public InheritingButDifferentTypeClient InheritingButDifferentType { get; }
     public InheritingTwoClient InheritingTwo { get; }
@@ -127,6 +129,54 @@ public class Response<T> : Response
     {
         data = Data!;
         return Success && data is not null;
+    }
+}
+
+public class CancellationTokenTestClient
+{
+    private readonly HttpClient _client;
+    public CancellationTokenTestClient(HttpClient client)
+    {
+        _client = client;
+    }
+
+    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>> GetInfo(int Id, System.Threading.CancellationToken ct, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>? _typeInfo = default)
+    {
+        if (_typeInfo == default)
+        {
+            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>;
+        }
+
+        if (ct != default)
+        {
+            queryString = queryString.Add("ct", System.Text.Json.JsonSerializer.Serialize(ct, ApiJsonSerializerContext.Default.Options));
+        }
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/CancellationTokenTest/GetInfo/{Id}{queryString}");
+        var requestStarted = DateTime.UtcNow;
+        using var result = await _client.SendAsync(request, _token);
+        var requestEnd = DateTime.UtcNow;
+        if (_typeInfo != default)
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+        else
+        {
+            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData?>(default)))
+            {
+                RequestStart = requestStarted,
+                RequestEnd = requestEnd
+            };
+        }
+    }
+
+    public string GetInfo_Url(int Id, QueryString queryString = default)
+    {
+        return $"/api/CancellationTokenTest/GetInfo/{Id}{queryString}";
     }
 }
 
@@ -1424,7 +1474,7 @@ public class WeatherForecastClient
         var requestStarted = DateTime.UtcNow;
         using var result = await _client.SendAsync(request, _token);
         var requestEnd = DateTime.UtcNow;
-        return new Response<byte[]>(result.StatusCode, result.Headers, (result.Content?.ReadAsByteArrayAsync() ?? Task.FromResult<byte[]>(default)))
+        return new Response<byte[]>(result.StatusCode, result.Headers, (result.Content?.ReadAsByteArrayAsync() ?? Task.FromResult<byte[]?>(default)))
         {
             RequestStart = requestStarted,
             RequestEnd = requestEnd
@@ -1950,6 +2000,7 @@ public class YetAnotherClient
 
 // JSON Source Generator
 [JsonSourceGenerationOptions(PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase, AllowTrailingCommas = true)]
+[JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<string>))]
 [JsonSerializable(typeof(global::System.Collections.Generic.IEnumerable<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast>))]
 [JsonSerializable(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.WeatherForecast))]

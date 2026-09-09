@@ -22,6 +22,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 {
     private const string TASK_FQ = "global::System.Threading.Tasks.Task";
     private const string IFormFile_Q = "Microsoft.AspNetCore.Http.IFormFile";
+    private const string CANCEL_TOKEN_FQ = "System.Threading.CancellationToken";
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
@@ -776,14 +777,14 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                                 using (source.CreateBracket())
                                 {
-                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{(byteReturnType ? action.ReturnTypeName : nullableReturnType)}>(default))){additionalTimingValues};"); // TODO store value for repeated use
+                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValue} ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};"); // TODO store value for repeated use
                                 }
 
                                 source.AppendLine("else");
 
                                 using (source.CreateBracket())
                                 {
-                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{(byteReturnType ? action.ReturnTypeName : nullableReturnType)}>(default))){additionalTimingValues};"); // TODO store value for repeated use
+                                    source.AppendLine($"return new Response<{action.ReturnTypeName}>(result.StatusCode, result.Headers, ({readValueWithoutJsonTypeInformation} ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};"); // TODO store value for repeated use
                                 }
                             }
                             else
@@ -812,7 +813,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                                                                 result.StatusCode,
                                                                 result.Headers,
                                                                 ({readValue}
-                                                                        ?? Task.FromResult<{(byteReturnType ? action.ReturnTypeName : nullableReturnType)}>(default))){additionalTimingValues};
+                                                                        ?? Task.FromResult<{nullableReturnType}>(default))){additionalTimingValues};
                                                             """);
                             }
                             else
@@ -829,6 +830,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
                     var methodParameterMappings = action.Mapping
                         .Where(f => f.Parameter.FullTypeName != IFormFile_Q)
+                        .Where(f => !string.Equals(f.Parameter.FullTypeName.TrimEnd('?'), CANCEL_TOKEN_FQ, StringComparison.InvariantCultureIgnoreCase))
                         .Where(e => action.Method == HttpMethod.Get ||
                                     (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
                         .ToList();
@@ -887,6 +889,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         var methodParameterMappings = action.Mapping
             .Where(f => f.Parameter.FullTypeName != IFormFile_Q)
+            .Where(f => !string.Equals(f.Parameter.FullTypeName.TrimEnd('?'), CANCEL_TOKEN_FQ, StringComparison.InvariantCultureIgnoreCase))
             .Where(e => action.Method == HttpMethod.Get ||
                         (action.Method != HttpMethod.Get && !action.Body.Any(b => string.Equals(b.Key, e.Key, StringComparison.InvariantCultureIgnoreCase))))
             .ToList();
