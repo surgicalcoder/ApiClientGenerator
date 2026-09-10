@@ -39,6 +39,7 @@ There are a large number of options that are in the settings file:
     "^_]*"
   ],
   "RouteTemplate":"/api/{area:exists}/{controller=Home}/{action=Index}/{id?}",
+  "UseDotForAreaControllerNames": true,
   "ResponseWrapper" :{
     "Enabled": true,
     "ExtractHeaders":{
@@ -90,6 +91,7 @@ Explanation of options:
 - PreAppendLines / PostAppendLines (optional) - Any additional lines such as comments (to disable Resharper's processing)
 - HideUrlsRegex (optional) - Regex patterns, if you want to hide any URLs from being outputted, such as secret admin APIs
 - RouteTemplate - This is the route template that gets used to figure out the URLs
+- UseDotForAreaControllerNames (optional, default false) - When controllers live in an ASP.NET Core [Area](https://learn.microsoft.com/en-us/aspnet/core/mvc/controllers/areas), this controls how the generated client for that controller is exposed on the `ApiClient`. When `false` (the default), area controllers are surfaced as a flat property (e.g. `api.AreaTest_AreaTest`). When `true`, each area is exposed through a grouped container named `Area{AreaName}`, so you can call e.g. `api.AreaAreaTest.AreaTestClient.GetInfo(...)` - the `{ControllerName}Client` is the generated client for each controller in that area.
 - ResponseWrapper (optional) - If you want responses to be wrapped with a Response object, and a few options for it (such as pulling out headers etc)
 - OutputUrls / OutputUrlsPostfix (optional)- If you want to output pure methods that return URLs only
 - OutputJSONSourceGenerator (optional) - If you want to output a JSON Source Generator 

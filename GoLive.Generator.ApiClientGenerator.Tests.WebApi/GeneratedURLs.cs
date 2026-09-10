@@ -4,6 +4,16 @@ using System;
 namespace GoLive.Generator.ApiClientGenerator.URLs;
 public class GeneratedURLs
 {
+    public static string AreaAreaTest_AreaTest_GetInfo(int Id, QueryString queryString = default)
+    {
+        return $"/api/AreaAreaTest/AreaTest/GetInfo/{Id}{queryString}";
+    }
+
+    public static string AreaAreaTest_AreaTest_GetInfo(int Id, QueryString queryString = default)
+    {
+        return $"/api/AreaAreaTest/AreaTest/GetInfo/{Id}{queryString}";
+    }
+
     public static string CancellationTokenTest_Delete(string Id, string zoneId, QueryString queryString = default)
     {
         if (!string.IsNullOrWhiteSpace(zoneId))

@@ -26,6 +26,7 @@ public class RouteGeneratorSettings
     public JSONSourceGeneratorSettings JSONSourceGeneratorSettings { get; set; } = new();
     
     public bool OutputUrls { get; set; }
+    public bool UseDotForAreaControllerNames { get; set; }
     public string OutputUrlsPrefix { get; set; }
     public string OutputUrlsPostfix { get; set; }
     

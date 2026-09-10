@@ -1,4 +1,5 @@
 using System.Threading;
+using GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers;

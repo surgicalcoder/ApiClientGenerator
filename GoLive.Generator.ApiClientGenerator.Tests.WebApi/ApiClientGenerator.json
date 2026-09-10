@@ -1,8 +1,8 @@
 ﻿{
-  "OutputFiles":[
+  "OutputFiles": [
     "GeneratedApiClient.cs"
   ],
-  "JSONAPIRepresentationFile":[
+  "JSONAPIRepresentationFile": [
     "GeneratedApiClient.json"
   ],
   "Namespace": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Generated",
@@ -15,56 +15,56 @@
   ],
   "PostAppendLines": [
     "// ReSharper disable All"
-  ] ,
+  ],
   "HideUrlsRegex": [
     "^/_]*",
     "^/WeatherForecast/_]*",
     "^_]*"
   ],
-  "RouteTemplate":"/api/{area:exists}/{controller=Home}/{action=Index}/{id?}",
-  "ResponseWrapper" :{
+  "RouteTemplate": "/api/{area:exists}/{controller=Home}/{action=Index}/{id?}",
+  "ResponseWrapper": {
     "Enabled": true,
     "ShowTimings": true,
-    "ExtractHeaders":{
+    "ExtractHeaders": {
       "CorrelationId": "X-Correlation-Id"
     }
   },
   "OutputUrls": true,
   "OutputUrlsPostfix": "_Url",
   "OutputJSONSourceGenerator": true,
-  "JSONSourceGeneratorSettings":{
+  "JSONSourceGeneratorSettings": {
     "Converters": [
-      
     ]
   },
-  "Properties":{
-    "IgnoreGenericTypes" : [
+  "Properties": {
+    "IgnoreGenericTypes": [
       "System.Collections.Generic.List<T>"
     ],
-    "IgnoreTypes":[
+    "IgnoreTypes": [
       "System.DateTime"
     ],
-    "IgnoreThatHasAttribute":[
+    "IgnoreThatHasAttribute": [
       "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinderAttribute"
     ],
-    "TransformType":[
+    "TransformType": [
       {
         "SourceType": "*",
-        "DestinationType" : "System.String",
+        "DestinationType": "System.String",
         "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder2Attribute"
       },
       {
         "SourceType": "*",
-        "DestinationType" : "System.String",
+        "DestinationType": "System.String",
         "ContainsAttribute": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.CustomAttributeModelBinder3Attribute"
       }
     ]
   },
-  "URLGeneration":[
+  "URLGeneration": [
     {
       "Filename": "GeneratedURLs.cs",
       "ClassName": "GeneratedURLs",
       "Namespace": "GoLive.Generator.ApiClientGenerator.URLs"
     }
-  ]
+  ],
+  "UseDotForAreaControllerNames": true
 }

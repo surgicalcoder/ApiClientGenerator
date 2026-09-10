@@ -129,9 +129,44 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         SetUpApiClient(config, visibleControllers, source);
 
-        foreach (var route in visibleControllers)
+        foreach (var area in visibleControllers.GroupBy(r => r.Area))
         {
-            SetUpSingleApi(config, route, source, urlSourceBuilder);
+            if (config.UseDotForAreaControllerNames && !string.IsNullOrWhiteSpace(area.Key))
+            {
+                source.AppendLine();
+                source.AppendLine($"public class {area.Key}");
+                source.AppendOpenCurlyBracketLine();
+
+                source.AppendLine($"public {area.Key}(HttpClient client)");
+                source.AppendOpenCurlyBracketLine();
+
+                foreach (var route in area)
+                {
+                    source.AppendLine($"{route.Name}Client = new {route.Name}Client(client);");
+                }
+
+                source.AppendCloseCurlyBracketLine();
+
+                foreach (var route in area)
+                {
+                    source.AppendLine();
+                    source.AppendLine($"public {route.Name}Client {route.Name}Client {{ get; }}");
+                }
+
+                source.AppendCloseCurlyBracketLine();
+
+                foreach (var route in area)
+                {
+                    SetUpSingleApi(config, route, source, urlSourceBuilder);
+                }
+            }
+            else
+            {
+                foreach (var route in area)
+                {
+                    SetUpSingleApi(config, route, source, urlSourceBuilder);
+                }
+            }
         }
 
         if (config.OutputJSONSourceGenerator)
@@ -336,11 +371,14 @@ public class ApiClientGenerator : IIncrementalGenerator
     private static void SetUpSingleApi(RouteGeneratorSettings config, ControllerRoute controllerRoute, SourceStringBuilder source, SourceStringBuilder urlSourceBuilder)
     {
         source.AppendLine();
+
+        bool useDotArea = config.UseDotForAreaControllerNames && !string.IsNullOrWhiteSpace(controllerRoute.Area);
+
         string className;
 
         if (controllerRoute.Area != null && !string.IsNullOrWhiteSpace(controllerRoute.Area))
         {
-            className = $"{controllerRoute.Area}_{controllerRoute.Name}";
+            className = useDotArea ? controllerRoute.Name : $"{controllerRoute.Area}_{controllerRoute.Name}";
         }
         else
         {
@@ -348,6 +386,7 @@ public class ApiClientGenerator : IIncrementalGenerator
         }
 
         className = $"{className}Client";
+
 
 
         if (!string.IsNullOrWhiteSpace(controllerRoute.XmlComments) && !config.DisableXMLComments)
@@ -1024,6 +1063,36 @@ public class ApiClientGenerator : IIncrementalGenerator
         return GetDefaultValue(argParameter);
     }
 
+    private static string GetApiClientPropertyName(ControllerRoute route, RouteGeneratorSettings config)
+    {
+        if (!string.IsNullOrWhiteSpace(route.Area) && config.UseDotForAreaControllerNames)
+        {
+            return route.Area;
+        }
+
+        if (!string.IsNullOrWhiteSpace(route.Area))
+        {
+            return $"{route.Area}_{route.Name}";
+        }
+
+        return route.Name;
+    }
+
+    private static string GetApiClientTypeName(ControllerRoute route, RouteGeneratorSettings config)
+    {
+        if (!string.IsNullOrWhiteSpace(route.Area) && config.UseDotForAreaControllerNames)
+        {
+            return route.Area;
+        }
+
+        if (!string.IsNullOrWhiteSpace(route.Area))
+        {
+            return $"{route.Area}_{route.Name}Client";
+        }
+
+        return $"{route.Name}Client";
+    }
+
     private static void SetUpApiClient(RouteGeneratorSettings config, IEnumerable<ControllerRoute> routes, SourceStringBuilder source)
     {
         source.AppendLine();
@@ -1037,14 +1106,18 @@ public class ApiClientGenerator : IIncrementalGenerator
             {
                 foreach (var route in routes)
                 {
-                    source.AppendLine($"{(string.IsNullOrWhiteSpace(route.Area) ? route.Name : $"{route.Area}_{route.Name}")} = new {(string.IsNullOrWhiteSpace(route.Area) ? route.Name : $"{route.Area}_{route.Name}")}Client(client);");
+                    var propertyName = GetApiClientPropertyName(route, config);
+                    var clientTypeName = GetApiClientTypeName(route, config);
+                    source.AppendLine($"{propertyName} = new {clientTypeName}(client);");
                 }
             }
 
             foreach (var route in routes)
             {
                 source.AppendLine();
-                source.AppendLine($"public {(string.IsNullOrWhiteSpace(route.Area) ? route.Name : $"{route.Area}_{route.Name}")}Client {(string.IsNullOrWhiteSpace(route.Area) ? route.Name : $"{route.Area}_{route.Name}")} {{ get; }}");
+                var propertyName = GetApiClientPropertyName(route, config);
+                var clientTypeName = GetApiClientTypeName(route, config);
+                source.AppendLine($"public {clientTypeName} {propertyName} {{ get; }}");
             }
         }
 
