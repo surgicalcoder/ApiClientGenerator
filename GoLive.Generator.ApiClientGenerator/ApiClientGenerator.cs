@@ -254,7 +254,7 @@ public class ApiClientGenerator : IIncrementalGenerator
                 tempBuilder.AppendLine($"public class {urlGenerationSetting.ClassName} {{");
                 tempBuilder.Append(urlSourceBuilder);
                 tempBuilder.AppendLine("}");
-                File.WriteAllText(urlGenerationSetting.Filename, SourceStringBuilder.PrettyFormatCode(tempBuilder.ToString()));
+                WriteIfChanged(urlGenerationSetting.Filename, SourceStringBuilder.PrettyFormatCode(tempBuilder.ToString()));
             }
         }
     }
@@ -276,7 +276,7 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         foreach (var file in config.JSONAPIRepresentationFile)
         {
-            File.WriteAllText(file, jsonOutput);
+            WriteIfChanged(file, jsonOutput);
         }
     }
 
@@ -291,8 +291,26 @@ public class ApiClientGenerator : IIncrementalGenerator
 
         foreach (var configOutputFile in config.OutputFiles)
         {
-            File.WriteAllText(configOutputFile, content);
+            WriteIfChanged(configOutputFile, content);
         }
+    }
+
+    private static void WriteIfChanged(string path, string content)
+    {
+        if (File.Exists(path) && File.ReadAllText(path) == content)
+        {
+            return;
+        }
+
+        var temp = path + "." + Guid.NewGuid().ToString("N") + ".tmp";
+        File.WriteAllText(temp, content);
+
+#if NETSTANDARD2_0
+        File.Delete(path);
+        File.Move(temp, path);
+#else
+        File.Move(temp, path, overwrite: true);
+#endif
     }
 
     private static RouteGeneratorSettings LoadConfig(IEnumerable<(string Path, string Text)> configFiles)

@@ -20,7 +20,6 @@ public class ApiClient
     public ApiClient(HttpClient client)
     {
         AreaAreaTest = new AreaAreaTest(client);
-        AreaAreaTest = new AreaAreaTest(client);
         CancellationTokenTest = new CancellationTokenTestClient(client);
         ExtendsController = new ExtendsControllerClient(client);
         ExtendsControllerBase = new ExtendsControllerBaseClient(client);
@@ -36,7 +35,6 @@ public class ApiClient
         YetAnother = new YetAnotherClient(client);
     }
 
-    public AreaAreaTest AreaAreaTest { get; }
     public AreaAreaTest AreaAreaTest { get; }
     public CancellationTokenTestClient CancellationTokenTest { get; }
     public ExtendsControllerClient ExtendsController { get; }
@@ -147,54 +145,9 @@ public class AreaAreaTest
     public AreaAreaTest(HttpClient client)
     {
         AreaTestClient = new AreaTestClient(client);
-        AreaTestClient = new AreaTestClient(client);
     }
 
     public AreaTestClient AreaTestClient { get; }
-    public AreaTestClient AreaTestClient { get; }
-}
-
-public class AreaTestClient
-{
-    private readonly HttpClient _client;
-    public AreaTestClient(HttpClient client)
-    {
-        _client = client;
-    }
-
-    public async Task<Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>> GetInfo(int Id, QueryString queryString = default, CancellationToken _token = default, JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>? _typeInfo = default)
-    {
-        if (_typeInfo == default)
-        {
-            _typeInfo = ApiJsonSerializerContext.Default.GetTypeInfo(typeof(global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData)) as JsonTypeInfo<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>;
-        }
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/AreaAreaTest/AreaTest/GetInfo/{Id}{queryString}");
-        var requestStarted = DateTime.UtcNow;
-        using var result = await _client.SendAsync(request, _token);
-        var requestEnd = DateTime.UtcNow;
-        if (_typeInfo != default)
-        {
-            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(cancellationToken: _token, jsonTypeInfo: _typeInfo) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-        else
-        {
-            return new Response<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(result.StatusCode, result.Headers, (result.Content?.ReadFromJsonAsync<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData>(cancellationToken: _token) ?? Task.FromResult<global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData?>(default)))
-            {
-                RequestStart = requestStarted,
-                RequestEnd = requestEnd
-            };
-        }
-    }
-
-    public string GetInfo_Url(int Id, QueryString queryString = default)
-    {
-        return $"/api/AreaAreaTest/AreaTest/GetInfo/{Id}{queryString}";
-    }
 }
 
 public class AreaTestClient

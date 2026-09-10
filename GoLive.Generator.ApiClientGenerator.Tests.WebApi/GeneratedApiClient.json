@@ -45,51 +45,6 @@
     ]
   },
   {
-    "Name": "AreaTest",
-    "Area": "AreaAreaTest",
-    "BaseRoute": "",
-    "Actions": [
-      {
-        "Name": "GetInfo",
-        "FullMethodName": "GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.AreaTestController.GetInfo",
-        "Method": {
-          "Method": "GET"
-        },
-        "Route": "",
-        "RouteSetByAttributes": false,
-        "RouteNeedsControllerPrefix": false,
-        "ReturnTypeName": "global::GoLive.Generator.ApiClientGenerator.Tests.WebApi.Controllers.CancellationTokenTestController.InfoData",
-        "ReturnTypeStruct": false,
-        "HasCustomFormatter": false,
-        "Mapping": [
-          {
-            "Key": "Id",
-            "Parameter": {
-              "FullTypeName": "int",
-              "GenericTypeName": null,
-              "HasDefaultValue": false,
-              "DefaultValue": null,
-              "Nullable": false,
-              "Attributes": [],
-              "SpecialType": 13,
-              "AllowedStringValues": null
-            }
-          }
-        ],
-        "Body": [],
-        "XmlComments": "",
-        "CalculatedURL": "/api/AreaAreaTest/AreaTest/GetInfo/{Id}",
-        "AllAttributes": [
-          "Microsoft.AspNetCore.Mvc.HttpGetAttribute"
-        ]
-      }
-    ],
-    "XmlComments": "",
-    "AllAttributes": [
-      "Microsoft.AspNetCore.Mvc.AreaAttribute"
-    ]
-  },
-  {
     "Name": "CancellationTokenTest",
     "Area": null,
     "BaseRoute": "",
